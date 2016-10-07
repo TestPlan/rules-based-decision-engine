@@ -1,0 +1,25 @@
+Positives
+  - Language is written entirely in Java
+  - Available at no cost for academic use
+  - Uses Rete algorithm
+    - A very efficient mechanism for solving the
+      difficult "many-to-many" matching problem
+  - Jess features include:
+    - Backwards chaining
+    - Working memory queries
+    - Direct manipulation of java objects
+  - Lots of online documentation
+  - Eclipse-based rule development environment
+
+
+Negatives
+  - Must be licensed for commercial use
+    - (Contact ip@sandia.gov for...prices and commercial licensing terms.)
+    - Requires Name/Company/Email
+
+
++/-
+  - Languages is based heavily on LISP
+    - Lists, rule definitions, symbols, syntax, etc
+    - Extremely powerful per-line
+    - Requires knowledge of LISP constructs
