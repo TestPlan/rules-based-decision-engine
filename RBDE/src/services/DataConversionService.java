@@ -7,7 +7,7 @@
 package services;
 
 import models.ObjectType;
-import models.RuleObjectData;
+import models.ObjectData;
 
 public class DataConversionService 
 {
@@ -39,7 +39,7 @@ public class DataConversionService
 	 */
 	public void objectAdder(String name , String dataType, String value)
 	{
-		RuleObjectData data = new RuleObjectData();
+		ObjectData data = new ObjectData();
 
 		// Checks dataType
 		if(typeCheck(dataType))
