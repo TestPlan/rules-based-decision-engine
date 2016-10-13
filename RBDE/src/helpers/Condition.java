@@ -5,11 +5,11 @@ package helpers;
  */
 public class Condition{
     private String cond = "Message = ";
-    /*
+    
     private String patternBinding;
     private String pattern;
     private String restriction;
-    */
+    
 
     /**
      * constructor
@@ -38,7 +38,7 @@ public class Condition{
      * @return
      */
     public String getCondition() {
-        return this.toString;
+        return this.toString();
     }
 
     /**
