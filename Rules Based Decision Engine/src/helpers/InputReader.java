@@ -58,8 +58,8 @@ public class InputReader {
         setFile(f);
         data = new String[5];
         try{
-            throw new IOException(); //just to stop the compiler from giving a warning
-        }catch(IOException e){
+            parseFile();
+        }catch(Exception e){
             System.out.println(e.getMessage());
         }
     }
@@ -97,11 +97,10 @@ public class InputReader {
                     return;
                 }
             }
+            s.close();
         }catch(FileNotFoundException e){
             System.out.println(e.getMessage());
         }
-
-        s.close();
     }
 
     /**
