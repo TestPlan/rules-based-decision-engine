@@ -3,6 +3,8 @@ package helpers;
 import java.io.*;
 import java.util.Scanner;
 
+import services.DataConversionService;
+
 /**
  * This class will utilize a Scanner to parse a text file for data.
  * The data must be formatted as following:
@@ -25,15 +27,7 @@ public class InputReader {
     private String dataType;    //The type i.e. Float, boolean, String
     private String value;       //The actual value of the data, parsed as a String
 
-    /**
-     * Used to test functionality of InputReader as it is being coded
-     * @param args Command line arguments
-     */
-    public static void main(String[] args){
-        InputReader ir = new InputReader();
-        ir.parseFile();
-        System.out.println(ir.toString());
-    }
+    DataConversionService data_svc = DataConversionService.getInstance();
 
     /**
      * Default constructor.
@@ -42,6 +36,8 @@ public class InputReader {
      * Use this constructor when the file is not being passed to the InputReader when it is created.
      */
     public InputReader(){
+
+    	
         data = new String[5];
         try{
             inputFile();
@@ -89,8 +85,7 @@ public class InputReader {
                     setDataName(data[0]);
                     setDataType(data[2]);
                     setValue(data[4]);
-                    s.close();
-                    return;
+                    data_svc.objectAdder(data[0], data[2] , data[4]);
                 }else{
                     System.out.println("File contains invalid text");
                     s.close();

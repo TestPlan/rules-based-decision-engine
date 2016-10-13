@@ -1,8 +1,13 @@
 package controllers;
 
+import java.io.File;
+
+import helpers.InputReader;
+import models.ObjectData;
 //import helpers.CreateDroolsFile;
 //import models.Rule;
 import services.DataConversionService;
+import services.FileReaderService;
 import services.ObjectCollectionService;
 
 
@@ -15,9 +20,17 @@ public class Driver {
      //   System.out.println(rule);
      //   CreateDroolsFile cdf = new CreateDroolsFile("testing");
      //   cdf.makeDroolsFile();
-    	
-    	DataConversionService data_svc = DataConversionService.getInstance();
+       // InputReader reader = new InputReader();
+        File f = new File("./src/temp.txt");
+    	InputReader reader = new InputReader(f);
     	ObjectCollectionService collection_svc = ObjectCollectionService.getInstance();
+    	
+    	ObjectData data = collection_svc.retrieveRuleObject("distance");
+    	System.out.println(collection_svc);
+    	
+    	
+    	
+
         	
     }
 }
