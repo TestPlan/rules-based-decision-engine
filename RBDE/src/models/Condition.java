@@ -4,8 +4,8 @@ package helpers;
  * Created by Klaydon Balicanta on 10/12/2016
  */
 public class Condition{
-    private String cond = "Message = ";
-    
+    private String cond = "Message = ";		/*for the purposes of this first iteration and testing,
+											to allow test creation of rules*/
     private String patternBinding;
     private String pattern;
     private String restriction;
@@ -18,7 +18,6 @@ public class Condition{
      * @param restriction
      */
     public Condition(String patternBinding, String pattern, String restriction) {
-        //make call to operator.OPERATOR.processThatShit;
         this.patternBinding = patternBinding;
         this.pattern = pattern;
         this.restriction = restriction;
@@ -26,23 +25,27 @@ public class Condition{
 
     /**
      * overloaded constructor for the purposes of a single string to be regexed later
-     *
-     * @param input
+     * for the purposes of this first iteration and testing,
+	 * to allow test creation of rules
+	 
+     * @param input 
      */
     public Condition(String input) {
         cond += input;
     }
 
     /**
-     *
-     * @return
+     * getCondition gets this Conditions cond value
+	 *
+     * @return cond 
      */
     public String getCondition() {
         return this.toString();
     }
 
     /**
-     *
+     * setCondition sets this Conditions cond value to a new 
+	 *
      * @param newCondition
      */
     public void setCondition(String newCondition) {
@@ -50,8 +53,9 @@ public class Condition{
     }
 
     /**
-     *
-     * @return
+     * toString Creates a String reprsentation of the Condition to be used in a Drools Rule
+	 *
+     * @return String of this Condition Object
      */
     public String toString() {
         //String result = this.patternBinding + ": " + this.pattern;
