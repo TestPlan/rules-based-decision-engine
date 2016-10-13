@@ -10,6 +10,9 @@ import java.util.Scanner;
 
 /**
  * Created by Mike on 10/9/2016.
+ * Class is made up of a list of rules which stores their titles and actions
+ * so that they can be easily imported, exported and displayed.
+ * This class follows the singleton design pattern.
  */
 public class RulesMade {
 
@@ -18,14 +21,25 @@ public class RulesMade {
     private ArrayList<Rule> rules = new ArrayList<Rule>();
     private final String fileLoc = "C:\\Users\\Mike\\IdeaProjects\\Rules Based Decision Engine\\rules.txt";
 
-    protected RulesMade(){
+    /**
+     * Constructor for Rules Made that follows the singleton pattern;
+     * cannot directly create a new instance.
+     */
+    private RulesMade(){
         ImportRulesMade();
     }
 
+    /**
+     * Method to add a new rule to the list of all rules
+     * @param rule
+     */
     public void addRule(Rule rule){
         this.rules.add(rule);
     }
 
+    /**
+     * Method to import the rule data from a text file, create new rules and store them in a list of rules.
+     */
     public void ImportRulesMade(){
 
         Scanner ruleScanner;
@@ -47,6 +61,10 @@ public class RulesMade {
         }
     }
 
+    /**
+     * Method to take the list of rules and store them in
+     * a text file at the file location.
+     */
     public void exportRulesMade(){
         PrintWriter outputStream = null;										//Writes the notes in notebook to the text file
         try{
@@ -62,6 +80,12 @@ public class RulesMade {
         }
     }
 
+    /**
+     * This method checks if there was already an instance of this class already created
+     * and if not creates a new one and returns it.  If it was already created it returns
+     * the one that was already made
+     * @return
+     */
     public static RulesMade getInstance(){
         if(instance == null){
             instance = new RulesMade();
@@ -73,6 +97,10 @@ public class RulesMade {
         return this.rules;
     }
 
+    /**
+     * {@inheritDoc}
+     * @return
+     */
     @Override
     public String toString(){
         String s = new String();
