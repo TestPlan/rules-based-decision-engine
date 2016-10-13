@@ -1,18 +1,18 @@
 package models;
 
-public class RuleObjectData {
+public class ObjectData {
 
 	String name;
 	String type;
 	Object value;
 	
 	
-	public RuleObjectData()
+	public ObjectData()
 	{
 		
 	}
 
-	public RuleObjectData(String name, String type, Object object)
+	public ObjectData(String name, String type, Object object)
 	{
 		this.name = name;
 		this.type = type;
