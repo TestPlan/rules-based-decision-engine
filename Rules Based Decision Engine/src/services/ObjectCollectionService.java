@@ -1,4 +1,6 @@
+package services;
 import java.util.HashMap;
+import models.ObjectData;
 
 /**
  * Static class designed to store all rule object data and any methods designed to manipulate the data.
@@ -8,7 +10,7 @@ import java.util.HashMap;
 public class ObjectCollectionService {
 
 	
-	private static HashMap<String , RuleObjectData> data_list = new HashMap<String, RuleObjectData>();
+	private static HashMap<String , ObjectData> data_list = new HashMap<String, ObjectData>();
 	private static ObjectCollectionService INSTANCE ;
 	
 	
@@ -26,12 +28,12 @@ public class ObjectCollectionService {
 	}
 	
 	
-	public void insertRuleObject(String str, RuleObjectData data)
+	public void insertRuleObject(String str, ObjectData data)
 	{
 		data_list.put(str, data);
 	}
 	
-	public RuleObjectData retrieveRuleObject(String str)
+	public ObjectData retrieveRuleObject(String str)
 	{		
 		str.toUpperCase();
 		return data_list.get(str);	
