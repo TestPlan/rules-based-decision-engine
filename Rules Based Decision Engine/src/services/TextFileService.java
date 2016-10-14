@@ -1,36 +1,66 @@
-/**
- * Global Service
- * - Allows for the global use of DataConversionService. 
- * @author Trae X. Lewis
- *
- */
 package services;
 
-import models.ObjectType;
-import models.ObjectData;
+import java.util.ArrayList;
 
-public class DataConversionService 
+import models.ObjectData;
+import models.ObjectType;
+
+/**
+ * This class is responsible for parsing the text data from Input file and storing it into its
+ * proper data objects.
+ * 
+ * @author Trae X. Lewis , Michael Crinite
+ *
+ */
+public class TextFileService 
 {
-	// List of services 
+
+	/*
+	 * GLOBAL SERVICES
+	 */
+	InputReaderService reader_svc = InputReaderService.getInstance();
 	ObjectCollectionService obj_svc = ObjectCollectionService.getInstance();
 
+	
 	private ObjectType obj_type;
-	private static DataConversionService INSTANCE = null;
-	
-	private DataConversionService(){}
-	
-	
-	public static DataConversionService getInstance()
+	private static TextFileService INSTANCE = null;
+
+	/**
+	 * Retrieves the static instance of FileParserService.
+	 * @return Instance of FileParserService.
+	 */
+	public static TextFileService getInstance()
 	{
 		if(INSTANCE == null)
 		{
-			INSTANCE = new DataConversionService();
+			INSTANCE = new TextFileService();
+			
 		}
 		return INSTANCE;
 	}
 	
 	
-
+	/**
+	 * Reads data in from text file and stores information.
+	 * @param filename
+	 */
+	public void parseTextFile(String filename)
+	{
+		reader_svc.readFile(filename);
+		ArrayList<String> list = reader_svc.getFileBuffer();
+		String[] data = new String[3];
+		
+		for (String line : list)
+		{
+			if(!isComment(line) && !line.isEmpty())
+			{
+				line = line.trim();
+				data = line.split(":", 3);
+				objectAdder(data[0].trim(), data[1].trim(), data[2].trim());
+			}
+		}
+	}
+	
 	/**
 	 * This method is designed to create a new RuleObjectData object based on is describe data type.
 	 * @param name - Object identifying name.
@@ -40,7 +70,7 @@ public class DataConversionService
 	public void objectAdder(String name , String dataType, String value)
 	{
 		ObjectData data = new ObjectData();
-
+	
 		// Checks dataType
 		if(typeCheck(dataType))
 		{
@@ -73,9 +103,31 @@ public class DataConversionService
 			// Inserts rule object into ObjectCollectionService
 			obj_svc.insertRuleObject(name, data);
 		}	
-
+	
 	}
 
+
+	/**
+	 * This method checks to see if first character of line is a comment. If so, line read from
+	 * buffered reader is not saved.
+	 * @param line - string currently being processed by buffered reader.
+	 * @return true - if line is comment, false otherwise.
+	 */
+	private boolean isComment(String line)
+	{
+		//TODO: create an enum for all escape characters. Should be a separate class. Decouple!
+		boolean val = false;
+		char character = line.charAt(0);
+		
+		// Compare the first character of line to comment characters
+		if(character == '#')
+		{
+			val = true;
+		}
+		return val;
+	}
+	
+	
 	/**
 	 * This method checks input string for correct amount of characters to be considered a char data type.
 	 * If str.length() != 1 , then str does not conform.
@@ -119,7 +171,4 @@ public class DataConversionService
 		}
 		return type;
 	}
-	
-	
-	
 }

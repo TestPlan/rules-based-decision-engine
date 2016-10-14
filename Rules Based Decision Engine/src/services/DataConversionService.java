@@ -4,6 +4,11 @@
  * @author Trae X. Lewis
  *
  */
+package services;
+
+import models.ObjectType;
+import models.ObjectData;
+
 public class DataConversionService 
 {
 	// List of services 
@@ -34,7 +39,7 @@ public class DataConversionService
 	 */
 	public void objectAdder(String name , String dataType, String value)
 	{
-		RuleObjectData data = new RuleObjectData();
+		ObjectData data = new ObjectData();
 
 		// Checks dataType
 		if(typeCheck(dataType))
@@ -103,7 +108,7 @@ public class DataConversionService
 		obj_type = null;
 		boolean type = false;
 		
-		dataType.toUpperCase();
+		dataType = dataType.toUpperCase();
 		for(ObjectType obj : ObjectType.values())
 		{
 			if(obj.toString().equals(dataType))

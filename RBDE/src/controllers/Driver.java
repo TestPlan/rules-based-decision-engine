@@ -2,7 +2,10 @@ package controllers;
 
 //import helpers.CreateDroolsFile;
 //import models.Rule;
-import services.DataConversionService;
+import services.TextFileService;
+
+import java.util.Map;
+
 import services.ObjectCollectionService;
 
 
@@ -15,9 +18,26 @@ public class Driver {
      //   System.out.println(rule);
      //   CreateDroolsFile cdf = new CreateDroolsFile("testing");
      //   cdf.makeDroolsFile();
+       // InputReader reader = new InputReader();
     	
-    	DataConversionService data_svc = DataConversionService.getInstance();
-    	ObjectCollectionService collection_svc = ObjectCollectionService.getInstance();
+        String file = "./src/temp.txt";
+        TextFileService par_svc = TextFileService.getInstance();
+        ObjectCollectionService collection_svc = ObjectCollectionService.getInstance();
+        
+        par_svc.parseTextFile(file);
+    	
+    	System.out.println(collection_svc);
+    	
+/*    	Map<String, String> env = System.getenv();
+        for (String envName : env.keySet()) {
+            System.out.format("%s=%s%n",
+                              envName,
+                              env.get(envName));
+        }
+        
+        System.out.println(System.getenv("RBDE_HOME"));*/
+    	
+
         	
     }
 }
