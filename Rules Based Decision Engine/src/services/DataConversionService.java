@@ -108,7 +108,7 @@ public class DataConversionService
 		obj_type = null;
 		boolean type = false;
 		
-		dataType = dataType.toUpperCase();
+		dataType.toUpperCase();
 		for(ObjectType obj : ObjectType.values())
 		{
 			if(obj.toString().equals(dataType))
