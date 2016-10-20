@@ -1,0 +1,9 @@
+package rules;
+dialect  "mvel"
+
+rule "avoid"
+    when
+        eval(true)
+    then
+        System.out.println("Success!");
+end

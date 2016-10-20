@@ -2,6 +2,7 @@ package controllers;
 
 //import helpers.CreateDroolsFile;
 //import models.Rule;
+import models.ObjectData;
 import services.TextFileService;
 
 import java.util.Map;
@@ -20,13 +21,15 @@ public class Driver {
      //   cdf.makeDroolsFile();
        // InputReader reader = new InputReader();
     	
-        String file = "./src/temp.txt";
-        TextFileService par_svc = TextFileService.getInstance();
-        ObjectCollectionService collection_svc = ObjectCollectionService.getInstance();
+       // String file = "./src/temp.txt";
+       // TextFileService par_svc = TextFileService.getInstance();
+       // ObjectCollectionService collection_svc = ObjectCollectionService.getInstance();
         
-        par_svc.parseTextFile(file);
-    	
-    	System.out.println(collection_svc);
+       // par_svc.parseTextFile(file);
+        // System.out.println(collection_svc);
+        ObjectData od = new ObjectData("Temperature", "Double", 37.6 );
+
+        FireRules fr = new FireRules("avoid.drl", od);
     	
 /*    	Map<String, String> env = System.getenv();
         for (String envName : env.keySet()) {
