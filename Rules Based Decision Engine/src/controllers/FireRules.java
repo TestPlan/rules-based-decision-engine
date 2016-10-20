@@ -7,10 +7,11 @@ import org.kie.api.builder.KieFileSystem;
 import org.kie.api.builder.KieRepository;
 import org.kie.api.builder.Message;
 import org.kie.api.io.KieResources;
-import org.kie.api.io.Resource;
-import org.kie.api.io.ResourceType;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+import org.kie.internal.io.ResourceFactory;
+
+import java.io.File;
 
 /**
  * Created by Mike on 10/20/2016.
@@ -35,7 +36,7 @@ public class FireRules {
         this.kfs = kServices.newKieFileSystem();
         this.kRepo = kServices.getRepository();
 
-        addFile(filename);
+        addExistingFile(filename);
         buildKnowledgeSession(objectData);
         fireAllRules();
         dispose();
@@ -50,12 +51,15 @@ public class FireRules {
 
     }
 
-    public void addFile(String filename)
+    public void addExistingFile(String filename)
     {
-        Resource resource = kResources.newClassPathResource(filePath + filename);
-        resource.setResourceType(ResourceType.DRL);
-        //kfs.write(resourcepath, resource);
-        kfs.write(resource);
+
+        //kfs.write(filePath + filename, resource); //If I am interpreting this correctly,
+                                                    // this method call creates a new file in the kResource filesystem:
+                                                    // write(file location, what goes in the file)
+
+        kfs.write(ResourceFactory.newFileResource(new File(filePath + filename)));  //This on the other hand is used to fire rules from
+                                                                                    //existing drl files.
     }
 
     public KieSession buildKnowledgeSession(ObjectData objectData)
