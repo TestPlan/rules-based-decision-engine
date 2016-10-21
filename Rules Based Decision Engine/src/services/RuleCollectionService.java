@@ -1,29 +1,36 @@
-package helpers;
+package services;
 
 import models.Rule;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
  * Created by Mike on 10/9/2016.
  */
-public class RulesMade {
+public class RuleCollectionService {
 
-    private static RulesMade instance = null;
+    private static RuleCollectionService instance = null;
 
-    private ArrayList<Rule> rules = new ArrayList<Rule>();
-    private final String fileLoc = "C:\\Users\\Mike\\IdeaProjects\\Rules Based Decision Engine\\rules.txt";
+    private Map<String, Rule> rules = new HashMap<String, Rule>();
+    private final String fileLoc = "C:\\Users\\Mike\\IdeaProjects\\Rules Based Decision Engine\\rules.txt"; //Final for testing purposes
 
-    protected RulesMade(){
+
+    private RuleCollectionService()
+    {
         ImportRulesMade();
     }
 
-    public void addRule(Rule rule){
-        this.rules.add(rule);
+    public void addRule(String key, Rule rule) throws Exception
+    {
+        if (this.rules.containsKey(key)) {
+            throw new Exception("Key already exists");
+        }
+        this.rules.put(key, rule);
     }
 
     public void ImportRulesMade(){
@@ -37,7 +44,8 @@ public class RulesMade {
             while(ruleScanner.hasNextLine()){
                 String txtLine = ruleScanner.nextLine();
                 String[] titleAction = txtLine.split(",");
-                rules.add(new Rule(titleAction[0], titleAction[1]));
+                //Rule r = new Rule(titleAction[0], titleAction[1], titleAction[2], titleAction[3], titleAction[4]);
+                //rules.put(titleAction[0], r);
             }
 
         }
@@ -62,14 +70,17 @@ public class RulesMade {
         }
     }
 
-    public static RulesMade getInstance(){
-        if(instance == null){
-            instance = new RulesMade();
+    public static RuleCollectionService getInstance()
+    {
+        if (instance == null)
+        {
+            instance = new RuleCollectionService();
         }
         return instance;
     }
 
-    public ArrayList<Rule> getRules(){
+    public Map<String, Rule> getRules()
+    {
         return this.rules;
     }
 
@@ -77,9 +88,7 @@ public class RulesMade {
     public String toString(){
         String s = new String();
 
-        for (int i = 0; i < this.rules.size(); i++) {
-            s = s + this.rules.get(i).toString() + "\n";
-        }
+        //this.rules.forEach();
 
         return s;
     }
