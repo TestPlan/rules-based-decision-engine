@@ -12,10 +12,12 @@ public class ActionException extends Exception {
 
     public ActionException(String exception)
     {
+
         this.exception = exception;
     }
 
     public String getException()
+
     {
         return this.exception;
     }
