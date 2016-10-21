@@ -1,25 +1,24 @@
-Positives
-  - Language is written entirely in Java
-  - Available at no cost for academic use
-  - Uses Rete algorithm
-    - A very efficient mechanism for solving the
-      difficult "many-to-many" matching problem
-  - Jess features include:
-    - Backwards chaining
-    - Working memory queries
-    - Direct manipulation of java objects
-  - Lots of online documentation
-  - Eclipse-based rule development environment
+
+1 : The RBDE system shall accept JSON, CSV, and text input files.
+	1.1 : The user shall input the absolute	file path of the accepted file type into the RBDE system.
+	1.2 : The system shall verify the file type is an accepted file.
+
+2 : RBDE input files should follow a standardized format.
+	2.1 : The data inside the input files shall contain:
+		2.1.1 : Rule data
+	2.2 : The data inside the input files should contain:
+		2.2.1 : Decision rules and Actions
 
 
-Negatives
-  - Must be licensed for commercial use
-    - (Contact ip@sandia.gov for...prices and commercial licensing terms.)
-    - Requires Name/Company/Email
+Non-Functional
 
+-	The RBDE system shall be compatible with Windows, Unix, and Linux platforms
+-	The underlying rules engine shall be open-source and cost free
+-	The RBDE shall accept JSON, CSV, and proprietary text file configurations
+	- Proprietary text files should follow a standard format
+-	There shall only be one instance of the RBDE system.
+-	The RBDE shall accept only one data input source at any given time
+- 	Only the current user should not be able to modify rules while the RBDE system is in operation
+-	The RBDE system should be able to run at least 10 rules simultaneously 
+-	The user of the RBDE system should be able to configure an input source and a set of rules within 5 minutes.
 
-+/-
-  - Languages is based heavily on LISP
-    - Lists, rule definitions, symbols, syntax, etc
-    - Extremely powerful per-line
-    - Requires knowledge of LISP constructs
