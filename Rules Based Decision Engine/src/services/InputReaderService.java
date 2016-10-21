@@ -1,8 +1,12 @@
 package services;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Scanner;
+
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import models.ObjectData;
 
 /**
  * This class will utilize a Scanner to parse a text file for data.
@@ -13,25 +17,28 @@ import java.util.Scanner;
  * Any lines not formatted as a comment or as data will cause an error
  *
  *
- * @author Michael Crinite
- * @version  0.1 - 10/8/2016
+ * @author Trae Lewis  Michael Crinite
+ * @version  2.0 - 10/20/2016
  */
-public class InputReaderService {
+
+public class InputReaderService 
+{
 	
-	private static InputReaderService INSTANCE = null;
-	private static ArrayList<String> content;
+	ParserService parse_svc = ParserService.getInstance();
     private File file;          //The File being read
 
+	private static InputReaderService INSTANCE = null;
+
     
-    DataConversionService data_svc = DataConversionService.getInstance();
-    
-    
+    /**
+     * Singleton Constructor.
+     * @return Instance of InputReaderService
+     */
     public static InputReaderService getInstance()
 	{
 		if(INSTANCE == null)
 		{
 			INSTANCE = new InputReaderService();
-			content = new ArrayList<String>();
 		}
 		return INSTANCE;
 	}
@@ -50,16 +57,18 @@ public class InputReaderService {
      */
     public void readFile(String filename)
     {
+    	java.util.ArrayList<String> lines = new java.util.ArrayList<String>(); 
     	this.file = new File(filename);
-        try
+        
+    	try
         {
-            Scanner s = new Scanner(file);
+            java.util.Scanner s = new java.util.Scanner(file);
             String line="";
             
             while(!endOfFile(line = s.nextLine()) && s.hasNextLine())
             { 
                 if (!line.isEmpty())
-                	content.add(line);
+                	lines.add(line);
             }
             s.close();
         }
@@ -67,6 +76,21 @@ public class InputReaderService {
         {
         	e.printStackTrace();
         }
+    }
+    
+    public void readJSONFile(String filename)
+    {
+        try 
+    	{
+        	BufferedReader reader = new BufferedReader(new FileReader(filename));
+        	Gson gson = new GsonBuilder().create();
+        	ObjectData[] data = gson.fromJson(reader, ObjectData[].class);
+        	parse_svc.parseJsonObjects(data);
+        	
+		} catch (FileNotFoundException e) 
+    	{
+			e.printStackTrace();
+		}
     }
 
     /**
@@ -86,7 +110,8 @@ public class InputReaderService {
      * Returns the File object referenced
      * @return File object being read
      */
-    public File getFile() {
+    public File getFile() 
+    {
         return file;
     }
     
@@ -94,7 +119,8 @@ public class InputReaderService {
      * Returns absolute file path of File object.
      * @return String - Absolute file path
      */
-    public String getAbsolutePath() {
+    public String getAbsolutePath() 
+    {
     	return file.getAbsolutePath();
     }
 
@@ -102,27 +128,10 @@ public class InputReaderService {
      * Set the File object to be read
      * @param file The file to be read
      */
-    public void setFile(File file) {
+    public void setFile(File file) 
+    {
        this.file = file;
     }
     
-   
-	/**
-	 * Returns the ArrayList conversion of the parsed file
-	 * @return ArrayList<String> 
-	 */
-	public ArrayList<String> getFileBuffer()
-	{
-		return content;
-	}
-	
-	/**
-	 * Clears all stored file data from ArrayList<String>.
-	 */
-	public void clearFileBuffer()
-	{
-		content.clear();
-	}
-	
 
 }

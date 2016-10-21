@@ -17,12 +17,7 @@ public class Condition{
      * @param pattern
      * @param restriction
      */
-    public Condition(String patternBinding, String pattern, String restriction) {
-        //make call to operator.OPERATOR.processThatShit;
-        this.patternBinding = patternBinding;
-        this.pattern = pattern;
-        this.restriction = restriction;
-    }
+
 
     /**
      * overloaded constructor for the purposes of a single string to be regexed later

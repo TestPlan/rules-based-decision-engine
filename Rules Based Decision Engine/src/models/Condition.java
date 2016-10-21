@@ -13,7 +13,7 @@ public class Condition{
 
     /**
      * constructor
-     * @param patternBinding
+     * @param patternBinding 
      * @param pattern
      * @param restriction
      */
