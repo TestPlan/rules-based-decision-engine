@@ -1,4 +1,4 @@
-package services;
+package Exceptions;
 
 /**
  * Created by shiv on 10/19/2016.
