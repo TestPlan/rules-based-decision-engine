@@ -56,7 +56,7 @@ public class FireRules {
 
         //kfs.write(filePath + filename, resource); //If I am interpreting this correctly,
                                                     // this method call creates a new file in the kResource filesystem:
-                                                    // write(file location, what goes in the file)
+                                                    // write(file location, what goes in the file).  Might only create an instance of the file?
 
         kfs.write(ResourceFactory.newFileResource(new File(filePath + filename)));  //This on the other hand is used to fire rules from
                                                                                     //existing drl files.
