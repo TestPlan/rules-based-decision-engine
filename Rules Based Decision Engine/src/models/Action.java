@@ -1,45 +1,46 @@
 package models;
 
-import javax.swing.*;
-
 /**
  * Created by shiv on 10/11/2016.
  */
-public class Action {
+public class Action 
+{
 
-    private String Action;
+    private String action;
 
     public Action() {}
 
-    public Action(String action) {
-        this.Action = action;
+    public Action(String action) 
+    {
+        this.action = action;
     }
 
 
-    public String getAction() {
-
-        return this.Action;
+    public String getAction() 
+    {
+        return this.action;
     }
 
-    public void setAction(String action) {
-        Action = action;
+    public void setAction(String action) 
+    {
+        this.action = action;
     }
 
-    public String toString() {
-        return "\nAction Result: " + this.getAction();
-    }
 
-    public boolean equals(Object obj) {
-        if (obj instanceof Action) {
+    @SuppressWarnings("unused")
+	public boolean equals(Object obj) 
+    {    	
+        if (obj instanceof Action) 
+        {
+            Action temp = (Action)obj;
 
-            Action temp = (Action) obj;
-
-
-            if (temp == null) {
+            if (temp == null) 
+            {
                 return false;
             }
 
-            if (!temp.Action.equals(this.Action)) {
+            if (!temp.getAction().equals(this.action)) 
+            {
                 return false;
             }
             return true;
@@ -47,6 +48,9 @@ public class Action {
         return false;
     }
 
-
+    public String toString() 
+    {
+        return "Action Result: " + this.getAction() + "\n";
+    }
 
 }

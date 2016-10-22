@@ -15,7 +15,6 @@ public class ActionCollectionServices
     private static Map<String,Action> actions = new HashMap<String, Action>();
     private static ActionCollectionServices Instance;
 
-    public ActionCollectionServices(){}
 
     public static ActionCollectionServices getInstance()
     {
@@ -41,13 +40,17 @@ public class ActionCollectionServices
         actions.put(ActionName, action);
     }
 
-    private boolean duplicateAction(Action action) {
+    private boolean duplicateAction(Action action) 
+    {
 
-        for (String key: actions.keySet() ){
-            if(key.isEmpty()){
+        for (String key: actions.keySet())
+        {
+            if(key.isEmpty())
+            {
                 return false;
             }
-            if(actions.get(key).equals(action)){
+            if(actions.get(key).equals(action))
+            {
                 return true;
             }
         }
@@ -56,7 +59,6 @@ public class ActionCollectionServices
 
     public void removeAction(String actionName)
     {
-
         actions.remove(actionName);
     }
 
