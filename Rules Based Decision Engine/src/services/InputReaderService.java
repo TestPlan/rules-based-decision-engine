@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import models.ObjectData;
+import models.Rule;
 
 /**
  * This class will utilize a Scanner to parse a text file for data.
@@ -91,6 +92,21 @@ public class InputReaderService
     	{
 			e.printStackTrace();
 		}
+    }
+    
+    public void readRuleFile(String filename)
+    {
+    	try
+    	{
+    		BufferedReader reader = new BufferedReader(new FileReader(filename));
+    		Gson gson = new GsonBuilder().create();
+    		Rule[] data = gson.fromJson(reader, Rule[].class);
+    		//TODO: create parseRuleFile(data) method
+    	} catch (FileNotFoundException e)
+    	{
+    		e.printStackTrace();
+    	}
+    	
     }
 
     /**
