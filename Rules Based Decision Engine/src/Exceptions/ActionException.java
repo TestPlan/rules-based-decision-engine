@@ -3,10 +3,12 @@ package Exceptions;
 /**
  * Created by shiv on 10/19/2016.
  */
-public class ActionException extends Exception {
+public class ActionException extends Exception
+{
     private String exception;
 
-    public ActionException(){
+    public ActionException()
+    {
         this.exception = "";
     }
 
