@@ -1,5 +1,6 @@
 package controllers;
 
+import models.ObjectData;
 import services.InputReaderService;
 import services.ObjectCollectionService;
 
@@ -29,9 +30,10 @@ public class Driver
 
        // par_svc.parseTextFile(file);
         // System.out.println(collection_svc);
-        // ObjectData od = new ObjectData("Temperature", "Double", 37.6 );
 
-       // FireRules fr = new FireRules("avoid.drl", od);
+        ObjectData od = new ObjectData("Temperature", "Double", 37.6 );
+
+        FireRules fr = new FireRules("avoid.drl", od);
 
     	System.out.println(collection_svc);
 
