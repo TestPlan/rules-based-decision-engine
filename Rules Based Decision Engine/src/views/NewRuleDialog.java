@@ -6,6 +6,11 @@ import java.awt.event.*;
 
 import models.Rule;
 
+/**
+ * This class will allow a user to create a Rule by selecting options in a GUI
+ *
+ * It is incomplete because the Rule class wasn't finished at the time of its creation
+ */
 public class NewRuleDialog extends JDialog
 {
     private JPanel contentPane;
@@ -23,7 +28,6 @@ public class NewRuleDialog extends JDialog
         NewRuleDialog dialog = new NewRuleDialog();
         dialog.pack();
         dialog.setVisible(true);
-        System.exit(0);
     }
 
     public NewRuleDialog()
