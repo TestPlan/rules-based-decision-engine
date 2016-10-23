@@ -17,7 +17,6 @@ public class ActionCollectionServices
        @removeAction    removes Action from the HashMap
 
      */
-
     private static Map<String,Action> actions = new HashMap<String, Action>();
     private static ActionCollectionServices Instance;
 
