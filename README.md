@@ -1,7 +1,6 @@
 # rules-based-decision-engine
 
 
-
 # Java Style Formatter
 
 ## IntelliJ:
