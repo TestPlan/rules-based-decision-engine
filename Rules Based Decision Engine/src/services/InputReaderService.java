@@ -1,13 +1,14 @@
 package services;
 
-import java.io.*;
-
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import models.ObjectData;
 import models.Rule;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 
 /**
  * This class will utilize a Scanner to parse a text file for data.
@@ -22,15 +23,15 @@ import models.Rule;
  * @version  2.0 - 10/20/2016
  */
 
-public class InputReaderService 
+public class InputReaderService
 {
-	
+
 	ParserService parse_svc = ParserService.getInstance();
     private File file;          //The File being read
 
 	private static InputReaderService INSTANCE = null;
 
-    
+
     /**
      * Singleton Constructor.
      * @return Instance of InputReaderService
@@ -43,7 +44,7 @@ public class InputReaderService
 		}
 		return INSTANCE;
 	}
-    
+
 
     /**
      * Attempts to parse the given file.
@@ -58,16 +59,16 @@ public class InputReaderService
      */
     public void readFile(String filename)
     {
-    	java.util.ArrayList<String> lines = new java.util.ArrayList<String>(); 
+    	java.util.ArrayList<String> lines = new java.util.ArrayList<String>();
     	this.file = new File(filename);
-        
+
     	try
         {
             java.util.Scanner s = new java.util.Scanner(file);
             String line="";
-            
+
             while(!endOfFile(line = s.nextLine()) && s.hasNextLine())
-            { 
+            {
                 if (!line.isEmpty())
                 	lines.add(line);
             }
@@ -78,22 +79,22 @@ public class InputReaderService
         	e.printStackTrace();
         }
     }
-    
+
     public void readJSONFile(String filename)
     {
-        try 
+        try
     	{
         	BufferedReader reader = new BufferedReader(new FileReader(filename));
         	Gson gson = new GsonBuilder().create();
         	ObjectData[] data = gson.fromJson(reader, ObjectData[].class);
         	parse_svc.parseJsonObjects(data);
-        	
-		} catch (FileNotFoundException e) 
+
+		} catch (FileNotFoundException e)
     	{
 			e.printStackTrace();
 		}
     }
-    
+
     public void readRuleFile(String filename)
     {
     	try
@@ -106,7 +107,7 @@ public class InputReaderService
     	{
     		e.printStackTrace();
     	}
-    	
+
     }
 
     /**
@@ -120,22 +121,22 @@ public class InputReaderService
     	//TODO: Make eof string configurable. Should not be hard coded.
     	return line.startsWith("eof;");
     }
-    
-    
+
+
     /**
      * Returns the File object referenced
      * @return File object being read
      */
-    public File getFile() 
+    public File getFile()
     {
         return file;
     }
-    
+
     /**
      * Returns absolute file path of File object.
      * @return String - Absolute file path
      */
-    public String getAbsolutePath() 
+    public String getAbsolutePath()
     {
     	return file.getAbsolutePath();
     }
@@ -144,10 +145,10 @@ public class InputReaderService
      * Set the File object to be read
      * @param file The file to be read
      */
-    public void setFile(File file) 
+    public void setFile(File file)
     {
        this.file = file;
     }
-    
+
 
 }

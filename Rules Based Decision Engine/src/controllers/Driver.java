@@ -6,8 +6,11 @@ import models.ObjectData;
 import models.Operator;
 import services.InputReaderService;
 import services.ObjectCollectionService;
+import services.ParserService;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.PrintStream;
 
 
 /**
@@ -34,9 +37,13 @@ public class Driver
        // par_svc.parseTextFile(file);
         // System.out.println(collection_svc);
 
-        ObjectData od = new ObjectData("Temperature", "Double", 37.6 );
 
-        FireRules fr = new FireRules("avoid.drl", od);
+        ObjectData od = new ObjectData("Temperature", "Double", 37.6 );
+        ObjectData od2 = new ObjectData("Temperature", "Double", 55.8);
+        ObjectData od3 = new ObjectData("Temperature", "String", "woah");
+
+        String[] s = {"avoid.drl", "avoid2.drl"};
+        RuleActivation ra = new RuleActivation(od);
 
     	System.out.println(collection_svc);
         read_svc.readJSONFile(PATH);

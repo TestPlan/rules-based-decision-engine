@@ -7,11 +7,11 @@ import models.ObjectType;
 /**
  * This class is responsible for parsing the text data from Input file and storing it into its
  * proper data objects.
- * 
+ *
  * @author Trae X. Lewis
  *@version 2.0 10/20/2016
  */
-public class ParserService 
+public class ParserService
 {
 
 	/*
@@ -33,15 +33,15 @@ public class ParserService
 		if (INSTANCE == null)
 		{
 			INSTANCE = new ParserService();
-			
+
 		}
 		return INSTANCE;
 	}
-	
-	
+
+
 	/**
 	 * Takes an array of lines of a text file and turns them into an objectdata objects.
-	 * @param line - Line of text file.
+	 * @param lines - Line of text file.
 	 */
 	public void parseTextLine( java.util.ArrayList<String> lines)
 	{
@@ -50,7 +50,7 @@ public class ParserService
 		for(String sl : lines)
 		{
 			obj_data.clearData();
-			
+
 			if(!isComment(sl))
 			{
 				sl = sl.trim();
@@ -65,7 +65,7 @@ public class ParserService
 			}
 		}
 	}
-	
+
 	/**
 	 * This method iterates through an array of ObjectData objects and saves them into the ObjectCollectionService.
 	 * @param data - Array of ObjectData parsed from JSON file
@@ -76,7 +76,7 @@ public class ParserService
 		//TODO: Add configurable to allow option to concatenate data from multiple files
 		//TODO: Add JSON feed functionality and support
 		obj_svc.clearObjectService();
-		
+
 		for(ObjectData od : data)
 		{
 			this.obj_data = od;
@@ -87,7 +87,7 @@ public class ParserService
 			}
 		}
 	}
-	
+
 
 
 	/**
@@ -113,7 +113,7 @@ public class ParserService
 			case CHAR:
 				obj_data.setData(Character.valueOf(charParse(obj_data.getData().toString())));
 				break;
-			case DOUBLE: 
+			case DOUBLE:
 				if(selector == 1)
 				{
 					obj_data.setData(doubleParse(obj_data.getData().toString()));
@@ -132,15 +132,15 @@ public class ParserService
 			throw new IllegalArgumentException("DataConversionService::dataChecker():135 - [" + obj_data.getType() + "] is NOT an accepted data type");
 		}
 		return result;
-	
-		
+
+
 	}
 
 
 	/**
 	 * For ObjectData objects that have a declared type of DOUVLE, this method checks the value of the ObjectData type field
 	 * and verifies that it is a double in a string representation.
-	 * 
+	 *
 	 * @param str String representation of ObjectData type field.
 	 * @return Double object holding the value of the specified string.
 	 */
@@ -155,14 +155,14 @@ public class ParserService
 		{
 			value = Double.valueOf(str + ".0");
 		}
-		
+
 		return value;
 	}
-	
+
 	/**
 	 * For ObjectData objects that have a declared type of INT, this method checks the value of the ObjectData type field
 	 * and verifies that it is an integer in a string representation.
-	 * 
+	 *
 	 * @param str String representation of ObjectData type field.
 	 * @return Integer object holding the value of the specified string.
 	 */
@@ -194,16 +194,16 @@ public class ParserService
 	private char charParse(String str)
 	{
 		char ch;
-		
+
 		str.trim();
 		if(str.length() != 1)
 		{
 			throw new IllegalArgumentException("DataConversionService::charParse - Input stream exceeds maximum length of char: [Input value: " + str + " ]");
 		}
-		
+
 		ch = str.charAt(0);
-		
-		return ch; 
+
+		return ch;
 	}
 
 
@@ -222,9 +222,9 @@ public class ParserService
 		}
 		else
 		{
-			throw new IllegalArgumentException("ParserService:boolParse - Expected Boolean: Returned: " + str.toString());			
+			throw new IllegalArgumentException("ParserService:boolParse - Expected Boolean: Returned: " + str.toString());
 		}
-		
+
 		return value;
 	}
 
@@ -240,7 +240,7 @@ public class ParserService
 		//TODO: create an enum for all escape characters. Should be a separate class. Decouple!
 		boolean val = false;
 		char character = line.charAt(0);
-		
+
 		// Compare the first character of line to comment characters
 		if(character == '#')
 		{
@@ -248,12 +248,12 @@ public class ParserService
 		}
 		return val;
 	}
-	
-	
+
+
 	private boolean getObjectType()
 	{
 		boolean result = false;
-		
+
 		for(ObjectType obj : ObjectType.values())
 		{
 			if(obj.getValue().equals(obj_data.getType()))
