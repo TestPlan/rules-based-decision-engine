@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 /**
  * <h3>ConstraintList.java</h3> - a list of Constraints
+ *
  * @author Ian Markind
  * @version 1.0 - 10/22/2016.
  */
@@ -23,6 +24,7 @@ public class ConstraintList
 
     /**
      * Adds a Constraint to the list if it is not null
+     *
      * @param constraint is the Constraint to be added
      */
     public boolean add(Constraint constraint)
@@ -40,6 +42,7 @@ public class ConstraintList
 
     /**
      * Removes a Constraint from the collection, based on the list index passed in
+     *
      * @param index is the index Constraint in the list to be removed
      * @return whether or not the Constraint was successfully removed
      */
@@ -58,6 +61,7 @@ public class ConstraintList
 
     /**
      * Removes a Constraint from the collection, based on the object passed in
+     *
      * @param constraint is the Constraint to be removed
      * @return whether or not the Constraint was successfully removed
      */

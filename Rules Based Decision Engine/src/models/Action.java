@@ -29,11 +29,11 @@ public class Action
     }
 
 
-	public boolean equals(Object obj)
+    public boolean equals(Object obj)
     {
         if (obj instanceof Action)
         {
-            Action temp = (Action)obj;
+            Action temp = (Action) obj;
 
             if (temp == null)
             {

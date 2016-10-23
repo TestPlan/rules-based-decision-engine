@@ -15,9 +15,11 @@ import java.io.File;
 /**
  * The purpose of this class is to receive the drl files the user wants to run data through,
  * and run that data through the file(s).
+ *
  * @author Mike Moscariello
  */
-public class RuleActivation {
+public class RuleActivation
+{
 
     final private String localFilePath = "./src/rules/";
     final private String kfsFilePath = "src/main/resources/org/kie/example/newRule.drl";
@@ -40,12 +42,14 @@ public class RuleActivation {
         dispose();
     }
 
-    public RuleActivation(String[] filenames, ObjectData objectData){
+    public RuleActivation(String[] filenames, ObjectData objectData)
+    {
         this.kServices = KieServices.Factory.get();
         this.kfs = kServices.newKieFileSystem();
         this.kRepo = kServices.getRepository();
 
-        for (String filename : filenames) {
+        for (String filename : filenames)
+        {
             addExistingFile(filename);
         }
         buildKnowledgeSession(objectData);
@@ -53,7 +57,8 @@ public class RuleActivation {
         dispose();
     }
 
-    public RuleActivation(ObjectData objectData){
+    public RuleActivation(ObjectData objectData)
+    {
         this.kServices = KieServices.Factory.get();
         this.kfs = kServices.newKieFileSystem();
         this.kRepo = kServices.getRepository();
@@ -66,11 +71,11 @@ public class RuleActivation {
 
     public void addExistingFile(String filename)
     {
-       kfs.write(ResourceFactory.newFileResource(new File(localFilePath + filename)));  //This used to fire rules from
-                                                                                        //existing drl files.
+        kfs.write(ResourceFactory.newFileResource(new File(localFilePath + filename)));  //This used to fire rules from
+        //existing drl files.
     }
 
-    public void addNonExistingFile ()
+    public void addNonExistingFile()
     {
         kfs.write(kfsFilePath, getRule());
     }
@@ -80,7 +85,7 @@ public class RuleActivation {
         KieBuilder kb = kServices.newKieBuilder(kfs);
         kb.buildAll();
 
-        if(kb.getResults().hasMessages(Message.Level.ERROR))
+        if (kb.getResults().hasMessages(Message.Level.ERROR))
         {
             throw new RuntimeException("Build Errors: \n" + kb.getResults().toString());
         }
@@ -107,17 +112,9 @@ public class RuleActivation {
 
     public String getRule()
     {
-        String s = "" +
-            "package rules;\n" +
-            "import models.Action;\n" +
-            "import models.ObjectData;" +
-            "dialect \"mvel\"\n\n" +
+        String s = "" + "package rules;\n" + "import models.Action;\n" + "import models.ObjectData;" + "dialect \"mvel\"\n\n" +
 
-            "rule \"avoid\"\n" +
-            "   when\n" +
-                    "d : ObjectData( d.getData() <= 50.0 )" +
-            "   then\n" +
-            "       System.out.println(new Action(\"Hello\"))\n" + //d.getName() + \" too cold; Move away!\");\n" +
+            "rule \"avoid\"\n" + "   when\n" + "d : ObjectData( d.getData() <= 50.0 )" + "   then\n" + "       System.out.println(new Action(\"Hello\"))\n" + //d.getName() + \" too cold; Move away!\");\n" +
             "end";
 
         return s;
