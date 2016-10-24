@@ -102,11 +102,9 @@ public class ConstraintList
     {
         String output = "";
 
-        final int SIZE = constraintList.size();
-
-        for (int i = 0; i < SIZE; i++)
+        for (Constraint c: constraintList)
         {
-            output += constraintList.get(i).toString();
+            output += c.toString();
         }
 
         return output;
