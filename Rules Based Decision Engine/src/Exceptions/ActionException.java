@@ -1,40 +1,29 @@
-package Exceptions;
+package exceptions;
 
 /**
  * Created by shiv on 10/19/2016.
  */
-public class ActionException extends Exception {
-    /*
-     * An Exception Class for Action.
-      * @String exception is a String of Exception
-      * getException()  returns the exception
-      * toString()      returns the String Format of the Exception
-     */
+public class ActionException extends Exception 
+{
+	private static final long serialVersionUID = 7672063404046384632L;
+	//private String exception;
 
-    //Stores exception as a String
-    private String exception;
-
-    //Constructor which has empty exception
-    public ActionException(){
-        this.exception = "";
-    }
 
     //Constructor which takes a exception
     public ActionException(String exception)
     {
+        super(exception);
+    }
 
-        this.exception = exception;
+    public ActionException(Throwable clause)
+    {
+    	super(clause);
     }
-    //returns exception
-    public String getException()
+    
+    public ActionException(String exception, Throwable clause )
+    {
+    	super(exception, clause);
+    }
 
-    {
-        return this.exception;
-    }
-    //returns string of the exception
-    public String toString()
-    {
-        return " " + "Exception: " + this.getException();
-    }
 
 }
