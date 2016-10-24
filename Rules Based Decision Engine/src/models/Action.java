@@ -1,7 +1,7 @@
 package models;
 
 /**
- * Created by shiv on 10/11/2016.
+ * Created by Shiv on 10/11/2016.
  */
 public class Action
 {
@@ -12,7 +12,7 @@ public class Action
     {
     }
 
-    public Action(String action)
+    public Action (String action)
     {
         this.action = action;
     }
@@ -24,16 +24,15 @@ public class Action
 
     public String getAction()
     {
-
         return this.action;
     }
 
 
-	public boolean equals(Object obj)
+    public boolean equals(Object obj)
     {
         if (obj instanceof Action)
         {
-            Action temp = (Action)obj;
+            Action temp = (Action) obj;
 
             if (temp == null)
             {
@@ -53,6 +52,4 @@ public class Action
     {
         return "Action Result: " + this.getAction() + "\n";
     }
-
-
 }

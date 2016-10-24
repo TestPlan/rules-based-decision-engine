@@ -102,25 +102,11 @@ public class ConstraintList
     {
         String output = "";
 
-        if (constraintList.size() == 1)
-        {
-            output = constraintList.get(0).toString();
-        }
-        else
-        {
-            final int SIZE = constraintList.size();
+        final int SIZE = constraintList.size();
 
-            for (int i = 0; i < SIZE; i++)
-            {
-                if (i + 1 == SIZE) // last element in list has no comma after it
-                {
-                    output += constraintList.get(i).toString();
-                }
-                else
-                {
-                    output += constraintList.get(i).toString() + ", ";
-                }
-            }
+        for (int i = 0; i < SIZE; i++)
+        {
+            output += constraintList.get(i).toString();
         }
 
         return output;

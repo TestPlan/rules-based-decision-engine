@@ -9,14 +9,14 @@ import models.ObjectData;
  */
 public class ObjectCollectionService {
 
-	
+
 	private static HashMap<String , ObjectData> data_list = new HashMap<String, ObjectData>();
 	private static ObjectCollectionService INSTANCE ;
-	
-	
+
+
 	private ObjectCollectionService(){}
-	
-	
+
+
 	public static ObjectCollectionService getInstance()
 	{
 		if(INSTANCE == null)
@@ -26,24 +26,24 @@ public class ObjectCollectionService {
 		}
 		return INSTANCE;
 	}
-	
-	
+
+
 	public void insertDataObject(String str, ObjectData data)
 	{
 		data_list.put(str, data);
 	}
-	
+
 	public ObjectData retrieveRuleObject(String str)
-	{		
+	{
 		str.toUpperCase();
-		return data_list.get(str);	
+		return data_list.get(str);
 	}
-	
+
 	public void clearObjectService()
 	{
 		data_list.clear();
 	}
-	
+
 	public String toString()
 	{
 		String temp = "";
