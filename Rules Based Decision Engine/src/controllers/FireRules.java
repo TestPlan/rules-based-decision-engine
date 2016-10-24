@@ -42,7 +42,8 @@ public class FireRules {
         dispose();
     }
 
-    public FireRules(String[] filenames){
+    public FireRules(String[] filenames)
+    {
         this.kServices = KieServices.Factory.get();
         this.kResources = kServices.getResources();
         this.kfs = kServices.newKieFileSystem();

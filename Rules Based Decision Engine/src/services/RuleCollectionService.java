@@ -17,7 +17,8 @@ public class RuleCollectionService {
     private static RuleCollectionService instance = null;
 
     private Map<String, Rule> rules = new HashMap<String, Rule>();
-    private final String fileLoc = "C:\\Users\\Mike\\IdeaProjects\\Rules Based Decision Engine\\rules.txt"; //Final for testing purposes
+    //TODO: Make file location configurable
+    private final String fileLoc = "C:\\Users\\Mike\\IdeaProjects\\Rules Based Decision Engine\\rules.txt"; 
 
 
     private RuleCollectionService()
@@ -25,6 +26,7 @@ public class RuleCollectionService {
         ImportRulesMade();
     }
 
+    //TODO: Create custome Exception class inside exceptions package.
     public void addRule(String key, Rule rule) throws Exception
     {
         if (this.rules.containsKey(key)) {
