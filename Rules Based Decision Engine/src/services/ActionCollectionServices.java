@@ -1,9 +1,10 @@
 package services;
+
+import Exceptions.ActionException;
 import models.Action;
 
 import java.util.*;
 
-import exceptions.ActionException;
 
 /**
  * Created by shiv on 10/14/2016.
@@ -18,7 +19,7 @@ public class ActionCollectionServices
        @removeAction    removes Action from the HashMap
 
      */
-    private static Map<String,Action> actions = new HashMap<String, Action>();
+    private static Map<String, Action> actions = new HashMap<String, Action>();
     private static ActionCollectionServices Instance;
 
 
@@ -43,7 +44,8 @@ public class ActionCollectionServices
         }
         else
         {
-            if (duplicateAction(action)){ //Value
+            if (duplicateAction(action))
+            { //Value
                 throw new ActionException("---Duplicate Action: " + action + "\n");
             }
         }
@@ -53,15 +55,16 @@ public class ActionCollectionServices
     /*
         takes Action and Throws Exception if duplicate Action Exists
      */
-    private boolean duplicateAction(Action action) {
+    private boolean duplicateAction(Action action)
+    {
 
-        for (String key: actions.keySet())
+        for (String key : actions.keySet())
         {
-            if(key.isEmpty())
+            if (key.isEmpty())
             {
                 return false;
             }
-            if(actions.get(key).equals(action))
+            if (actions.get(key).equals(action))
             {
                 return true;
             }
@@ -73,11 +76,14 @@ public class ActionCollectionServices
     /*
         Removes Action using the Key
      */
-    public void removeAction(String actionName) throws ActionException {
-        if(actions.containsKey(actionName)) {
+    public void removeAction(String actionName) throws ActionException
+    {
+        if (actions.containsKey(actionName))
+        {
             actions.remove(actionName);
         }
-        else{
+        else
+        {
             throw new ActionException("Action Named: " + actionName + "Not Found");
         }
     }
@@ -87,10 +93,11 @@ public class ActionCollectionServices
      */
     public String toString()
     {
-        String temp ="";
+        String temp = "";
         Iterator iterator = actions.entrySet().iterator();
-        for (String key: actions.keySet() ){
-            temp +="\nAction Key: " + key.toString()  + actions.get(key).toString();
+        for (String key : actions.keySet())
+        {
+            temp += "\nAction Key: " + key.toString() + actions.get(key).toString();
         }
         return temp;
     }

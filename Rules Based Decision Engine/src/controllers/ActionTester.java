@@ -27,8 +27,6 @@ public class ActionTester
         Action a1 = new Action("A1-Executed");
         Action a2 = new Action("A2-Executed");
         Action a3 = new Action("A2-Executed");
-
-
         System.out.println("-> " + a1);
         System.out.println("-> " + a2);
         System.out.println("-> " + a3);
@@ -83,9 +81,7 @@ public class ActionTester
 
 
         //    a.removeAction("Action-5");
-       // System.out.println("Tried Removing A-5");
-
-
+        // System.out.println("Tried Removing A-5");
 
 
     }
