@@ -13,23 +13,34 @@ import org.kie.internal.io.ResourceFactory;
 import java.io.File;
 
 /**
- * The purpose of this class is to receive the drl files the user wants to run data through,
- * and run that data through the file(s).
+ * The purpose of this class is to either receive the drl file(s) the user wants to run data through or
+ * create the file from scratch using Rule object data and strings.
+ * It then has the ability to run that data through the file(s), and create actions for the user.
  *
  * @author Mike Moscariello
  */
 public class RuleActivation
 {
 
-    final private String localFilePath = "./src/rules/";
-    final private String kfsFilePath = "src/main/resources/org/kie/example/newRule.drl";
+    final private String localFilePath = new File("").getAbsolutePath() + "/src/rules/"; //Local path where our drl files are stored used by the KieFileSystem
 
-    private KieServices kServices;
-    private KieContainer kContainer;
-    private KieSession kSession;
-    private KieFileSystem kfs;
-    private KieRepository kRepo;
+    final private String kfsFilePath = "src/main/resources/org/kie/example/newRule.drl"; //path for the KieFileSystem to create a drl from a string
+    //Must begin with src/main/resources/org
+    /*
+    Below are components necessary for the activation of rules to work
+     */
+    private KieServices kServices;      //Necessary to build the KieRepository, KieFileSystem, KieBuilder and KieContainer
+    private KieContainer kContainer;    //Necessary to build the KieSession
+    private KieSession kSession;        //Necessary to insert user data into the KieFileSystem, fire all written rules, and dispose after rules have been fired.
+    private KieFileSystem kfs;          //Necessary for the creation of the virtual file system used to write and run rules.
+    private KieRepository kRepo;        //
 
+    /**
+     * This constructor creates the necessary components to activate the rules
+     * from one drl file (retrieved from the passed in filename) and runs the passed in data with them.
+     * @param filename File name input for the KieFileSystem to use in rule activation
+     * @param objectData Data from the user to pass into the drl files
+     */
     public RuleActivation(String filename, ObjectData objectData)
     {
         this.kServices = KieServices.Factory.get();
@@ -42,8 +53,14 @@ public class RuleActivation
         dispose();
     }
 
-    public RuleActivation(String[] filenames, ObjectData objectData){
-
+    /**
+     * This constructor creates the necessary components to activate the rules
+     * from multiple drl files (retrieved from the passed in filenames) and runs the passed in data with them.
+     * @param filenames File names inputted for the KieFileSystem to use in rule activation.
+     * @param objectData Data from the user to pass into the drl file.
+     */
+    public RuleActivation(String[] filenames, ObjectData objectData)
+    {
         this.kServices = KieServices.Factory.get();
         this.kfs = kServices.newKieFileSystem();
         this.kRepo = kServices.getRepository();
@@ -57,6 +74,12 @@ public class RuleActivation
         dispose();
     }
 
+    /**
+     * This constructor creates the necessary components to activate the rules
+     * from a string-created drl file (not existing in local file system)
+     * and runs the passed in data with them.
+     * @param objectData Data from the user to pass into the drl file.
+     */
     public RuleActivation(ObjectData objectData)
     {
         this.kServices = KieServices.Factory.get();
@@ -69,19 +92,34 @@ public class RuleActivation
         dispose();
     }
 
+    /**
+     * This method takes a drl file from a computer's local file system
+     * and writes it to the KieFileSystem, which is a virtual file system used to read the drl file.
+     * @param filename The file name inputted for the KieFileSystem to use in rule activation.
+     */
     public void addExistingFile(String filename)
     {
         kfs.write(ResourceFactory.newFileResource(new File(localFilePath + filename)));  //This used to fire rules from
         //existing drl files.
     }
 
+    /**
+     * This method writes a drl file not existing in a user's local file system to the KieFileSystem,
+     * which is a virtual file system used to read the drl file.
+     */
     public void addNonExistingFile()
     {
-        kfs.write(kfsFilePath, getRule());  //kfsFilePath is the file path necessary to use the KieFileSystem.
-                                            //getRule() is a string that contains the exact contents of the drl for the kfs to read.
+        kfs.write(kfsFilePath, getRule()); //kfsFilePath is the file path necessary to use the KieFileSystem.
+        //getRule() is a string that contains the exact contents of the drl for the kfs to read.
     }
 
-    public KieSession buildKnowledgeSession(ObjectData objectData)
+    /**
+     * This method's job is to create the necessary components in order to create a kSession.
+     * In turn, the kSession is used to receive the data inputted from the user and insert it for use
+     * in the kieFileSystem so it can be associated with drl files.
+     * @param objectData Data from the user to pass into the drl file.
+     */
+    public void buildKnowledgeSession(ObjectData objectData)
     {
         KieBuilder kb = kServices.newKieBuilder(kfs);
         kb.buildAll();
@@ -97,15 +135,21 @@ public class RuleActivation
 
         kSession.insert(objectData);
 
-        return kSession;
     }
 
-    public KieSession fireAllRules()
+    /**
+     * This method takes the the drl files previously writted and activates them,
+     * therefore associating the data previously inserted with the rules.
+     */
+    public void fireAllRules()
     {
         kSession.fireAllRules();
-        return kSession;
     }
 
+    /**
+     *  Remove all the references that have the knowledge session to the domain objects
+     *  and internal objects that are not needed anymore.
+     */
     public void dispose()
     {
         this.kSession.dispose();
@@ -113,12 +157,21 @@ public class RuleActivation
 
     public String getRule()
     {
-        String s = "" + "package rules;\n" + "import models.Action;\n" + "import models.ObjectData;" + "dialect \"mvel\"\n\n" +
+        //TODO: 10/24/2016 Create a class that retrieves all the info from the Rule class, creates a string, and passes it in for use with this class.
+        String s = "" +
+            "package rules;\n" +
+            "import models.*;\n" +
+            "dialect \"mvel\"\n\n" +
 
-            "rule \"avoid\"\n" + "   when\n" + "d : ObjectData( d.getData() <= 50.0 )" + "   then\n" + "       System.out.println(new Action(\"Hello\"))\n" + //d.getName() + \" too cold; Move away!\");\n" +
+            "rule \"avoid\"\n" +
+            "when\n" +
+            "   d : ObjectData( d.getData() <= 50.0 )" +
+            "then\n" +
+            "   System.out.println(d.getName() + \" too cold; Move away!\");\n" +    //new Action(\"Hello\"))\n" +
             "end";
 
         return s;
+
     }
 
 }
