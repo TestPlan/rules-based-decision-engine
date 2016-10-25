@@ -100,12 +100,13 @@ public class ConstraintList
     @Override
     public String toString()
     {
-        String output = "Constraints: \n";
+        String output = "";
 
-        for (Constraint c : constraintList)
+        for (Constraint c: constraintList)
         {
-            output += c.toString() + "\n";
+            output += c.toString();
         }
+
         return output;
     }
 }

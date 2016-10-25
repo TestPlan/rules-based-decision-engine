@@ -1,32 +1,32 @@
 [
   {
-	"name": "CONDITION",
-	"type": "DOUBLE",
-	"value": 3.0
+    "name": "CONDITION",
+    "type": "DOUBLE",
+    "value": 3.0
   },
   {
-	"name": "DISTANCE",
-	"type": "DOUBLE",
-	"value": 40203.34
+    "name": "DISTANCE",
+    "type": "DOUBLE",
+    "value": 40203.34
   },
   {
-	"name": "TEMPERATURE",
-	"type": "DOUBLE",
-	"value": 5.0
+    "name": "TEMPERATURE",
+    "type": "DOUBLE",
+    "value": 5.0
   },
   {
-	"name": "SURVIVOR_COUNT",
-	"type": "INT",
-	"value": 3
+    "name": "SURVIVOR_COUNT",
+    "type": "INT",
+    "value": 3
   },
   {
-	"name": "FOOD_ACCESS",
-	"type": "BOOL",
-	"value": true
+    "name": "FOOD_ACCESS",
+    "type": "BOOL",
+    "value": true
   },
   {
-	"name": "Designator",
-	"type": "CHAR",
-	"value": "A"
+    "name": "Designator",
+    "type": "CHAR",
+    "value": "A"
   }
 ]

@@ -1,9 +1,6 @@
 package controllers;
 
-import models.Constraint;
-import models.ConstraintList;
-import models.ObjectData;
-import models.Operator;
+import models.*;
 import services.InputReaderService;
 import services.ObjectCollectionService;
 import services.ParserService;
@@ -49,15 +46,15 @@ public class Driver
 
         // Basic testing of Constraint and ConstraintList classes
         ConstraintList cl = new ConstraintList();
-        Constraint c = new Constraint("4", Operator.NOT_EQUAL, "5");
+        Constraint c = new Constraint("4", Operator.NOT_EQUAL, "5", LogicalConjunction.AND);
         Constraint c2 = null;
-        cl.add(new Constraint("5", Operator.LESS_THAN, "6"));
-        cl.add(new Constraint("Temp.getTemp()", Operator.GREATER_EQUAL, "80"));
-        cl.add(new Constraint("2100", Operator.EQUAL_TO, "myPurchase.getTotal()"));
-        cl.add(new Constraint("21", Operator.GREATER_EQUAL, "Person.getAge()"));
-        cl.add(new Constraint("55", Operator.GREATER_EQUAL, "Person.getAge()"));
+        cl.add(new Constraint("5", Operator.LESS_THAN, "6", LogicalConjunction.OR));
+        cl.add(new Constraint("Temp.getTemp()", Operator.GREATER_EQUAL, "80", LogicalConjunction.NONE));
+        cl.add(new Constraint("2100", Operator.EQUAL_TO, "myPurchase.getTotal()", LogicalConjunction.AND));
+        cl.add(new Constraint("21", Operator.GREATER_EQUAL, "Person.getAge()", LogicalConjunction.AND));
+        cl.add(new Constraint("55", Operator.GREATER_EQUAL, "Person.getAge()", LogicalConjunction.AND));
         cl.add(c);
-        cl.add(new Constraint("Person.getPerson(\"Donald Trump\")", Operator.EQUAL_TO, "Person.isBufoon()"));
+        cl.add(new Constraint("Person.getPerson(\"Donald Trump\")", Operator.EQUAL_TO, "Person.isBufoon()", LogicalConjunction.AND));
         System.out.println("Size of list: " + cl.getConstraintList().size());
         if (cl.remove(c))
         {

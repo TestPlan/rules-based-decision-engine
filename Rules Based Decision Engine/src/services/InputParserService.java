@@ -11,7 +11,9 @@ import models.ObjectType;
  * @author Trae X. Lewis
  *@version 2.0 10/20/2016
  */
-public class ParserService
+
+public class InputParserService
+
 {
 
 	/*
@@ -21,20 +23,19 @@ public class ParserService
 
 	private ObjectData obj_data;
 	private ObjectType obj_type;
-	private static ParserService INSTANCE = null;
+	private static InputParserService INSTANCE = null;
 	private int selector = 0;
 
 	/**
 	 * Retrieves the static instance of FileParserService.
 	 * @return Instance of FileParserService.
 	 */
-	public static ParserService getInstance()
+	public static InputParserService getInstance()
 	{
 		if (INSTANCE == null)
 		{
-			INSTANCE = new ParserService();
-
-		}
+			INSTANCE = new InputParserService();
+        }
 		return INSTANCE;
 	}
 

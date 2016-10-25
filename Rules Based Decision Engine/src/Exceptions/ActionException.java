@@ -5,28 +5,25 @@ package Exceptions;
  */
 public class ActionException extends Exception
 {
-    private String exception;
+	private static final long serialVersionUID = 7672063404046384632L;
+	//private String exception;
 
-    public ActionException()
-    {
-        this.exception = "";
-    }
 
+    //Constructor which takes a exception
     public ActionException(String exception)
     {
-
-        this.exception = exception;
+        super(exception);
     }
 
-    public String getException()
-
+    public ActionException(Throwable clause)
     {
-        return this.exception;
+    	super(clause);
     }
 
-    public String toString()
+    public ActionException(String exception, Throwable clause )
     {
-        return " " + "Exception: " + this.getException();
+    	super(exception, clause);
     }
+
 
 }

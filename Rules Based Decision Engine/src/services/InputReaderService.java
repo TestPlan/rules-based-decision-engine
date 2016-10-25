@@ -25,8 +25,7 @@ import java.io.FileReader;
 
 public class InputReaderService
 {
-
-	ParserService parse_svc = ParserService.getInstance();
+	InputParserService parse_svc = InputParserService.getInstance();
     private File file;          //The File being read
 
 	private static InputReaderService INSTANCE = null;

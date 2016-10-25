@@ -12,13 +12,26 @@ public class Constraint
     private Operator operator;
     private String leftHandSide;
     private String rightHandSide;
+    private LogicalConjunction logicalConjunction;
 
-    public Constraint(String leftHandSide, Operator operator, String rightHandSide)
+
+    public Constraint()
+    {
+        leftHandSide = "";
+        operator = Operator.EQUAL_TO;
+        rightHandSide = "";
+        logicalConjunction = LogicalConjunction.NONE;
+    }
+
+    public Constraint(String leftHandSide, Operator operator, String rightHandSide, LogicalConjunction logicalConjunction)
     {
         this.leftHandSide = leftHandSide;
         this.operator = operator;
         this.rightHandSide = rightHandSide;
+        this.logicalConjunction = logicalConjunction;
     }
+
+    // TODO: possible swap method, to change order of constraints
 
     /**
      * Compare two Constraint objects for equality
@@ -84,9 +97,28 @@ public class Constraint
         this.rightHandSide = rightHandSide;
     }
 
+    public LogicalConjunction getLogicalConjunction()
+    {
+        return logicalConjunction;
+    }
+
+    public void setLogicalConjunction(LogicalConjunction logicalConjunction)
+    {
+        this.logicalConjunction = logicalConjunction;
+    }
+
+    /**
+     * Only prints correctly if the first Constraint on the list has a LogicalConjunction of NONE and
+     * every other Constraint has a LogicalConjunction of either AND or OR.
+     *
+     * @return a list of Constraints formatted for Drools syntax
+     */
     @Override
     public String toString()
     {
-        return this.getLeftHandSide() + " " + this.getOperator().toString() + " " + this.getRightHandSide();
+        return this.getLogicalConjunction().toString() + " " +
+            this.getLeftHandSide() + " " +
+            this.getOperator().toString() + " " +
+            this.getRightHandSide() + " ";
     }
 }
