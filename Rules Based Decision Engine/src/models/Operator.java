@@ -8,9 +8,7 @@ package models;
  */
 public enum Operator
 {
-    EQUAL_TO("=="), GREATER_THAN(">"), LESS_THAN("<"), GREATER_EQUAL(">="), LESS_EQUAL("<="), NOT_EQUAL("!="),
-    CONTAINS("contains"), NOT_CONTAINS("not contains"), MEMBER_OF("memberof"), MATCHES("matches"),
-    NOT_MATCHES("not matches"), IN("in"), NOT_IN("not in");
+    EQUAL_TO("=="), GREATER_THAN(">"), LESS_THAN("<"), GREATER_EQUAL(">="), LESS_EQUAL("<="), NOT_EQUAL("!="), CONTAINS("contains"), NOT_CONTAINS("not contains"), MEMBER_OF("memberof"), MATCHES("matches"), NOT_MATCHES("not matches"), IN("in"), NOT_IN("not in");
 
     private String value;
 

@@ -3,13 +3,14 @@ package controllers;
 import models.*;
 import services.InputReaderService;
 import services.ObjectCollectionService;
+import services.InputParserService;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.PrintStream;
 
 
 /**
- *
- *
  * @author Ian Markind, Trae X. Lewis
  */
 public class Driver
@@ -24,18 +25,22 @@ public class Driver
         InputReaderService read_svc = InputReaderService.getInstance();
         ObjectCollectionService collection_svc = ObjectCollectionService.getInstance();
 
-       // String file = "./src/temp.txt";
-       // TextFileService par_svc = TextFileService.getInstance();
-       // ObjectCollectionService collection_svc = ObjectCollectionService.getInstance();
+        // String file = "./src/temp.txt";
+        // TextFileService par_svc = TextFileService.getInstance();
+        // ObjectCollectionService collection_svc = ObjectCollectionService.getInstance();
 
-       // par_svc.parseTextFile(file);
+        // par_svc.parseTextFile(file);
         // System.out.println(collection_svc);
 
-        ObjectData od = new ObjectData("Temperature", "Double", 37.6 );
 
-        FireRules fr = new FireRules("avoid.drl", od);
+        ObjectData od = new ObjectData("Temperature", "Double", 37.6);
+        ObjectData od2 = new ObjectData("Temperature", "Double", 55.8);
+        ObjectData od3 = new ObjectData("Temperature", "String", "woah");
 
-    	System.out.println(collection_svc);
+        String[] s = {"avoid.drl", "avoid2.drl"};
+        RuleActivation ra = new RuleActivation(od);
+
+        System.out.println(collection_svc);
         read_svc.readJSONFile(PATH);
         System.out.println(collection_svc);
 
@@ -51,13 +56,25 @@ public class Driver
         cl.add(c);
         cl.add(new Constraint("Person.getPerson(\"Donald Trump\")", Operator.EQUAL_TO, "Person.isBufoon()", LogicalConjunction.AND));
         System.out.println("Size of list: " + cl.getConstraintList().size());
-        if (cl.remove(c)) { System.out.println("Constraint Removed"); } // remove Constraint by object
+        if (cl.remove(c))
+        {
+            System.out.println("Constraint Removed");
+        } // remove Constraint by object
         System.out.println("Size of list: " + cl.getConstraintList().size());
-        if (cl.remove(0)) { System.out.println("Constraint Removed"); } // remove Constraint by index
+        if (cl.remove(0))
+        {
+            System.out.println("Constraint Removed");
+        } // remove Constraint by index
         System.out.println("Size of list: " + cl.getConstraintList().size());
-        if (!cl.remove(5)) { System.out.println("cl[5] Not Removed"); } // remove Constraint by index, should fail
+        if (!cl.remove(5))
+        {
+            System.out.println("cl[5] Not Removed");
+        } // remove Constraint by index, should fail
         System.out.println("Size of list: " + cl.getConstraintList().size());
-        if (!cl.add(c2)) { System.out.println("null Constraint not added"); } // c2 should not be added
+        if (!cl.add(c2))
+        {
+            System.out.println("null Constraint not added");
+        } // c2 should not be added
         System.out.println("Size of list: " + cl.getConstraintList().size());
         System.out.println(cl);
 
