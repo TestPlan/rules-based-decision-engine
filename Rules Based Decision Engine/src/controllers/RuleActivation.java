@@ -77,7 +77,8 @@ public class RuleActivation
 
     public void addNonExistingFile()
     {
-        kfs.write(kfsFilePath, getRule());
+        kfs.write(kfsFilePath, getRule());  //kfsFilePath is the file path necessary to use the KieFileSystem.
+                                            //getRule() is a string that contains the exact contents of the drl for the kfs to read.
     }
 
     public KieSession buildKnowledgeSession(ObjectData objectData)
