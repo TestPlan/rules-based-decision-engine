@@ -1,0 +1,10 @@
+package rules;
+import models.ObjectData;
+dialect  "mvel"
+
+rule "Too Hot"
+    when
+        d: ObjectData( d.getData() > 50 )
+    then
+        System.out.println(d.getName() + " Too hot; Move Away!");
+end
