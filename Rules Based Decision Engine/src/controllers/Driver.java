@@ -3,7 +3,7 @@ package controllers;
 import models.*;
 import services.InputReaderService;
 import services.ObjectCollectionService;
-import services.ParserService;
+import services.InputParserService;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
