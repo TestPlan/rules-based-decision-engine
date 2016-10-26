@@ -17,7 +17,7 @@ public class ActionList
 {
 	
 	ActionCollectionService act_svc = ActionCollectionService.getInstance();
-	
+	//TODO: Create linked hashMap to maintain order.
 	HashMap<String, Action> actionMap;
 	Action action;
 	
@@ -96,6 +96,16 @@ public class ActionList
 		}
 		
 		return result;
+	}
+	
+	public String toString()
+	{
+		String temp = "";
+		for (Action value : actionMap.values())
+		{
+			temp += value + "\n";
+		}
+		return temp;
 	}
 
 }

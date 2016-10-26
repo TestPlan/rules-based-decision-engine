@@ -48,7 +48,9 @@ public class Constraint
 
         boolean equal = false;
 
-        if (this.getLeftHandSide().equals(constraint.getLeftHandSide()) && this.getOperator().toString().equals(constraint.getOperator().toString()) && this.getRightHandSide().equals(constraint.getRightHandSide()))
+        if (this.getLeftHandSide().equals(constraint.getLeftHandSide()) && 
+            this.getOperator().toString().equals(constraint.getOperator().toString()) && 
+            this.getRightHandSide().equals(constraint.getRightHandSide()))
         {
             equal = true;
         }

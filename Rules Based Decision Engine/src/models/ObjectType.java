@@ -20,7 +20,7 @@ public enum ObjectType {
 	 * Private constructor for ObjectType.
 	 * @param value
 	 */
-	private ObjectType(String value)
+	ObjectType(String value)
 	{
 		this.value = value;
 	}
