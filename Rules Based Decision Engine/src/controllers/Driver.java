@@ -71,11 +71,23 @@ public class Driver
         ceList.add(ce1);
         ConditionalElementList condL = new ConditionalElementList(ceList);
         Rule rule = new Rule("Test", condL, new Action("Action Result"));
+        Rule rul2 = new Rule("Test2", condL, new Action("We did it boys"));
 
         CreateDroolsFile creator = new CreateDroolsFile(rule.getTitle());
         creator.makeDroolsFile();
 
-        FileWriterService.getInstance().writeFile(new File(creator.getFilename()), rule);
+        System.out.println("" + creator.getFilename());
 
+        //Try first rule, no append
+        FileWriterService.getInstance().writeToFile(new File("./src/rules/" + creator.getFilename()), rule, false);
+
+        //Try second rule, append
+        FileWriterService.getInstance().writeToFile(new File("./src/rules/" + creator.getFilename()), rul2, true);
+
+        //Try first rule, no append
+        FileWriterService.getInstance().writeToFile(new File("./src/rules/Test2.drl"), rule, false);
+
+        //Try second rule, append
+        FileWriterService.getInstance().writeToFile(new File("./src/rules/Test2.drl" ), rul2, true);
     }
 }
