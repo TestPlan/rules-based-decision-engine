@@ -1,6 +1,6 @@
 package controllers;
 
-import exceptions.ActionException;
+import Exceptions.ActionException;
 import models.Action;
 import services.ActionCollectionService;
 
@@ -82,8 +82,5 @@ public class ActionTester
 
         //    a.removeAction("Action-5");
         // System.out.println("Tried Removing A-5");
-
-
     }
-
 }
