@@ -12,7 +12,8 @@ import java.util.Scanner;
 /**
  * Created by Mike on 10/9/2016.
  */
-public class RuleCollectionService {
+public class RuleCollectionService 
+{
 
     private static RuleCollectionService instance = null;
 
@@ -20,23 +21,33 @@ public class RuleCollectionService {
     //TODO: Make file location configurable
     private final String fileLoc = "C:\\Users\\Mike\\IdeaProjects\\Rules Based Decision Engine\\rules.txt"; 
 
-
+    
+    public static RuleCollectionService getInstance()
+    {
+        if (instance == null)
+        {
+            instance = new RuleCollectionService();
+        }
+        return instance;
+    }
+    
     private RuleCollectionService()
     {
         ImportRulesMade();
     }
 
-    //TODO: Create custome Exception class inside exceptions package.
+    //TODO: Create custom Exception class inside exceptions package.
     public void addRule(String key, Rule rule) throws Exception
     {
-        if (this.rules.containsKey(key)) {
+        if (this.rules.containsKey(key)) 
+        {
             throw new Exception("Key already exists");
         }
         this.rules.put(key, rule);
     }
 
-    public void ImportRulesMade(){
-
+    public void ImportRulesMade()
+    {
         Scanner ruleScanner;
 
         try{
@@ -45,7 +56,8 @@ public class RuleCollectionService {
 
             while(ruleScanner.hasNextLine()){
                 String txtLine = ruleScanner.nextLine();
-                String[] titleAction = txtLine.split(",");
+                @SuppressWarnings("unused")
+				String[] titleAction = txtLine.split(",");
                 //Rule r = new Rule(titleAction[0], titleAction[1], titleAction[2], titleAction[3], titleAction[4]);
                 //rules.put(titleAction[0], r);
             }
@@ -72,14 +84,7 @@ public class RuleCollectionService {
         }
     }
 
-    public static RuleCollectionService getInstance()
-    {
-        if (instance == null)
-        {
-            instance = new RuleCollectionService();
-        }
-        return instance;
-    }
+
 
     public Map<String, Rule> getRules()
     {

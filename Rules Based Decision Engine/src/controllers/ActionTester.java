@@ -2,7 +2,7 @@ package controllers;
 
 import exceptions.ActionException;
 import models.Action;
-import services.ActionCollectionServices;
+import services.ActionCollectionService;
 
 /**
  * Created by shiv on 10/12/2016.
@@ -23,7 +23,7 @@ public class ActionTester
         //        mainframe.setSize(1000,500);
         //
         //        mainframe.pack();
-        ActionCollectionServices a = new ActionCollectionServices();
+        ActionCollectionService a = new ActionCollectionService();
         Action a1 = new Action("A1-Executed");
         Action a2 = new Action("A2-Executed");
         Action a3 = new Action("A2-Executed");

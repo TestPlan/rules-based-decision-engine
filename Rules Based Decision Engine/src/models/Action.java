@@ -2,6 +2,7 @@ package models;
 
 /**
  * Created by Shiv on 10/11/2016.
+ * @version 1.50
  */
 public class Action
 {
@@ -11,8 +12,8 @@ public class Action
     public Action()
     {
     }
-
-    public Action (String action)
+    
+    public Action(String action)
     {
         this.action = action;
     }
@@ -27,29 +28,17 @@ public class Action
         return this.action;
     }
 
-
-    public boolean equals(Object obj)
+    /**
+     * Sets the Action fields to null.
+     */
+    public void clear()
     {
-        if (obj instanceof Action)
-        {
-            Action temp = (Action) obj;
-
-            if (temp == null)
-            {
-                return false;
-            }
-
-            if (!temp.getAction().equals(this.action))
-            {
-                return false;
-            }
-            return true;
-        }
-        return false;
+    	this.action = null;
     }
+
 
     public String toString()
     {
-        return "Action Result: " + this.getAction() + "\n";
+        return action;
     }
 }

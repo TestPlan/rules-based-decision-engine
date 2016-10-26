@@ -1,6 +1,6 @@
 package models;
 
-import services.ActionCollectionServices;
+import services.ActionCollectionService;
 
 /**
  * Created by Ian Markind on 10/8/2016.
@@ -10,7 +10,7 @@ public class Rule
     private String title;
     private ConditionalElementList conditionalElemList;
     private Action action;
-    ActionCollectionServices act_svc = ActionCollectionServices.getInstance();
+    ActionCollectionService act_svc = ActionCollectionService.getInstance();
 
     public Rule()
     {
