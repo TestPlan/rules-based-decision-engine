@@ -1,6 +1,8 @@
 package controllers;
 
 import models.*;
+import helpers.*;
+import services.FileWriterService;
 import services.InputReaderService;
 import services.ObjectCollectionService;
 
@@ -10,12 +12,13 @@ import java.io.File;
 /**
  *
  *
- * @author Ian Markind, Trae X. Lewis
+ * @author Ian Markind, Trae X. Lewis, Michael Crinite
  */
 public class Driver
 {
     public static void main(String[] args)
     {
+        /*
         final String FILE_NAME = "temp.json";
         // path to data file
         final String WORKSPACE = new File("").getAbsolutePath();
@@ -60,6 +63,14 @@ public class Driver
         if (!cl.add(c2)) { System.out.println("null Constraint not added"); } // c2 should not be added
         System.out.println("Size of list: " + cl.getConstraintList().size());
         System.out.println(cl);
+        */
+
+        ConditionalElementList cl = new ConditionalElementList();
+        Rule rule = new Rule("Test", cl, new Action("Action Result"));
+        CreateDroolsFile creator = new CreateDroolsFile(rule.getTitle());
+        creator.makeDroolsFile();
+
+        FileWriterService.getInstance().writeFile(filegoeshere, rule);
 
     }
 }
