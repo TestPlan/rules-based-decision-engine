@@ -98,6 +98,13 @@ public class RulesReader
         return temp;
     }
 
+    public String getRule(String title){
+        if(ruleList.isEmpty()){
+            readDroolsFile();
+        }
+
+        return ruleList.get(title).toString();
+    }
     /*
      * Reads the file line by line and stores the current line to a String line
      * and Prints the entire file

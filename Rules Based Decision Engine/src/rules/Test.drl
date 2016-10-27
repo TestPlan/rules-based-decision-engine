@@ -1,0 +1,12 @@
+rule "Test"
+when "models.ConditionalElementList@1d81eb93"
+then "Action Result"
+
+end
+
+rule "Test2"
+when "models.ConditionalElementList@1d81eb93"
+then "We did it boys"
+
+end
+

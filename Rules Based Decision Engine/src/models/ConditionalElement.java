@@ -2,26 +2,28 @@ package models;
 
 /**
  * Created by Klaydon Balicanta on 10/12/2016
- * Edited by Klaydon Balicanta on 10/23/2016
+ * Modified by Klaydon Balicanta on 10/26/2016
  */
 
 public class ConditionalElement
 {
-    private String patternBinding;
+    private String patternBinding = ""; //instantiate with an empty string to alleviate nullPointer error
     private String pattern;
-    private ConstraintList constraints;//when calling upon this object, account for future constraint.toString() method
+    private ConstraintList constraints;
 
     /**
      * Default Constructor
      *
      * If, upon instantiation, the parameters are empty, this ConditionalElement object
-     * will always be considered true (Reference: 5.8.3.1 in JBoss Docs)
+     * will always be considered true (Reference: 5.8.3.1 and figure 5.12 in the following link:
+     * https://docs.jboss.org/drools/release/5.2.0.Final/drools-expert-docs/html/ch05.html#d0e3761)
      */
-
     public ConditionalElement() {
         this.pattern = "eval";
-        //doooooooooo
+        this.constraints = new ConstraintList();
+        constraints.add(new Constraint());
     }
+
     /**
      * Overloaded Constructor - pattern binding included
      *
@@ -44,6 +46,7 @@ public class ConditionalElement
      */
     public ConditionalElement(String pattern, ConstraintList constraints)
     {
+        //this.patternBinding = "";
         this.pattern = pattern;
         this.constraints = constraints;
     }

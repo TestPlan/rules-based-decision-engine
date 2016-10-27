@@ -32,6 +32,7 @@ public class Constraint
     }
 
     // TODO: possible swap method, to change order of constraints
+    // TODO: need validation method to check first the first objects LogicalConjunction is NONE
 
     /**
      * Compare two Constraint objects for equality

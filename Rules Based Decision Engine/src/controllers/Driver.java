@@ -1,21 +1,25 @@
 package controllers;
 
 import models.*;
+import helpers.*;
+import services.FileWriterService;
 import services.InputReaderService;
 import services.ObjectCollectionService;
 
 import java.io.File;
+import java.util.ArrayList;
 
 
 /**
  *
  *
- * @author Ian Markind, Trae X. Lewis
+ * @author Ian Markind, Trae X. Lewis, Michael Crinite
  */
 public class Driver
 {
     public static void main(String[] args)
     {
+        /*
         final String FILE_NAME = "temp.json";
         // path to data file
         final String WORKSPACE = new File("").getAbsolutePath();
@@ -38,6 +42,7 @@ public class Driver
     	System.out.println(collection_svc);
         read_svc.readJSONFile(PATH);
         System.out.println(collection_svc);
+        */
 
         // Basic testing of Constraint and ConstraintList classes
         ConstraintList cl = new ConstraintList();
@@ -61,5 +66,28 @@ public class Driver
         System.out.println("Size of list: " + cl.getConstraintList().size());
         System.out.println(cl);
 
+        ArrayList<ConditionalElement> ceList = new ArrayList<>();
+        ConditionalElement ce1 = new ConditionalElement("", "", cl);
+        ceList.add(ce1);
+        ConditionalElementList condL = new ConditionalElementList(ceList);
+        Rule rule = new Rule("Test", condL, new Action("Action Result"));
+        Rule rul2 = new Rule("Test2", condL, new Action("We did it boys"));
+
+        CreateDroolsFile creator = new CreateDroolsFile(rule.getTitle());
+        creator.makeDroolsFile();
+
+        System.out.println("" + creator.getFilename());
+
+        //Try first rule, no append
+        FileWriterService.getInstance().writeToFile(new File("./src/rules/" + creator.getFilename()), rule, false);
+
+        //Try second rule, append
+        FileWriterService.getInstance().writeToFile(new File("./src/rules/" + creator.getFilename()), rul2, true);
+
+        //Try first rule, no append
+        FileWriterService.getInstance().writeToFile(new File("./src/rules/Test2.drl"), rule, false);
+
+        //Try second rule, append
+        FileWriterService.getInstance().writeToFile(new File("./src/rules/Test2.drl" ), rul2, true);
     }
 }
