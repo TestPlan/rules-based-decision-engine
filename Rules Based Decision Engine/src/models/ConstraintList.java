@@ -8,6 +8,8 @@ import java.util.ArrayList;
  * @author Ian Markind
  * @version 1.0 - 10/22/2016.
  */
+//TODO: SHOULD rethink the whole arrayList thing.
+//TODO: but this class may be obsolete.
 public class ConstraintList
 {
     private ArrayList<Constraint> constraintList;
@@ -16,6 +18,7 @@ public class ConstraintList
     {
         constraintList = new ArrayList<Constraint>();
     }
+
 
     public ConstraintList(ArrayList<Constraint> constraintList)
     {

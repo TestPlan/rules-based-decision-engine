@@ -30,6 +30,7 @@ public class ObjectData
 	 * @param type - Data type associated with the objects value.
 	 * @param object - Object representation of the data of object.
 	 */
+	//TODO: type SHALL be an ObjectType enum, NOT String
 	public ObjectData(String name, String type, Object object)
 	{
 		this.name = name.toUpperCase();
@@ -107,8 +108,9 @@ public class ObjectData
 	 */
 	public String toString()
 	{
-		return this.name.toString() + ":\t\t" + this.value.toString() + "\n";
+		return this.name.toString();
 	}
+	
 	
 	
 }

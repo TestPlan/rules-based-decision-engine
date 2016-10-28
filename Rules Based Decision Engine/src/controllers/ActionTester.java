@@ -1,6 +1,6 @@
 package controllers;
 
-import Exceptions.ActionException;
+import exceptions.ActionException;
 import models.Action;
 import services.ActionCollectionService;
 

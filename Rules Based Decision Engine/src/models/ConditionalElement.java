@@ -18,7 +18,8 @@ public class ConditionalElement
      * will always be considered true (Reference: 5.8.3.1 and figure 5.12 in the following link:
      * https://docs.jboss.org/drools/release/5.2.0.Final/drools-expert-docs/html/ch05.html#d0e3761)
      */
-    public ConditionalElement() {
+    public ConditionalElement() 
+    {
         this.pattern = "eval";
         this.constraints = new ConstraintList();
         constraints.add(new Constraint());
@@ -32,10 +33,11 @@ public class ConditionalElement
      * @param constraints
      */
     public ConditionalElement(String patternBinding, String pattern, ConstraintList constraints)
-        {
+    {
         this.patternBinding = patternBinding;
         this.pattern = pattern;
         this.constraints = constraints;
+        
     }
 
     /**
@@ -91,7 +93,7 @@ public class ConditionalElement
     }
 
     /*GETTERS AND SETTERS*/
-
+//TODO: Why have private setters and getters.. 
     private void setPatternBinding(String newPB)
     {
         this.patternBinding = newPB;

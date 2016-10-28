@@ -57,8 +57,8 @@ public class Rule
     public String toString()
     {
         String result = "rule \"" + title + "\"\n" +
-            "when \"" + conditionalElemList.toString() + "\"\n" +
-            "then \"" + action.toString() + "\"\n\n" +
+            "when \n    " + conditionalElemList.toString() + "\n" +
+            "then \n    " + action.toString() + "\n\n" +
             "end";
         return result;
     }

@@ -22,24 +22,24 @@ import models.Rule;
  * @version  2.0 - 10/20/2016
  */
 
-public class InputReaderService 
+public class FileReaderService 
 {
 	
 	InputParserService parse_svc = InputParserService.getInstance();
     private File file;          //The File being read
 
-	private static InputReaderService INSTANCE = null;
+	private static FileReaderService INSTANCE = null;
 
     
     /**
      * Singleton Constructor.
      * @return Instance of InputReaderService
      */
-    public static InputReaderService getInstance()
+    public static FileReaderService getInstance()
 	{
 		if(INSTANCE == null)
 		{
-			INSTANCE = new InputReaderService();
+			INSTANCE = new FileReaderService();
 		}
 		return INSTANCE;
 	}
@@ -55,8 +55,10 @@ public class InputReaderService
      * Any line not properly formatted, and not written as a comment, will return an error
      * unless it is past the properly formatted line (currently the method will stop parsing
      * as soon as it has received the proper expected values)
+     * 
+     * @return ArrayList<String>
      */
-    public void readFile(String filename)
+    public java.util.ArrayList<String> readFile(String filename)
     {
     	java.util.ArrayList<String> lines = new java.util.ArrayList<String>(); 
     	this.file = new File(filename);
@@ -77,35 +79,50 @@ public class InputReaderService
         {
         	e.printStackTrace();
         }
+		return lines;
     }
     
-    public void readJSONFile(String filename)
+    /**
+     * This method reads the JSON file and parses the data objects from it. 
+     * @param filename
+     * @return ObjectData[] 
+     */
+    public ObjectData[] readObjectDataFile(String filename)
     {
+    	ObjectData[] data = null;
         try 
     	{
         	BufferedReader reader = new BufferedReader(new FileReader(filename));
         	Gson gson = new GsonBuilder().create();
-        	ObjectData[] data = gson.fromJson(reader, ObjectData[].class);
+        	data = gson.fromJson(reader, ObjectData[].class);
         	parse_svc.parseJsonObjects(data);
         	
 		} catch (FileNotFoundException e) 
     	{
 			e.printStackTrace();
 		}
+        return data;
     }
     
-    public void readRuleFile(String filename)
+    /**
+     * Reads file and parses rules from the file.
+     * @param filename
+     * @return Rule[]
+     */
+    public Rule[] readRuleFile(String filename)
     {
+    	Rule[] data = null;
     	try
     	{
     		BufferedReader reader = new BufferedReader(new FileReader(filename));
     		Gson gson = new GsonBuilder().create();
-    		Rule[] data = gson.fromJson(reader, Rule[].class);
+    		data = gson.fromJson(reader, Rule[].class);
     		//TODO: create parseRuleFile(data) method
     	} catch (FileNotFoundException e)
     	{
     		e.printStackTrace();
     	}
+		return data;
     	
     }
 
@@ -122,32 +139,33 @@ public class InputReaderService
     }
     
     
-    /**
+ //DEPRECATED
+/*    *//**
      * Returns the File object referenced
      * @return File object being read
-     */
+     *//*
     public File getFile() 
     {
         return file;
     }
     
-    /**
+    *//**
      * Returns absolute file path of File object.
      * @return String - Absolute file path
-     */
+     *//*
     public String getAbsolutePath() 
     {
     	return file.getAbsolutePath();
     }
 
-    /**
+    *//**
      * Set the File object to be read
      * @param file The file to be read
-     */
+     *//*
     public void setFile(File file) 
     {
        this.file = file;
-    }
+    }*/
     
 
 }

@@ -10,8 +10,8 @@ package models;
 public class Constraint
 {
     private Operator operator;
-    private String leftHandSide;
-    private String rightHandSide;
+    private Object leftHandSide;
+    private Object rightHandSide;
     private LogicalConjunction logicalConjunction;
 
 
@@ -23,7 +23,11 @@ public class Constraint
         logicalConjunction = LogicalConjunction.NONE;
     }
 
-    public Constraint(String leftHandSide, Operator operator, String rightHandSide, LogicalConjunction logicalConjunction)
+    //TODO: left hand side SHALL be an ObjectData
+    //TODO: Because either the right or left hand side could be ObjectData, leftHandSide and rightHandSide should be Object not String.
+    //TODO: doubles, strings, etc, are implicitly cast to Object allowing for ObjectData to be used as operand.
+    //TODO: Must have check to verify that Object being compared to ObjectData Object matched the data type. i.e. NO (string < double) situations
+    public Constraint(Object leftHandSide, Operator operator, Object rightHandSide, LogicalConjunction logicalConjunction)
     {
         this.leftHandSide = leftHandSide;
         this.operator = operator;
@@ -80,7 +84,7 @@ public class Constraint
         this.operator = operator;
     }
 
-    public String getLeftHandSide()
+    public Object getLeftHandSide()
     {
         return leftHandSide;
     }
@@ -90,7 +94,7 @@ public class Constraint
         this.leftHandSide = leftHandSide;
     }
 
-    public String getRightHandSide()
+    public Object getRightHandSide()
     {
         return rightHandSide;
     }

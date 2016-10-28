@@ -17,6 +17,10 @@ public class ObjectCollectionService {
 	private ObjectCollectionService(){}
 
 
+	/**
+	 * Creates new instance of ObjectCollectionService if INSTANCE == null.
+	 * @return Instance of this class.
+	 */
 	public static ObjectCollectionService getInstance()
 	{
 		if(INSTANCE == null)
@@ -28,28 +32,53 @@ public class ObjectCollectionService {
 	}
 
 
+	/**
+	 * Inserts <String, ObjectData> pair into HashMap.
+	 * @param str - Key
+	 * @param data - Value
+	 */
 	public void insertDataObject(String str, ObjectData data)
 	{
 		data_list.put(str, data);
 	}
 
-	public ObjectData retrieveRuleObject(String str)
+	/**
+	 * Retrieves the value of the <key,value> pair 
+	 * @param str - Key
+	 * @return ObjectData
+	 */
+	public ObjectData retrieveDataObject(String str)
 	{
-		str.toUpperCase();
-		return data_list.get(str);
+		return data_list.get(str.toUpperCase());
 	}
 
+	/**
+	 * Removes all objects from the HashMap. 
+	 */
 	public void clearObjectService()
 	{
 		data_list.clear();
 	}
+	
+	/**
+	 * Removes the mapping from the HashMap matching the key.
+	 * @param str - key
+	 * @return ObjectData object being remove that is associated with the Key
+	 */
+	public ObjectData removeDataObject(String str)
+	{
+		return data_list.remove(str.toUpperCase());
+	}
 
+	/**
+	 * Returns the String representation of the ObjectCollectionService class
+	 */
 	public String toString()
 	{
-		String temp = "";
+		String temp = null;
 		for (Object value : data_list.values())
 		{
-			temp += value;
+			temp += value + "\n";
 		}
 		return temp;
 	}

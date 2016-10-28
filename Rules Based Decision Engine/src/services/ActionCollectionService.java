@@ -130,9 +130,10 @@ public class ActionCollectionService
     public String toString()
     {
         String temp ="";
-        Iterator iterator = actions.entrySet().iterator();
-        for (String key: actions.keySet() ){
-            temp +="\nAction Key: " + key.toString()  + actions.get(key).toString();
+
+        for (String key: actions.keySet() )
+        {
+            temp +="\nAction Key: " + key.toString()  + "\t\t" + actions.get(key).toString();
         }
         return temp;
     }

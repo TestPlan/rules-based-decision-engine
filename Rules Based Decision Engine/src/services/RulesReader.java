@@ -14,11 +14,11 @@ import java.util.Iterator;
  */
 public class RulesReader
 {
-    /*
+    /**
     *   @pathName - Stores the path where the file is located
     *   @fileName - Stores the Name of the file
     *   @line     - Stores the Line after reading from the file
-     */
+    */
     public String pathName = "./src//rules//";
     public String fileName = "avoid.drl";
     public HashMap<String, String> ruleList = new HashMap<String, String>();
