@@ -5,6 +5,7 @@ import helpers.*;
 import services.FileWriterService;
 import services.FileReaderService;
 import services.ObjectCollectionService;
+import services.RuleCollectionService;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 public class Driver
 {
     @SuppressWarnings("unused")
-	public static void main(String[] args)
+	public static void main(String[] args) throws Exception
     {
 
 
@@ -67,7 +68,7 @@ public class Driver
     	 * ACTIONS
     	 * - Basic action to be done if conditions are true.
     	 */
-    	models.Action action = new models.Action("Jump");
+    	models.Action action = new models.Action("System.out.println(\"Jump\");");
 
     	/**
     	 * RULE
@@ -77,6 +78,7 @@ public class Driver
 
     	System.out.println(rule.toString());
 
+
         /**
          * Write Rule to file in the rules directory
          */
@@ -84,5 +86,11 @@ public class Driver
         creator.makeDroolsFile();
         File file = new File("./src/rules/" + creator.getFilename());
         FileWriterService.getInstance().writeToFile(file, rule, false);
+
+        RuleActivation ra = new RuleActivation("avoid.drl", data1);
+
+        RuleCollectionService rcs = RuleCollectionService.getInstance();
+        rcs.addRule(rule.getTitle(), rule);
+        rcs.toString();
     }
 }

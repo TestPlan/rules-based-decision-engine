@@ -12,16 +12,17 @@ import java.util.Scanner;
 /**
  * Created by Mike on 10/9/2016.
  */
-public class RuleCollectionService 
+public class RuleCollectionService
 {
+    //TODO optimize for updated rules class and JSON files
 
     private static RuleCollectionService instance = null;
 
     private Map<String, Rule> rules = new HashMap<String, Rule>();
     //TODO: Make file location configurable
-    private final String fileLoc = "C:\\Users\\Mike\\IdeaProjects\\Rules Based Decision Engine\\rules.txt"; 
+    private final String fileLoc = "C:\\Users\\Mike\\IdeaProjects\\Rules Based Decision Engine\\rules.txt";
 
-    
+
     public static RuleCollectionService getInstance()
     {
         if (instance == null)
@@ -30,16 +31,16 @@ public class RuleCollectionService
         }
         return instance;
     }
-    
+
     private RuleCollectionService()
     {
-        ImportRulesMade();
+        //ImportRulesMade();
     }
 
     //TODO: Create custom Exception class inside exceptions package.
     public void addRule(String key, Rule rule) throws Exception
     {
-        if (this.rules.containsKey(key)) 
+        if (this.rules.containsKey(key))
         {
             throw new Exception("Key already exists");
         }
@@ -95,7 +96,9 @@ public class RuleCollectionService
     public String toString(){
         String s = new String();
 
-        //this.rules.forEach();
+        this.rules.forEach((k, v) -> {
+            System.out.println("Rule: " + k);
+        });
 
         return s;
     }
