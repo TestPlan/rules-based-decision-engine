@@ -91,6 +91,6 @@ public class Driver
 
         RuleCollectionService rcs = RuleCollectionService.getInstance();
         rcs.addRule(rule.getTitle(), rule);
-        rcs.toString();
+        System.out.println(rcs.toString());
     }
 }

@@ -96,9 +96,9 @@ public class RuleCollectionService
     public String toString(){
         String s = new String();
 
-        this.rules.forEach((k, v) -> {
-            System.out.println("Rule: " + k);
-        });
+        for(HashMap.Entry<String, Rule> rule : this.rules.entrySet()){
+            s += "Rule: " + rule.getKey() + "\n";
+        }
 
         return s;
     }
