@@ -20,7 +20,7 @@ public class RuleCollectionService
 
     private Map<String, Rule> rules = new HashMap<String, Rule>();
     //TODO: Make file location configurable
-    private final String fileLoc = "C:\\Users\\Mike\\IdeaProjects\\Rules Based Decision Engine\\rules.txt";
+    private final String fileLoc = "../rules.txt";
 
 
     public static RuleCollectionService getInstance()

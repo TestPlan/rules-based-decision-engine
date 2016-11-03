@@ -56,7 +56,10 @@ public class Rule
     @Override
     public String toString()
     {
-        String result = "rule \"" + title + "\"\n" +
+        String result =
+            "import models.*;\n" +
+            "dialect \"mvel\"\n\n" +
+            "rule \"" + title + "\"\n" +
             "when \n    " + conditionalElemList.toString() + "\n" +
             "then \n    " + action.toString() + "\n\n" +
             "end";
