@@ -1,5 +1,7 @@
 package models;
 
+import java.io.Serializable;
+
 /**
  * Class representation of an individual Data object.
  * This class is responsible for the creation of data points and includes
@@ -8,7 +10,7 @@ package models;
  * @author Trae X. Lewis
  * @version 2.0 10/20/2016
  */
-public class Data
+public class Data implements Serializable
 {
 
 	String name;

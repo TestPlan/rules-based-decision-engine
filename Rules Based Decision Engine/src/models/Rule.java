@@ -2,15 +2,19 @@ package models;
 
 import services.ActionCollectionService;
 
+import java.io.Serializable;
+
 /**
  * Created by Ian Markind on 10/8/2016.
  */
-public class Rule
+public class Rule implements Serializable
 {
     private String title;
     private ConditionalElementList conditionalElemList;
     private Action action;
-    ActionCollectionService act_svc = ActionCollectionService.getInstance();
+    transient ActionCollectionService act_svc = ActionCollectionService.getInstance();
+
+    private static final long serialVersionUID = 75643827956748L;
 
     public Rule()
     {
