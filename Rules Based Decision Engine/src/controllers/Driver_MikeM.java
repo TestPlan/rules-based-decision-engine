@@ -71,7 +71,7 @@ public class Driver_MikeM
 
         Rule rule = new Rule();
         ss.chooseFileLocation();
-        rule = (Rule) ss.deserialize(rule, "/test");
+        rule = (Rule) ss.deserialize(rule, "test");
 
         System.out.println(rule.toString());
 

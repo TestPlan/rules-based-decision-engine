@@ -40,6 +40,10 @@ public class SerializationService
 
                 b = true;
             }
+            catch (NotSerializableException s){
+                System.err.println("One or more of your serialized classes contain not serializable variables.");
+                s.printStackTrace();
+            }
             catch (IOException i)
             {
                 i.printStackTrace();
@@ -63,6 +67,7 @@ public class SerializationService
                 objectInput.close();
                 fileInput.close();
                 b = true;
+                System.out.println(fileloc);
             }
             catch (IOException i)
             {
@@ -79,9 +84,8 @@ public class SerializationService
     public void chooseFileLocation(){
         JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        //int returnVal = fc.showOpenDialog(JFileChooser.DIRECTORIES_ONLY);
         fc.showOpenDialog(null);
-        this.fileloc = fc.getSelectedFile().getAbsolutePath();
+        this.fileloc = fc.getSelectedFile().getAbsolutePath() + "\\";
         System.out.println(fileloc);
     }
 
