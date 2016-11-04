@@ -11,8 +11,9 @@ import java.io.*;
  */
 public class SerializationService
 {
-    private String fileloc = new File("").getAbsolutePath() + "/src/serialized/";
+    private String fileloc = null;
     private final String fileExt = ".ser";
+    private boolean b = false;
     private static SerializationService instance = new SerializationService();
 
     private SerializationService()
@@ -25,23 +26,24 @@ public class SerializationService
         return instance;
     }
 
-    public boolean serialize(Object o, String filename)
+    public void serialize(Object o, String filename)
     {
-        boolean b = false;
+        this.b = true;
+        this.chooseFileLocation();
+
         if(o instanceof Serializable)
         {
             try
             {
-                FileOutputStream fileOut = new FileOutputStream(this.fileloc + filename + fileExt);
+                FileOutputStream fileOut = new FileOutputStream(this.fileloc + filename + this.fileExt);
                 ObjectOutputStream output = new ObjectOutputStream(fileOut);
                 output.writeObject(o);
                 output.close();
                 fileOut.close();
 
-                b = true;
             }
             catch (NotSerializableException s){
-                System.err.println("One or more of your serialized classes contain not serializable variables.");
+                System.err.println("One or more of your serialized classes do not contain serializable variables.");
                 s.printStackTrace();
             }
             catch (IOException i)
@@ -49,25 +51,24 @@ public class SerializationService
                 i.printStackTrace();
             }
         }
-        return b;
     }
 
-    public Object deserialize(Object o, String filename)
+    public Object deserialize(Object o)
     {
-        System.out.println(o.getClass());
-        boolean b = false;
+        //System.out.println(o.getClass());
+        this.b = false;
+        this.chooseFileLocation();
 
         if (o instanceof Serializable)
         {
             try
             {
-                FileInputStream fileInput = new FileInputStream(fileloc + filename + fileExt);
+                FileInputStream fileInput = new FileInputStream(fileloc);
                 ObjectInputStream objectInput = new ObjectInputStream(fileInput);
                 o = objectInput.readObject();
                 objectInput.close();
                 fileInput.close();
-                b = true;
-                System.out.println(fileloc);
+                System.out.println(this.fileloc);
             }
             catch (IOException i)
             {
@@ -83,10 +84,18 @@ public class SerializationService
 
     public void chooseFileLocation(){
         JFileChooser fc = new JFileChooser();
-        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        fc.showOpenDialog(null);
+        if (this.b == false)
+        {
+            fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+            fc.showOpenDialog(null);
+        }
+        else if (this.b == true)
+        {
+            fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            fc.showOpenDialog(null);
+        }
         this.fileloc = fc.getSelectedFile().getAbsolutePath() + "\\";
-        System.out.println(fileloc);
+        System.out.println(this.fileloc);
     }
 
 
