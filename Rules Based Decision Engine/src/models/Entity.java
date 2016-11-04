@@ -9,7 +9,7 @@ import java.util.HashMap;
  * The submarine may have a temperature, latitude, and longitude.
  * The HashMap field <code>map</code> is a collection of the above datapoints as Data objects.
  *
- * Created by michaelcrinite on 11/4/16.
+ * @author Michael Crinite
  */
 public class Entity
 {
