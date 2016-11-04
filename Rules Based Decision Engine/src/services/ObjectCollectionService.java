@@ -1,6 +1,7 @@
 package services;
 import java.util.HashMap;
-import models.ObjectData;
+
+import models.Data;
 
 /**
  * Static class designed to store all rule object data and any methods designed to manipulate the data.
@@ -10,7 +11,7 @@ import models.ObjectData;
 public class ObjectCollectionService {
 
 
-	private static HashMap<String , ObjectData> data_list = new HashMap<String, ObjectData>();
+	private static HashMap<String , Data> data_list = new HashMap<String, Data>();
 	private static ObjectCollectionService INSTANCE ;
 
 
@@ -33,39 +34,39 @@ public class ObjectCollectionService {
 
 
 	/**
-	 * Inserts <String, ObjectData> pair into HashMap.
+	 * Inserts <String, Data> pair into HashMap.
 	 * @param str - Key
 	 * @param data - Value
 	 */
-	public void insertDataObject(String str, ObjectData data)
+	public void insertDataObject(String str, Data data)
 	{
 		data_list.put(str, data);
 	}
 
 	/**
-	 * Retrieves the value of the <key,value> pair 
+	 * Retrieves the value of the <key,value> pair
 	 * @param str - Key
-	 * @return ObjectData
+	 * @return Data
 	 */
-	public ObjectData retrieveDataObject(String str)
+	public Data retrieveDataObject(String str)
 	{
 		return data_list.get(str.toUpperCase());
 	}
 
 	/**
-	 * Removes all objects from the HashMap. 
+	 * Removes all objects from the HashMap.
 	 */
 	public void clearObjectService()
 	{
 		data_list.clear();
 	}
-	
+
 	/**
 	 * Removes the mapping from the HashMap matching the key.
 	 * @param str - key
-	 * @return ObjectData object being remove that is associated with the Key
+	 * @return Data object being remove that is associated with the Key
 	 */
-	public ObjectData removeDataObject(String str)
+	public Data removeDataObject(String str)
 	{
 		return data_list.remove(str.toUpperCase());
 	}

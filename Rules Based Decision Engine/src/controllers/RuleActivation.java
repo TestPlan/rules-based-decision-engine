@@ -1,6 +1,6 @@
 package controllers;
 
-import models.ObjectData;
+import models.Data;
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieBuilder;
 import org.kie.api.builder.KieFileSystem;
@@ -39,16 +39,16 @@ public class RuleActivation
      * This constructor creates the necessary components to activate the rules
      * from one drl file (retrieved from the passed in filename) and runs the passed in data with them.
      * @param filename File name input for the KieFileSystem to use in rule activation
-     * @param objectData Data from the user to pass into the drl files
+     * @param data Data from the user to pass into the drl files
      */
-    public RuleActivation(String filename, ObjectData objectData)
+    public RuleActivation(String filename, Data data)
     {
         this.kServices = KieServices.Factory.get();
         this.kRepo = kServices.getRepository();
         this.kfs = kServices.newKieFileSystem();
 
         addExistingFile(filename);
-        buildKnowledgeSession(objectData);
+        buildKnowledgeSession(data);
         fireAllRules();
         dispose();
     }
@@ -57,9 +57,9 @@ public class RuleActivation
      * This constructor creates the necessary components to activate the rules
      * from multiple drl files (retrieved from the passed in filenames) and runs the passed in data with them.
      * @param filenames File names inputted for the KieFileSystem to use in rule activation.
-     * @param objectData Data from the user to pass into the drl file.
+     * @param data Data from the user to pass into the drl file.
      */
-    public RuleActivation(String[] filenames, ObjectData objectData)
+    public RuleActivation(String[] filenames, Data data)
     {
         this.kServices = KieServices.Factory.get();
         this.kfs = kServices.newKieFileSystem();
@@ -69,7 +69,7 @@ public class RuleActivation
         {
             addExistingFile(filename);
         }
-        buildKnowledgeSession(objectData);
+        buildKnowledgeSession(data);
         fireAllRules();
         dispose();
     }
@@ -78,16 +78,16 @@ public class RuleActivation
      * This constructor creates the necessary components to activate the rules
      * from a string-created drl file (not existing in local file system)
      * and runs the passed in data with them.
-     * @param objectData Data from the user to pass into the drl file.
+     * @param data Data from the user to pass into the drl file.
      */
-    public RuleActivation(ObjectData objectData)
+    public RuleActivation(Data data)
     {
         this.kServices = KieServices.Factory.get();
         this.kfs = kServices.newKieFileSystem();
         this.kRepo = kServices.getRepository();
 
         addNonExistingFile();
-        buildKnowledgeSession(objectData);
+        buildKnowledgeSession(data);
         fireAllRules();
         dispose();
     }
@@ -117,9 +117,9 @@ public class RuleActivation
      * This method's job is to create the necessary components in order to create a kSession.
      * In turn, the kSession is used to receive the data inputted from the user and insert it for use
      * in the kieFileSystem so it can be associated with drl files.
-     * @param objectData Data from the user to pass into the drl file.
+     * @param data Data from the user to pass into the drl file.
      */
-    public void buildKnowledgeSession(ObjectData objectData)
+    public void buildKnowledgeSession(Data data)
     {
         KieBuilder kb = kServices.newKieBuilder(kfs);
         kb.buildAll();
@@ -133,7 +133,7 @@ public class RuleActivation
 
         kSession = this.kContainer.newKieSession();
 
-        kSession.insert(objectData);
+        kSession.insert(data);
 
     }
 
@@ -165,7 +165,7 @@ public class RuleActivation
 
             "rule \"avoid\"\n" +
             "when\n" +
-            "   d : ObjectData( d.getData() <= 50.0 )" +
+            "   d : Data( d.getData() <= 50.0 )" +
             "then\n" +
             "   System.out.println(d.getName() + \" too cold; Move away!\");\n" +    //new Action(\"Hello\"))\n" +
             "end";
