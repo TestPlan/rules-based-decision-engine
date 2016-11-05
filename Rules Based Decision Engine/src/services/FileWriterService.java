@@ -34,7 +34,7 @@ public class FileWriterService
     }
 
     /**
-     * TODO: Should we pass in the file path instead of a file and create the file in this method, instead of doing this outside of this method?
+     *
      * Attempts to write to a file. Accepts the File object and the Rule object.
      * If a file does not exist in the specified location, it creates one there.
      *

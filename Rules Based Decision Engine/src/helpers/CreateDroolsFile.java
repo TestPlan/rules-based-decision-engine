@@ -21,15 +21,16 @@ public class CreateDroolsFile
     }
 
     /**
-     *
+     * Creates and returns a File with the given file name
      */
-    public void makeDroolsFile(String filename)
+    public File makeDroolsFile(String filename)
     {
         setFilename(filename + ".drl");
+        File file = null; // TODO: error handling for this null value
 
         try
         {
-            File file = new File(path, getFilename());
+            file = new File(path, getFilename());
 
             if (file.createNewFile())
             {
@@ -45,6 +46,7 @@ public class CreateDroolsFile
         {
             e.printStackTrace();
         }
+        return file;
     }
 
     public String getFilename()

@@ -80,8 +80,7 @@ public class Driver
          * Write Rule to file in the rules directory
          */
         CreateDroolsFile creator = new CreateDroolsFile();
-        creator.makeDroolsFile(ruleName);
-        File file = new File("./src/rules/" + creator.getFilename());
+        File file = creator.makeDroolsFile(ruleName);
         FileWriterService.getInstance().writeToFile(file, rule, false);
 
         new RuleActivation("avoid.drl", data1);
