@@ -17,6 +17,11 @@ public class Entity
     private HashMap<String, Data> map;
 
     /**
+     * Default constructor for type Entity
+     */
+    public Entity(){}
+
+    /**
      * Constructor for type Entity
      *
      * @param name The name of the thing this Entity object represents
@@ -36,7 +41,7 @@ public class Entity
      */
     public Object getValue(String str)
     {
-        Data temp = get(str);
+        Data temp = get(str);   // get (below) standardizes str
         return temp.getData();
     }
 
@@ -44,12 +49,24 @@ public class Entity
      * Replace the map of Data objects with a new map of Data objects
      * @param newMap The replacement map
      */
-    public void replaceData(HashMap<String,Data> newMap)
+    public void replaceMap(HashMap<String,Data> newMap)
     {
         map = newMap;
     }
 
-    //TODO: Append maps
+    /**
+     * Adds each Data object from <code>toAppend</code> to <code>map</code> only if its key does not
+     * already exist in <code>map</code>
+     *
+     * @param toAppend The Map of Data objects to append to the existing field <code>map</code>
+     */
+    public void appendToMap(HashMap<String,Data> toAppend)
+    {
+        for(String s : toAppend.keySet())
+        {
+            addData(toAppend.get(s)); // addData checks if the key exists before adding it
+        }
+    }
 
     /**
      * Replaces the entry in <code>map</code> for the specified key only if it is mapped to a value
@@ -78,6 +95,26 @@ public class Entity
             || newValue instanceof Character
             || newValue instanceof Boolean) {
             data.setData(newValue);
+        }
+    }
+
+    /**
+     * Adds data to map, only if the data's <code>name</code> is not already a key in the map
+     *
+     * @param data The Data object to add to the map
+     * @return <code>False</code> if the map already contained the key for this data
+     */
+    public boolean addData(Data data)
+    {
+        String key = data.getName().trim().toUpperCase();
+        if(map.containsKey(key))
+        {
+            return false;
+        }
+        else
+        {
+            map.put(key, data);
+            return true;
         }
     }
 
