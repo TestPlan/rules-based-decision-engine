@@ -6,7 +6,7 @@ import java.io.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import models.ObjectData;
+import models.Data;
 import models.Rule;
 
 /**
@@ -22,15 +22,15 @@ import models.Rule;
  * @version  2.0 - 10/20/2016
  */
 
-public class FileReaderService 
+public class FileReaderService
 {
-	
+
 	InputParserService parse_svc = InputParserService.getInstance();
     private File file;          //The File being read
 
 	private static FileReaderService INSTANCE = null;
 
-    
+
     /**
      * Singleton Constructor.
      * @return Instance of InputReaderService
@@ -43,7 +43,7 @@ public class FileReaderService
 		}
 		return INSTANCE;
 	}
-    
+
 
     /**
      * Attempts to parse the given file.
@@ -55,21 +55,21 @@ public class FileReaderService
      * Any line not properly formatted, and not written as a comment, will return an error
      * unless it is past the properly formatted line (currently the method will stop parsing
      * as soon as it has received the proper expected values)
-     * 
+     *
      * @return ArrayList<String>
      */
     public java.util.ArrayList<String> readFile(String filename)
     {
-    	java.util.ArrayList<String> lines = new java.util.ArrayList<String>(); 
+    	java.util.ArrayList<String> lines = new java.util.ArrayList<String>();
     	this.file = new File(filename);
-        
+
     	try
         {
             java.util.Scanner s = new java.util.Scanner(file);
             String line="";
-            
+
             while(!endOfFile(line = s.nextLine()) && s.hasNextLine())
-            { 
+            {
                 if (!line.isEmpty())
                 	lines.add(line);
             }
@@ -81,29 +81,29 @@ public class FileReaderService
         }
 		return lines;
     }
-    
+
     /**
-     * This method reads the JSON file and parses the data objects from it. 
+     * This method reads the JSON file and parses the data objects from it.
      * @param filename
-     * @return ObjectData[] 
+     * @return Data[]
      */
-    public ObjectData[] readObjectDataFile(String filename)
+    public Data[] readObjectDataFile(String filename)
     {
-    	ObjectData[] data = null;
-        try 
+    	Data[] data = null;
+        try
     	{
         	BufferedReader reader = new BufferedReader(new FileReader(filename));
         	Gson gson = new GsonBuilder().create();
-        	data = gson.fromJson(reader, ObjectData[].class);
+        	data = gson.fromJson(reader, Data[].class);
         	parse_svc.parseJsonObjects(data);
-        	
-		} catch (FileNotFoundException e) 
+
+		} catch (FileNotFoundException e)
     	{
 			e.printStackTrace();
 		}
         return data;
     }
-    
+
     /**
      * Reads file and parses rules from the file.
      * @param filename
@@ -123,7 +123,7 @@ public class FileReaderService
     		e.printStackTrace();
     	}
 		return data;
-    	
+
     }
 
     /**
@@ -137,23 +137,23 @@ public class FileReaderService
     	//TODO: Make eof string configurable. Should not be hard coded.
     	return line.startsWith("eof;");
     }
-    
-    
+
+
  //DEPRECATED
 /*    *//**
      * Returns the File object referenced
      * @return File object being read
      *//*
-    public File getFile() 
+    public File getFile()
     {
         return file;
     }
-    
+
     *//**
      * Returns absolute file path of File object.
      * @return String - Absolute file path
      *//*
-    public String getAbsolutePath() 
+    public String getAbsolutePath()
     {
     	return file.getAbsolutePath();
     }
@@ -162,10 +162,10 @@ public class FileReaderService
      * Set the File object to be read
      * @param file The file to be read
      *//*
-    public void setFile(File file) 
+    public void setFile(File file)
     {
        this.file = file;
     }*/
-    
+
 
 }

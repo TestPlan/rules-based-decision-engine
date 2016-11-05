@@ -1,8 +1,8 @@
 package unit_test;
 
-import static com.sun.xml.internal.ws.dump.LoggingDumpTube.Position.Before;
 import static org.junit.Assert.*;
 
+import models.Data;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,9 +10,9 @@ import org.junit.Test;
 public class ObjectCollectionServiceTester
 {
 
-	models.ObjectData data1 = new models.ObjectData("TEMPERATURE", "DOUBLE", 98.6);
-	models.ObjectData data2 = new models.ObjectData("NAME" , "STRING" , "Mathew");
-	models.ObjectData data3 = new models.ObjectData("IS_HUNGRY" , "BOOLEAN" , true);
+	Data data1 = new Data("TEMPERATURE", "DOUBLE", 98.6);
+	Data data2 = new Data("NAME" , "STRING" , "Mathew");
+	Data data3 = new Data("IS_HUNGRY" , "BOOLEAN" , true);
 
 	services.ObjectCollectionService obj_svc = services.ObjectCollectionService.getInstance();
 

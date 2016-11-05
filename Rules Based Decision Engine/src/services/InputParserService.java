@@ -1,17 +1,17 @@
 package services;
 
 
-import models.ObjectData;
+import models.Data;
 import models.ObjectType;
 
 /**
  * This class is responsible for parsing the text data from Input file and storing it into its
  * proper data objects.
- * 
+ *
  * @author Trae X. Lewis
  *@version 2.0 10/20/2016
  */
-public class InputParserService 
+public class InputParserService
 {
 
 	/*
@@ -19,7 +19,7 @@ public class InputParserService
 	 */
 	ObjectCollectionService obj_svc = ObjectCollectionService.getInstance();
 
-	private ObjectData obj_data;
+	private Data obj_data;
 	private ObjectType obj_type;
 	private static InputParserService INSTANCE = null;
 	private int selector = 0;
@@ -33,12 +33,12 @@ public class InputParserService
 		if (INSTANCE == null)
 		{
 			INSTANCE = new InputParserService();
-			
+
 		}
 		return INSTANCE;
 	}
-	
-	
+
+
 	/**
 	 * Takes an array of lines of a text file and turns them into an objectdata objects.
 	 * @param line - Line of text file.
@@ -50,7 +50,7 @@ public class InputParserService
 		for(String sl : lines)
 		{
 			obj_data.clearData();
-			
+
 			if(!isComment(sl))
 			{
 				sl = sl.trim();
@@ -65,19 +65,20 @@ public class InputParserService
 			}
 		}
 	}
-	
+
 	/**
-	 * This method iterates through an array of ObjectData objects and saves them into the ObjectCollectionService.
-	 * @param data - Array of ObjectData parsed from JSON file
+	 * This method iterates through an array of Data objects and saves them into the ObjectCollectionService.
+	 * @param data - Array of Data parsed from JSON file
 	 */
-	public void parseJsonObjects(ObjectData[] data)
+	public void parseJsonObjects(Data[] data)
 	{
-		// Removes previously stored ObjectData objects stored from other files
+		// Removes previously stored Data objects stored from other files
 		//TODO: Add configurable to allow option to concatenate data from multiple files
 		//TODO: Add JSON feed functionality and support
+        //TODO: Change this to create an Entity of data objects rather than Data
 		obj_svc.clearObjectService();
-		
-		for(ObjectData od : data)
+
+		for(Data od : data)
 		{
 			this.obj_data = od;
 			obj_data.setName(obj_data.getName().toUpperCase());
@@ -87,7 +88,7 @@ public class InputParserService
 			}
 		}
 	}
-	
+
 
 
 	/**
@@ -113,7 +114,7 @@ public class InputParserService
 			case CHAR:
 				obj_data.setData(Character.valueOf(charParse(obj_data.getData().toString())));
 				break;
-			case DOUBLE: 
+			case DOUBLE:
 				if(selector == 1)
 				{
 					obj_data.setData(doubleParse(obj_data.getData().toString()));
@@ -132,16 +133,16 @@ public class InputParserService
 			throw new IllegalArgumentException("DataConversionService::dataChecker():135 - [" + obj_data.getType() + "] is NOT an accepted data type");
 		}
 		return result;
-	
-		
+
+
 	}
 
 
 	/**
-	 * For ObjectData objects that have a declared type of DOUVLE, this method checks the value of the ObjectData type field
+	 * For Data objects that have a declared type of DOUVLE, this method checks the value of the Data type field
 	 * and verifies that it is a double in a string representation.
-	 * 
-	 * @param str String representation of ObjectData type field.
+	 *
+	 * @param str String representation of Data type field.
 	 * @return Double object holding the value of the specified string.
 	 */
 	private double doubleParse(String str)
@@ -155,15 +156,15 @@ public class InputParserService
 		{
 			value = Double.valueOf(str + ".0");
 		}
-		
+
 		return value;
 	}
-	
+
 	/**
-	 * For ObjectData objects that have a declared type of INT, this method checks the value of the ObjectData type field
+	 * For Data objects that have a declared type of INT, this method checks the value of the Data type field
 	 * and verifies that it is an integer in a string representation.
-	 * 
-	 * @param str String representation of ObjectData type field.
+	 *
+	 * @param str String representation of Data type field.
 	 * @return Integer object holding the value of the specified string.
 	 */
 	private int intParse(String str)
@@ -194,16 +195,16 @@ public class InputParserService
 	private char charParse(String str)
 	{
 		char ch;
-		
+
 		str.trim();
 		if(str.length() != 1)
 		{
 			throw new IllegalArgumentException("DataConversionService::charParse - Input stream exceeds maximum length of char: [Input value: " + str + " ]");
 		}
-		
+
 		ch = str.charAt(0);
-		
-		return ch; 
+
+		return ch;
 	}
 
 
@@ -222,9 +223,9 @@ public class InputParserService
 		}
 		else
 		{
-			throw new IllegalArgumentException("ParserService:boolParse - Expected Boolean: Returned: " + str.toString());			
+			throw new IllegalArgumentException("ParserService:boolParse - Expected Boolean: Returned: " + str.toString());
 		}
-		
+
 		return value;
 	}
 
@@ -240,7 +241,7 @@ public class InputParserService
 		//TODO: create an enum for all escape characters. Should be a separate class. Decouple!
 		boolean val = false;
 		char character = line.charAt(0);
-		
+
 		// Compare the first character of line to comment characters
 		if(character == '#')
 		{
@@ -248,12 +249,12 @@ public class InputParserService
 		}
 		return val;
 	}
-	
-	
+
+
 	private boolean getObjectType()
 	{
 		boolean result = false;
-		
+
 		for(ObjectType obj : ObjectType.values())
 		{
 			if(obj.getValue().equals(obj_data.getType()))

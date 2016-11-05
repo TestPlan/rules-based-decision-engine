@@ -23,10 +23,10 @@ public class Constraint
         logicalConjunction = LogicalConjunction.NONE;
     }
 
-    //TODO: left hand side SHALL be an ObjectData
-    //TODO: Because either the right or left hand side could be ObjectData, leftHandSide and rightHandSide should be Object not String.
-    //TODO: doubles, strings, etc, are implicitly cast to Object allowing for ObjectData to be used as operand.
-    //TODO: Must have check to verify that Object being compared to ObjectData Object matched the data type. i.e. NO (string < double) situations
+    //TODO: left hand side SHALL be an Data
+    //TODO: Because either the right or left hand side could be Data, leftHandSide and rightHandSide should be Object not String.
+    //TODO: doubles, strings, etc, are implicitly cast to Object allowing for Data to be used as operand.
+    //TODO: Must have check to verify that Object being compared to Data Object matched the data type. i.e. NO (string < double) situations
     public Constraint(Object leftHandSide, Operator operator, Object rightHandSide, LogicalConjunction logicalConjunction)
     {
         this.leftHandSide = leftHandSide;
@@ -53,8 +53,8 @@ public class Constraint
 
         boolean equal = false;
 
-        if (this.getLeftHandSide().equals(constraint.getLeftHandSide()) && 
-            this.getOperator().toString().equals(constraint.getOperator().toString()) && 
+        if (this.getLeftHandSide().equals(constraint.getLeftHandSide()) &&
+            this.getOperator().toString().equals(constraint.getOperator().toString()) &&
             this.getRightHandSide().equals(constraint.getRightHandSide()))
         {
             equal = true;
