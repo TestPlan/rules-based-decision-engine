@@ -123,9 +123,9 @@ public class Constraint
     @Override
     public String toString()
     {
-        return this.getLogicalConjunction().toString() + " " +
+        return this.getLogicalConjunction() + " " +
             this.getLeftHandSide() + " " +
-            this.getOperator().toString() + " " +
+            this.getOperator() + " " +
             this.getRightHandSide() + " ";
     }
 }

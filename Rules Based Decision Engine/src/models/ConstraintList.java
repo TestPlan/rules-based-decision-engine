@@ -8,15 +8,13 @@ import java.util.ArrayList;
  * @author Ian Markind
  * @version 1.0 - 10/22/2016.
  */
-//TODO: SHOULD rethink the whole arrayList thing.
-//TODO: but this class may be obsolete.
 public class ConstraintList
 {
     private ArrayList<Constraint> constraintList;
 
     public ConstraintList()
     {
-        constraintList = new ArrayList<Constraint>();
+        constraintList = new ArrayList<>();
     }
 
 
@@ -88,6 +86,37 @@ public class ConstraintList
         }
 
         return deleted;
+    }
+
+    /**
+     * TODO: throw exception if invalid?
+     * Checks if a constraintList is valid.
+     * To be valid:
+     * 1. The first Constraint must have a logicalConjunction of NONE
+     * 2. Every other Constraint in the list must have a LogicalConjunction != NONE (AND | OR)
+     * @return whether ot not the list of Constraints is valid
+     */
+    public boolean isValid()
+    {
+        if (!constraintList.get(0).getLogicalConjunction().equals(LogicalConjunction.NONE))
+        {
+            System.err.println("Invalid ConstraintList: First Constraint must have a LogicalConjunction of NONE.\n");
+            return false;
+        }
+
+        for (int i = 1; i < constraintList.size(); i++)
+        {
+            if (constraintList.get(i).getLogicalConjunction().equals(LogicalConjunction.NONE))
+            {
+                System.err.println("Invalid ConstraintList: element # " + i + " has a LogicalConjunction of NONE.\n" +
+                                    "Only the first element of a ConstraintList can have this value.\n" +
+                                    "All other elements must have a LogicalConjunction of AND | OR\n");
+                return false;
+            }
+        }
+        System.out.println("ConstraintList is Valid\n");
+
+        return true;
     }
 
     public ArrayList<Constraint> getConstraintList()

@@ -51,40 +51,46 @@ public class RuleCollectionService
     {
         Scanner ruleScanner;
 
-        try{
+        try
+        {
 
             ruleScanner = new Scanner(new FileReader(fileLoc));
 
-            while(ruleScanner.hasNextLine()){
+            while (ruleScanner.hasNextLine())
+            {
                 String txtLine = ruleScanner.nextLine();
-                @SuppressWarnings("unused")
-				String[] titleAction = txtLine.split(",");
+                @SuppressWarnings("unused") String[] titleAction = txtLine.split(",");
                 //Rule r = new Rule(titleAction[0], titleAction[1], titleAction[2], titleAction[3], titleAction[4]);
                 //rules.put(titleAction[0], r);
             }
 
         }
-        catch(FileNotFoundException e) {                                                //Exception if file is not found
+        catch (FileNotFoundException e)
+        {
+            //Exception if file is not found
             System.out.println("File not found!");
             System.exit(0);
         }
     }
 
-    public void exportRulesMade(){
-        PrintWriter outputStream = null;										//Writes the notes in notebook to the text file
-        try{
+    public void exportRulesMade()
+    {
+        PrintWriter outputStream = null;     //Writes the notes in notebook to the text file
+        try
+        {
             outputStream = new PrintWriter(fileLoc);
-            for(int i = 0; i < rules.size(); i++){
+            for (int i = 0; i < rules.size(); i++)
+            {
                 outputStream.println(rules.get(i).getTitle() + "," + rules.get(i).getAction());
             }
             outputStream.close();
         }
-        catch(FileNotFoundException e){
+        catch (FileNotFoundException e)
+        {
             System.out.println("Error opening file!");
             System.exit(0);
         }
     }
-
 
 
     public Map<String, Rule> getRules()
@@ -93,10 +99,12 @@ public class RuleCollectionService
     }
 
     @Override
-    public String toString(){
+    public String toString()
+    {
         String s = new String();
 
-        for(HashMap.Entry<String, Rule> rule : this.rules.entrySet()){
+        for (HashMap.Entry<String, Rule> rule : this.rules.entrySet())
+        {
             s += "Rule: " + rule.getKey() + "\n";
         }
 
