@@ -159,7 +159,7 @@ public class Entity
         }
         else
         {
-            this.name = "Entity";
+            this.name = "ENTITY";
         }
     }
 
