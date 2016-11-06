@@ -14,7 +14,7 @@ public class SerializationService
     private String fileloc = null;
     private final String fileExt = ".ser";
     private boolean b = false;
-    private static SerializationService instance = new SerializationService();
+    private static SerializationService instance = null;
 
     private SerializationService()
     {
@@ -23,13 +23,17 @@ public class SerializationService
 
     public static SerializationService getInstance()
     {
+        if (instance == null)
+        {
+            instance = new SerializationService();
+        }
         return instance;
     }
 
     public void serialize(Object o, String filename)
     {
         this.b = true;
-        this.chooseFileLocation();
+        chooseFileLocation();
 
         if(o instanceof Serializable)
         {
@@ -55,9 +59,8 @@ public class SerializationService
 
     public Object deserialize(Object o)
     {
-        //System.out.println(o.getClass());
         this.b = false;
-        this.chooseFileLocation();
+        chooseFileLocation();
 
         if (o instanceof Serializable)
         {
@@ -68,7 +71,6 @@ public class SerializationService
                 o = objectInput.readObject();
                 objectInput.close();
                 fileInput.close();
-                System.out.println(this.fileloc);
             }
             catch (IOException i)
             {
@@ -95,7 +97,6 @@ public class SerializationService
             fc.showOpenDialog(null);
         }
         this.fileloc = fc.getSelectedFile().getAbsolutePath() + "\\";
-        System.out.println(this.fileloc);
     }
 
 
