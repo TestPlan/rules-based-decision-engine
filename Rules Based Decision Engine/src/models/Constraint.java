@@ -1,5 +1,7 @@
 package models;
 
+import java.io.Serializable;
+
 /**
  * <h3>Constraint.java</h3>- represents a Drools Rule constraint, which is an expression, i.e. 5 > 4 or
  * Temperature.getTemp() > 98.9. Is one of the components that makes up a Rule.
@@ -7,7 +9,7 @@ package models;
  * @author Ian Markind
  * @version 1.0 - 10/22/2016.
  */
-public class Constraint
+public class Constraint implements Serializable
 {
     private Operator operator;
     private Object leftHandSide;
