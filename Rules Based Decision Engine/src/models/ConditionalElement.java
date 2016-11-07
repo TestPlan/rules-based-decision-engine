@@ -1,11 +1,13 @@
 package models;
 
+import java.io.Serializable;
+
 /**
  * Created by Klaydon Balicanta on 10/12/2016
  * Modified by Klaydon Balicanta on 10/26/2016
  */
 
-public class ConditionalElement
+public class ConditionalElement implements Serializable
 {
     private String patternBinding = ""; //instantiate with an empty string to alleviate nullPointer error
     private String pattern;
@@ -18,7 +20,7 @@ public class ConditionalElement
      * will always be considered true (Reference: 5.8.3.1 and figure 5.12 in the following link:
      * https://docs.jboss.org/drools/release/5.2.0.Final/drools-expert-docs/html/ch05.html#d0e3761)
      */
-    public ConditionalElement() 
+    public ConditionalElement()
     {
         this.pattern = "eval";
         this.constraints = new ConstraintList();
@@ -37,7 +39,7 @@ public class ConditionalElement
         this.patternBinding = patternBinding;
         this.pattern = pattern;
         this.constraints = constraints;
-        
+
     }
 
     /**
@@ -93,7 +95,7 @@ public class ConditionalElement
     }
 
     /*GETTERS AND SETTERS*/
-//TODO: Why have private setters and getters.. 
+//TODO: Why have private setters and getters..
     private void setPatternBinding(String newPB)
     {
         this.patternBinding = newPB;

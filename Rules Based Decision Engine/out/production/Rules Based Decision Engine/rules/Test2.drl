@@ -1,14 +1,12 @@
+import models.*;
+dialect "mvel"
+
 rule "Test"
-when " ( Temp.getTemp() >= 80 && 2100 == myPurchase.getTotal() && 21 >= Person.getAge() && 55 >= Person.getAge() && Person.getPerson("Donald Trump") == Person.isBufoon() ) 
-"
-then "Action Result"
+when 
+    $o : ObjectData ( TEMPERATURE > 65.3 && NAME == Trae ) 
 
-end
-
-rule "Test2"
-when " ( Temp.getTemp() >= 80 && 2100 == myPurchase.getTotal() && 21 >= Person.getAge() && 55 >= Person.getAge() && Person.getPerson("Donald Trump") == Person.isBufoon() ) 
-"
-then "We did it boys"
+then 
+    System.out.println("Jump");
 
 end
 

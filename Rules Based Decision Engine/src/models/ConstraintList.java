@@ -1,5 +1,6 @@
 package models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -8,7 +9,9 @@ import java.util.ArrayList;
  * @author Ian Markind
  * @version 1.0 - 10/22/2016.
  */
-public class ConstraintList
+//TODO: SHOULD rethink the whole arrayList thing.
+//TODO: but this class may be obsolete.
+public class ConstraintList implements Serializable
 {
     private ArrayList<Constraint> constraintList;
 

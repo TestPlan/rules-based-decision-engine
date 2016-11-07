@@ -2,9 +2,11 @@ package controllers;
 
 import models.*;
 import helpers.*;
+import models.Action;
 import services.FileWriterService;
 import services.RuleCollectionService;
 
+import javax.swing.*;
 import java.io.File;
 
 
@@ -89,4 +91,20 @@ public class Driver
         rcs.addRule(rule.getTitle(), rule);
         System.out.println(rcs.toString());
     }
+
+    /**
+     * This method's purpose is to give the user access to their file system so that they can choose the file
+     * they want to deserialize, or the directory they want their serialized file in.
+     */
+    public String chooseFileLocation(){
+        String fileLoc = new String();
+
+        JFileChooser fc = new JFileChooser(".");
+        fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        fc.showOpenDialog(null);
+        fileLoc = fc.getSelectedFile().getAbsolutePath() + "\\";
+
+        return fileLoc;
+    }
+
 }

@@ -1,11 +1,12 @@
 package models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Klaydon Balicanta on 10/25/2016.
  */
-public class ConditionalElementList
+public class ConditionalElementList implements Serializable
 {
     private ArrayList<ConditionalElement> conditionalElementsList;
 

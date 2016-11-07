@@ -1,10 +1,12 @@
 package models;
 
+import java.io.Serializable;
+
 /**
  * Created by Shiv on 10/11/2016.
  * @version 1.50
  */
-public class Action
+public class Action implements Serializable
 {
 
     private String action;
@@ -12,7 +14,7 @@ public class Action
     public Action()
     {
     }
-    
+
     public Action(String action)
     {
         this.action = action;
