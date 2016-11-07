@@ -1,9 +1,6 @@
-import models.*;
-dialect "mvel"
-
-rule "Test"
+rule "test"
 when 
-    $o : ObjectData ( TEMPERATURE > 65.3 && NAME == Trae ) 
+    $Test : TestScenario ( TEMPERATURE > 65.3 && NAME == Trae ) 
 
 then 
     System.out.println("Jump");

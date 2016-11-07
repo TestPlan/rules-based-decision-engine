@@ -6,6 +6,7 @@ import models.Operator;
 import models.Rule;
 import services.SerializationService;
 
+import javax.swing.*;
 import java.io.File;
 
 /**
@@ -21,9 +22,9 @@ public class Driver_MikeM
          * OBJECT DATA
          * - Represents data points that can be retrieved from an external source and stored in a data structure for later use
          */
-        models.ObjectData data1 = new models.ObjectData("TEMPERATURE", "DOUBLE", 15.5);
-        models.ObjectData data2 = new models.ObjectData("NAME" , "STRING" , "Mathew");
-        models.ObjectData data3 = new models.ObjectData("IS_HUNGRY" , "BOOLEAN" , true);
+        models.Data data1 = new models.Data("TEMPERATURE", "DOUBLE", 15.5);
+        models.Data data2 = new models.Data("NAME" , "STRING" , "Mathew");
+        models.Data data3 = new models.Data("IS_HUNGRY" , "BOOLEAN" , true);
 
 
         /**
@@ -67,12 +68,28 @@ public class Driver_MikeM
         Rule rule = new Rule(ruleName , condList , action);
 
         SerializationService ss = SerializationService.getInstance();
-        ss.serialize(rule, rule.getTitle());
+        ss.serialize(rule, chooseFileLocation() + rule.getTitle());
 
         Rule rule1 = new Rule();
-        rule1 = (Rule) ss.deserialize(rule);
+        rule1 = (Rule) ss.deserialize(chooseFileLocation());
 
         System.out.println(rule.toString());
 
     }
+
+    /**
+     * This method's purpose is to give the user access to their file system so that they can choose the file
+     * they want to deserialize, or the directory they want their serialized file in.
+     */
+    public static String chooseFileLocation(){
+        String fileLoc = new String();
+
+        JFileChooser fc = new JFileChooser(".");
+        fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        fc.showOpenDialog(null);
+        fileLoc = fc.getSelectedFile().getAbsolutePath() + "\\";
+
+        return fileLoc;
+    }
+
 }
