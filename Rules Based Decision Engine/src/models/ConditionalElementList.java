@@ -10,6 +10,8 @@ public class ConditionalElementList implements Serializable
 {
     private ArrayList<ConditionalElement> conditionalElementsList;
 
+    //TODO: Add LogicalConjunction
+
     /**
      * Default constructor
      */
