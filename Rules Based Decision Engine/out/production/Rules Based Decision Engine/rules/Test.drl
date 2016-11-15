@@ -1,6 +1,9 @@
+import models.*;
+dialect "mvel"
+
 rule "test"
 when 
-    $Test : TestScenario ( TEMPERATURE > 65.3 && NAME == Trae ) 
+    $Test : models.Data ( 5.6 > 65.3 ) 
 
 then 
     System.out.println("Jump");

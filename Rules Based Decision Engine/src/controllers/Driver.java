@@ -30,16 +30,17 @@ public class Driver
          * OBJECT DATA
          * - Represents data points that can be retrieved from an external source and stored in a data structure for later use
          */
-        Data data1 = new Data("TEMPERATURE", "DOUBLE", 98.6);
+        Data data1 = new Data("TEMPERATURE", "DOUBLE", 5.6);
         Data data2 = new Data("NAME", "STRING", "Mathew");
         Data data3 = new Data("IS_HUNGRY", "BOOLEAN", true);
+        Data data4 = new Data("TEMPERATURE", "DOUBLE", 500.0);
 
         /**
          * CONSTRAINTS
          * - Specific constraints placed on different pieces of Data objects.
          */
-        Constraint constraint = new Constraint(data1, models.Operator.GREATER_THAN, 65.3, LogicalConjunction.NONE);
-        Constraint constraint2 = new Constraint(data2, Operator.EQUAL_TO, "Trae", LogicalConjunction.AND);
+        Constraint constraint = new Constraint(data4.getData(), models.Operator.GREATER_THAN, 65.3, LogicalConjunction.NONE);
+        //Constraint constraint2 = new Constraint(data2.getData(), Operator.EQUAL_TO, "Trae", LogicalConjunction.AND);
 
         /**
          * CONSTRAINT LIST
@@ -47,14 +48,14 @@ public class Driver
          */
         ConstraintList list = new ConstraintList();
         list.add(constraint);
-        list.add(constraint2);
+        //list.add(constraint2);
         list.isValid(); // testing that the validation is working
 
         /**
          * CONDITIONAL ELEMENT
          * - Creates the conditional element of a rule which consists of the pattern binding, pattern type and list of constraints
          */
-        ConditionalElement cond1 = new ConditionalElement("$Test", "TestScenario", list);
+        ConditionalElement cond1 = new ConditionalElement("$Test", data1.getClass().getName() , list);
 
         /**
          * CONDITIONAL ELEMENT LIST
@@ -85,7 +86,9 @@ public class Driver
         File file = creator.makeDroolsFile(ruleName);
         FileWriterService.getInstance().writeToFile(file, rule, false);
 
-        new RuleActivation("avoid.drl", data1);
+
+        Data[] dataList = {data1, data4};
+        new RuleActivation(chooseFileLocation(), dataList);
 
         RuleCollectionService rcs = RuleCollectionService.getInstance();
         rcs.addRule(rule.getTitle(), rule);
@@ -96,7 +99,7 @@ public class Driver
      * This method's purpose is to give the user access to their file system so that they can choose the file
      * they want to deserialize, or the directory they want their serialized file in.
      */
-    public String chooseFileLocation(){
+    public static String chooseFileLocation(){
         String fileLoc = new String();
 
         JFileChooser fc = new JFileChooser(".");

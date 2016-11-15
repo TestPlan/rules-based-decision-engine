@@ -22,7 +22,7 @@ import java.io.File;
 public class RuleActivation
 {
 
-    final private String localFilePath = new File("").getAbsolutePath() + "/src/rules/"; //Local path where our drl files are stored used by the KieFileSystem
+    private String localFilePath = new File("").getAbsolutePath() + "/src/rules/"; //Local path where our drl files are stored used by the KieFileSystem
 
     final private String kfsFilePath = "src/main/resources/org/kie/example/newRule.drl"; //path for the KieFileSystem to create a drl from a string
     //Must begin with src/main/resources/org
@@ -38,16 +38,17 @@ public class RuleActivation
     /**
      * This constructor creates the necessary components to activate the rules
      * from one drl file (retrieved from the passed in filename) and runs the passed in data with them.
-     * @param filename File name input for the KieFileSystem to use in rule activation
+     * @param localFilePath File name input for the KieFileSystem to use in rule activation
      * @param data Data from the user to pass into the drl files
      */
-    public RuleActivation(String filename, Data data)
+    public RuleActivation(String localFilePath, Data data)
     {
+        this.localFilePath = localFilePath;
         this.kServices = KieServices.Factory.get();
         this.kRepo = kServices.getRepository();
         this.kfs = kServices.newKieFileSystem();
 
-        addExistingFile(filename);
+        addExistingFile(localFilePath);
         buildKnowledgeSession(data);
         fireAllRules();
         dispose();
@@ -56,16 +57,16 @@ public class RuleActivation
     /**
      * This constructor creates the necessary components to activate the rules
      * from multiple drl files (retrieved from the passed in filenames) and runs the passed in data with them.
-     * @param filenames File names inputted for the KieFileSystem to use in rule activation.
+     * @param filePaths File names inputted for the KieFileSystem to use in rule activation.
      * @param data Data from the user to pass into the drl file.
      */
-    public RuleActivation(String[] filenames, Data data)
+    public RuleActivation(String[] filePaths, Data data)
     {
         this.kServices = KieServices.Factory.get();
         this.kfs = kServices.newKieFileSystem();
         this.kRepo = kServices.getRepository();
 
-        for (String filename : filenames)
+        for (String filename : filePaths)
         {
             addExistingFile(filename);
         }
@@ -92,6 +93,19 @@ public class RuleActivation
         dispose();
     }
 
+    public RuleActivation(String localFilePath, Data[] dataList){
+
+        this.localFilePath = localFilePath;
+        this.kServices = KieServices.Factory.get();
+        this.kfs = kServices.newKieFileSystem();
+        this.kRepo = kServices.getRepository();
+
+        addExistingFile(localFilePath);
+        buildKnowledgeSession(dataList);
+        fireAllRules();
+        dispose();
+    }
+
     /**
      * This method takes a drl file from a computer's local file system
      * and writes it to the KieFileSystem, which is a virtual file system used to read the drl file.
@@ -99,7 +113,7 @@ public class RuleActivation
      */
     public void addExistingFile(String filename)
     {
-        kfs.write(ResourceFactory.newFileResource(new File(localFilePath + filename)));  //This used to fire rules from
+        kfs.write(ResourceFactory.newFileResource(new File(localFilePath)));  //This used to fire rules from
         //existing drl files.
     }
 
@@ -134,6 +148,31 @@ public class RuleActivation
         kSession = this.kContainer.newKieSession();
 
         kSession.insert(data);
+
+    }
+
+    /**
+     * Overloaded method in case a user needs to insert multiple data objects into a drl file
+     * @param dataList
+     */
+    public void buildKnowledgeSession(Data[] dataList)
+    {
+        KieBuilder kb = kServices.newKieBuilder(kfs);
+        kb.buildAll();
+
+        if (kb.getResults().hasMessages(Message.Level.ERROR))
+        {
+            throw new RuntimeException("Build Errors: \n" + kb.getResults().toString());
+        }
+
+        kContainer = kServices.newKieContainer(kRepo.getDefaultReleaseId());
+
+        kSession = this.kContainer.newKieSession();
+
+        for(Data data : dataList)
+        {
+            kSession.insert(data);
+        }
 
     }
 

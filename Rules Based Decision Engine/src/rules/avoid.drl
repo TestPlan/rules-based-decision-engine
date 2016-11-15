@@ -4,7 +4,8 @@ dialect  "mvel"
 
 rule "avoid"
     when
-        o : ObjectData (getData() < 50)
+        d : Data (getData() < 50)
+        da : Data (getData() > 50)
     then
         System.out.println("Too Cold!");
 end

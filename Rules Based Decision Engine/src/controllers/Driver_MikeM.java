@@ -18,6 +18,8 @@ public class Driver_MikeM
 
         String ruleName = "Test";
 
+        System.out.println(ruleName.getClass().getName());
+
         /**
          * OBJECT DATA
          * - Represents data points that can be retrieved from an external source and stored in a data structure for later use
