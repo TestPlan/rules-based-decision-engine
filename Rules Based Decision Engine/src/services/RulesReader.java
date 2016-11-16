@@ -90,7 +90,7 @@ public class RulesReader
     public String printMap()
     {
         String temp = "";
-        Iterator iterator = ruleList.entrySet().iterator();
+       // Iterator iterator = ruleList.entrySet().iterator();
         for (String key : ruleList.keySet())
         {
             temp += "\n" + "Rule Key: " + key.toString() + "\n" + ruleList.get(key);

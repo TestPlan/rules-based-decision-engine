@@ -2,6 +2,7 @@ package services;
 
 
 import models.Data;
+import models.Entity;
 import models.ObjectType;
 
 /**
@@ -19,6 +20,7 @@ public class InputParserService
      */ ObjectCollectionService obj_svc = ObjectCollectionService.getInstance();
 
     private Data obj_data;
+    private Entity entity;
     private ObjectType obj_type;
     private static InputParserService INSTANCE = null;
     private int selector = 0;
@@ -42,7 +44,7 @@ public class InputParserService
     /**
      * Takes an array of lines of a text file and turns them into an objectdata objects.
      *
-     * @param line - Line of text file.
+     * @param lines - Line of text file.
      */
     public void parseTextLine(java.util.ArrayList<String> lines)
     {
@@ -83,7 +85,6 @@ public class InputParserService
         for (Data od : data)
         {
             this.obj_data = od;
-            obj_data.setName(obj_data.getName().toUpperCase());
             if (dataChecker())
             {
                 obj_svc.insertDataObject(obj_data.getName(), obj_data);
@@ -95,7 +96,6 @@ public class InputParserService
     /**
      * Checks if argument is a valid ObjectType.
      *
-     * @param dataType
      * @return true if dataType is a valid enumeration.
      */
     private boolean dataChecker()

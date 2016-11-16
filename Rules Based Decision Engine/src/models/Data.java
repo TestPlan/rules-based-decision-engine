@@ -110,7 +110,9 @@ public class Data implements Serializable
 	 */
 	public String toString()
 	{
-		return this.name.toString();
+		String temp ="";
+        temp += this.name + " "+ this.type + " " + this.value;
+        return temp;
 	}
 
 

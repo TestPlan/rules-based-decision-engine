@@ -2,6 +2,7 @@ package services;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 
@@ -9,7 +10,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import models.Data;
+import models.Entity;
 import models.Rule;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  * This class will utilize a Scanner to parse a text file for data.
@@ -85,7 +89,42 @@ public class FileReaderService
         }
         return lines;
     }
+    /*
+     * readJsonFile reads a json file and returns an Entity
+     *
+     */
+    public Entity readJsonFile(String filename)
+    {
 
+
+        org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
+
+        try
+        {
+            Object obj = parser.parse(new FileReader(filename));
+            JSONObject jsonObject = (JSONObject) obj;
+
+            String name = (String) jsonObject.get("entityName");
+            JSONArray data = (JSONArray) jsonObject.get("data");
+
+            HashMap<String, Data> tempmap = new HashMap<String, Data>();
+            for( Object jarray: data){
+                JSONObject tempkey = (JSONObject) jarray;
+                String dataname = (String) tempkey.get("name");
+                String datatype = (String) tempkey.get("type");
+                Object datavalue = (Object) tempkey.get("value");
+                Data tempdata = new Data(dataname, datatype, datavalue);
+                tempmap.put(dataname, tempdata);
+            }
+            Entity entity = new Entity(name, tempmap);
+            return entity;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
     /**
      * This method reads the JSON file and parses the data objects from it.
      *
@@ -94,6 +133,7 @@ public class FileReaderService
      */
     public Data[] readObjectDataFile(String filename)
     {
+
         Data[] data = null;
         try
         {
