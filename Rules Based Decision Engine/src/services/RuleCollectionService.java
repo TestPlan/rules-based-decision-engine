@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import static controllers.Driver.chooseFileLocation;
+
 /**
  * Created by Mike on 10/9/2016.
  */
@@ -20,7 +22,7 @@ public class RuleCollectionService
 
     private Map<String, Rule> rules = new HashMap<String, Rule>();
     //TODO: Make file location configurable
-    private final String fileLoc = "../rules.txt";
+    private String fileLoc = "";
 
 
     public static RuleCollectionService getInstance()
@@ -71,6 +73,16 @@ public class RuleCollectionService
             System.out.println("File not found!");
             System.exit(0);
         }
+    }
+
+    public void setFileLoc()
+    {
+        this.fileLoc = chooseFileLocation();
+    }
+
+    public String getFileLoc()
+    {
+        return this.fileLoc;
     }
 
     public void exportRulesMade()

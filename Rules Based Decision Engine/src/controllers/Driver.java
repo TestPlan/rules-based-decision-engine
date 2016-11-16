@@ -30,17 +30,17 @@ public class Driver
          * OBJECT DATA
          * - Represents data points that can be retrieved from an external source and stored in a data structure for later use
          */
-        Data data1 = new Data("TEMPERATURE", "DOUBLE", 5.6);
+        Data data1 = new Data("TEMPERATURE", "DOUBLE", 50.0);
         Data data2 = new Data("NAME", "STRING", "Mathew");
         Data data3 = new Data("IS_HUNGRY", "BOOLEAN", true);
-        Data data4 = new Data("TEMPERATURE", "DOUBLE", 500.0);
+        Data data4 = new Data("TEMPERATURE", "DOUBLE", 5.0);
 
         /**
          * CONSTRAINTS
          * - Specific constraints placed on different pieces of Data objects.
          */
-        Constraint constraint = new Constraint(data4.getData(), models.Operator.GREATER_THAN, 65.3, LogicalConjunction.NONE);
-        //Constraint constraint2 = new Constraint(data2.getData(), Operator.EQUAL_TO, "Trae", LogicalConjunction.AND);
+        Constraint constraint = new Constraint(data4.getData(), Operator.LESS_THAN, 65.3, LogicalConjunction.NONE);
+        Constraint constraint2 = new Constraint(data1.getData(), Operator.EQUAL_TO, 50, LogicalConjunction.AND);
 
         /**
          * CONSTRAINT LIST
@@ -48,7 +48,7 @@ public class Driver
          */
         ConstraintList list = new ConstraintList();
         list.add(constraint);
-        //list.add(constraint2);
+        list.add(constraint2);
         list.isValid(); // testing that the validation is working
 
         /**
