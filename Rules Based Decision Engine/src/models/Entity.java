@@ -13,14 +13,14 @@ import java.util.HashMap;
  */
 public class Entity
 {
-    private String name;
-    private HashMap<String, Data> map = new HashMap<>();
+    private String entityName;
+    private HashMap<String, Data> data = new HashMap<>();
 
     /**
      * Default constructor for type Entity
      */
     public Entity(){
-        name = "ENTITY";
+        entityName = "ENTITY";
     }
 
     /**
@@ -55,7 +55,7 @@ public class Entity
      */
     public void appendToMap(HashMap<String,Data> toAppend)
     {
-        map.putAll(toAppend);
+        data.putAll(toAppend);
     }
 
     /**
@@ -67,7 +67,7 @@ public class Entity
     public void updateData(String key, Data newData)
     {
         key = key.trim().toUpperCase();
-        map.replace(key, newData);
+        data.replace(key, newData);
     }
 
     /**
@@ -77,33 +77,33 @@ public class Entity
      */
     public void updateData(String key, Object newValue) {
         key = key.trim().toUpperCase();
-        Data data = map.get(key);
+        Data d = data.get(key);
 
         if (newValue instanceof Integer
             || newValue instanceof String
             || newValue instanceof Double
             || newValue instanceof Character
             || newValue instanceof Boolean) {
-            data.setData(newValue);
+            d.setData(newValue);
         }
     }
 
     /**
      * Adds data to map, only if the data's <code>name</code> is not already a key in the map
      *
-     * @param data The Data object to add to the map
+     * @param d The Data object to add to the map
      * @return <code>False</code> if the map already contained the key for this data
      */
-    public boolean addData(Data data)
+    public boolean addData(Data d)
     {
-        String key = name + data.getName().trim().toUpperCase();
-        if(map.containsKey(key))
+        String key = entityName + "." + d.getName().trim().toUpperCase();
+        if(data.containsKey(key))
         {
             return false;
         }
         else
         {
-            map.put(key, data);
+            data.put(key, d);
             return true;
         }
     }
@@ -115,7 +115,7 @@ public class Entity
     public void removeData(String key)
     {
         key = key.trim().toUpperCase();
-        map.remove(key);
+        data.remove(key);
     }
 
     /**
@@ -127,9 +127,9 @@ public class Entity
     public Data get(String key)
     {
         key = key.trim().toUpperCase();
-        if(map.containsKey(key))
+        if(data.containsKey(key))
         {
-            return map.get(key);
+            return data.get(key);
         }
         else
         {
@@ -145,11 +145,11 @@ public class Entity
     {
         if(name != null)
         {
-            this.name = name.toUpperCase();
+            this.entityName = name.toUpperCase();
         }
         else
         {
-            this.name = "ENTITY";
+            this.entityName = "ENTITY";
         }
     }
 
@@ -159,8 +159,8 @@ public class Entity
      */
     public void setData(HashMap<String,Data> newMap)
     {
-        map.clear();
-        map.putAll(newMap);
+        data.clear();
+        data.putAll(newMap);
     }
 
     /**
@@ -169,7 +169,7 @@ public class Entity
      */
     public String getName()
     {
-        return name;
+        return entityName;
     }
 
     /**
@@ -182,7 +182,7 @@ public class Entity
      */
     public HashMap<String,Data> getData()
     {
-        return map;
+        return data;
     }
 
     /**
@@ -193,9 +193,9 @@ public class Entity
     public String toString()
     {
         String temp = "";
-        temp += name + ":\n";
-        for(String s : map.keySet()){
-            temp += s + map.get(s).toString();
+        temp += entityName + ":\n";
+        for(String s : data.keySet()){
+            temp += s + data.get(s).toString();
             temp += "\n";
         }
 
