@@ -54,9 +54,18 @@ public class ImportDataDialog extends JDialog
             }
         });
 
-        /*
-         * Auto-generated code
+        /**
+         * Listener for Choose File
          */
+        btnChooseFile.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                onChooseFile();
+            }
+        });
+
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter()
@@ -75,22 +84,10 @@ public class ImportDataDialog extends JDialog
                 onCancel();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-
-        /**
-         * Choose File action listener
-         */
-        btnChooseFile.addActionListener(new ActionListener()
-        {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                onChooseFile();
-            }
-        });
     }
 
     /**
-     *
+     * Parses selected file to save it as an Entity
      */
     private void onOK()
     {
@@ -104,20 +101,28 @@ public class ImportDataDialog extends JDialog
         {
             fr.readFile(datafile.getAbsolutePath());
             // This method will have to call a JSON-specific method
+            //TODO: Add code to parse a JSON file
         }else if(datafile.getAbsolutePath().toUpperCase().endsWith(".CSV"))
         {
-            /* fr.readFile(datafile.getAbsolutePath());
-               This method will have to call a CSV-specific method
-             */
+            fr.readFile(datafile.getAbsolutePath());
+            //This method will have to call a CSV-specific method
+            //TODO: Add code to parse a CSV file
+
         }
         dispose();
     }
 
+    /**
+     * Exits dialog
+     */
     private void onCancel()
     {
         dispose();
     }
 
+    /**
+     * Opens a JFileChooser to select file
+     */
     private void onChooseFile()
     {
         File f;
