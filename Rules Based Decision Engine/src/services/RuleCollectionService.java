@@ -75,9 +75,9 @@ public class RuleCollectionService
         }
     }
 
-    public void setFileLoc()
+    public void setFileLoc(String fileLoc)
     {
-        this.fileLoc = chooseFileLocation();
+        this.fileLoc = fileLoc;
     }
 
     public String getFileLoc()
