@@ -14,12 +14,14 @@ import java.util.HashMap;
 public class Entity
 {
     private String name;
-    private HashMap<String, Data> map;
+    private HashMap<String, Data> map = new HashMap<>();
 
     /**
      * Default constructor for type Entity
      */
-    public Entity(){}
+    public Entity(){
+        name = "ENTITY";
+    }
 
     /**
      * Constructor for type Entity
@@ -45,15 +47,6 @@ public class Entity
         return temp.getData();
     }
 
-   /**
-     * Replace the map of Data objects with a new map of Data objects
-     * @param newMap The replacement map
-     */
-    public void replaceMap(HashMap<String,Data> newMap)
-    {
-        map = newMap;
-    }
-
     /**
      * Adds each Data object from <code>toAppend</code> to <code>map</code> only if its key does not
      * already exist in <code>map</code>
@@ -62,10 +55,7 @@ public class Entity
      */
     public void appendToMap(HashMap<String,Data> toAppend)
     {
-        for(String s : toAppend.keySet())
-        {
-            addData(toAppend.get(s)); // addData checks if the key exists before adding it
-        }
+        map.putAll(toAppend);
     }
 
     /**
@@ -106,7 +96,7 @@ public class Entity
      */
     public boolean addData(Data data)
     {
-        String key = data.getName().trim().toUpperCase();
+        String key = name + data.getName().trim().toUpperCase();
         if(map.containsKey(key))
         {
             return false;
@@ -155,7 +145,7 @@ public class Entity
     {
         if(name != null)
         {
-            this.name = name;
+            this.name = name.toUpperCase();
         }
         else
         {
@@ -165,18 +155,12 @@ public class Entity
 
     /**
      * Associates a map of Data objects with the Entity
-     * @param map A HashMap of Data objects
+     * @param newMap A HashMap of Data objects
      */
-    public void setData(HashMap<String,Data> map)
+    public void setData(HashMap<String,Data> newMap)
     {
-        if(map != null)
-        {
-            this.map = map;
-        }
-        else
-        {
-            this.map = new HashMap<String,Data>();
-        }
+        map.clear();
+        map.putAll(newMap);
     }
 
     /**
@@ -199,5 +183,22 @@ public class Entity
     public HashMap<String,Data> getData()
     {
         return map;
+    }
+
+    /**
+     * Formats info in Entity to a printable string.
+     * @return Formatted string containing all data in Entity
+     */
+    @Override
+    public String toString()
+    {
+        String temp = "";
+        temp += name + ":\n";
+        for(String s : map.keySet()){
+            temp += s + map.get(s).toString();
+            temp += "\n";
+        }
+
+        return temp;
     }
 }
