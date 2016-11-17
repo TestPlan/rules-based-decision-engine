@@ -43,7 +43,8 @@ public class MainView
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                //TODO: Add + New Action form
+                // Right now, this doesn't actually add an action. See to-do in PlusNewActionDialog code
+                PlusNewActionDialog.main(new String[0]);
             }
         });
     }
