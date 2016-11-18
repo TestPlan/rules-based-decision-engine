@@ -1,5 +1,6 @@
 package views;
 
+import com.thoughtworks.xstream.mapper.Mapper;
 import services.FileReaderService;
 
 import javax.swing.*;
@@ -93,23 +94,23 @@ public class ImportDataDialog extends JDialog
     {
         FileReaderService fr = FileReaderService.getInstance();
 
-        if (datafile == null)
-        {
-            onCancel();
+        try {
+            if (datafile == null) {
+                onCancel();
+            } else if (datafile.getAbsolutePath().toUpperCase().endsWith(".JSON")) {
+                fr.readFile(datafile.getAbsolutePath());
+                // This method will have to call a JSON-specific method
+                //TODO: Add code to parse a JSON file
+            } else if (datafile.getAbsolutePath().toUpperCase().endsWith(".CSV")) {
+                fr.readFile(datafile.getAbsolutePath());
+                //This method will have to call a CSV-specific method
+                //TODO: Add code to parse a CSV file
+            }
         }
-        else if (datafile.getAbsolutePath().toUpperCase().endsWith(".JSON"))
+        catch(NullPointerException n)
         {
-            fr.readFile(datafile.getAbsolutePath());
-            // This method will have to call a JSON-specific method
-            //TODO: Add code to parse a JSON file
+            System.out.println(n.getMessage());
         }
-        else if (datafile.getAbsolutePath().toUpperCase().endsWith(".CSV"))
-        {
-            fr.readFile(datafile.getAbsolutePath());
-            //This method will have to call a CSV-specific method
-            //TODO: Add code to parse a CSV file
-        }
-
         dispose();
     }
 
