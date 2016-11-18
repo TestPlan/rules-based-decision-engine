@@ -26,7 +26,6 @@ public class PlusNewActionDialog extends JDialog
         PlusNewActionDialog dialog = new PlusNewActionDialog();
         dialog.pack();
         dialog.setVisible(true);
-        System.exit(0);
     }
 
     public PlusNewActionDialog()
