@@ -21,6 +21,10 @@ public class PlusNewActionDialog extends JDialog
     private JTextField txtActionDescription;
     private JCheckBox automaticallyTriggerCheckBox;
 
+    /**
+     * Creates PlusNewActionDialog
+     * @param args command line arguments
+     */
     public static void main(String[] args)
     {
         PlusNewActionDialog dialog = new PlusNewActionDialog();
@@ -28,6 +32,9 @@ public class PlusNewActionDialog extends JDialog
         dialog.setVisible(true);
     }
 
+    /**
+     * Sets up dialog box and action listeners
+     */
     public PlusNewActionDialog()
     {
         setContentPane(contentPane);
@@ -70,14 +77,19 @@ public class PlusNewActionDialog extends JDialog
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
+    /**
+     * To be executed when the OK button is clicked
+     */
     private void onOK()
     {
         ActionController.getInstance().newAction(txtActionName.getText(), txtActionDescription.getText());
-        //if(automaticallyTriggerCheckBox.isSelected()){
-        //TODO: Set Action to auto trigger if above condition is met
+        //TODO: Set Action to auto trigger if automaticallyTriggerCheckBox.isSelected() is met
         dispose();
     }
 
+    /**
+     * To be executed when the cancel button is clicked
+     */
     private void onCancel()
     {
         dispose();
