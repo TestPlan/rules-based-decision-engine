@@ -1,5 +1,8 @@
 package views;
 
+import services.EntityCollectionService;
+import services.ActionCollectionService;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -29,6 +32,7 @@ public class MainView
 
     public MainView()
     {
+        // Import Data button
         importDataButton.addActionListener(new ActionListener()
         {
             @Override
@@ -38,13 +42,42 @@ public class MainView
                 ImportDataDialog.main(new String[0]);
             }
         });
+
+        // + New Action button
         newActionButton.addActionListener(new ActionListener()
         {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                // Right now, this doesn't actually add an action. See to-do in PlusNewActionDialog code
+                // The PlusNewActionDialog handles the creation of the Action object
                 PlusNewActionDialog.main(new String[0]);
+            }
+        });
+
+        // Select Rule Set Button
+        selectRuleSetButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                //TODO: Rule sets
+                //In the meantime, this button will just print the toStrings of everything stored at the moment
+                System.out.println(EntityCollectionService.getInstance().toString());
+                System.out.println(ActionCollectionService.getInstance().toString());
+            }
+        });
+
+        // + Fire Rules button
+        fireRulesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+            }
+        });
+
+        // + New Rule button
+        newRuleButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
             }
         });
     }

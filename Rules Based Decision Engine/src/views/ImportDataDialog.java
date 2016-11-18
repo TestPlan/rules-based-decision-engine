@@ -109,7 +109,7 @@ public class ImportDataDialog extends JDialog
                 onCancel();
             } else if (datafile.getAbsolutePath().toUpperCase().endsWith(".JSON")) {
                 e = fr.readJsonFile(datafile.getAbsolutePath());
-                EntityCollectionService.getInstance().insertEntity(e);
+                EntityCollectionService.getInstance().insertEntity(e.getName(), e);
             } else if (datafile.getAbsolutePath().toUpperCase().endsWith(".CSV")) {
                 fr.readFile(datafile.getAbsolutePath());
                 //This method will have to call a CSV-specific method

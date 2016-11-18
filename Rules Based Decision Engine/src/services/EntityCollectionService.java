@@ -75,5 +75,19 @@ public class EntityCollectionService {
         entity_map.clear();
     }
 
+    /**
+     * Formats Entities to print
+     * @return
+     */
+    public String toString()
+    {
+        String temp = null;
+        for (String key : entity_map.keySet())
+        {
+            entity_map.get(key).toString();
+        }
+        return temp;
+    }
+
 
 }
