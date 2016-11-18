@@ -20,6 +20,10 @@ public class ImportDataDialog extends JDialog
 
     private File datafile;
 
+    /**
+     * Code for creating ImportDataDialog
+     * @param args Command line arguments
+     */
     public static void main(String[] args)
     {
         ImportDataDialog dialog = new ImportDataDialog();
@@ -27,6 +31,9 @@ public class ImportDataDialog extends JDialog
         dialog.setVisible(true);
     }
 
+    /**
+     * Sets up dialog box
+     */
     public ImportDataDialog()
     {
         setContentPane(contentPane);
