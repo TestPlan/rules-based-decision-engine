@@ -9,7 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Created by michaelcrinite on 11/17/16.
+ * Main GUI Menu for Rules Based Decision Engine
+ * @author Michael Crinite
  */
 public class MainView
 {

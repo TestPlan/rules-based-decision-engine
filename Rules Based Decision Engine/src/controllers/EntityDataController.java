@@ -31,4 +31,6 @@ public class EntityDataController
             ObjectCollectionService.getInstance().insertDataObject(s, e.getData().get(e));
         }
     }
+
+    // TODO: Add functionality for removing Entity/Data?
 }

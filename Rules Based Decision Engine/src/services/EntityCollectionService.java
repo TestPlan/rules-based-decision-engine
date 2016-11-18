@@ -45,7 +45,6 @@ public class EntityCollectionService {
             entity_map.put(key, e);
         }
 
-        //TODO: add each of these data objects to ObjectCollectionService
         return true;
     }
 
@@ -65,6 +64,11 @@ public class EntityCollectionService {
         {
             return null;
         }
+    }
+
+    public Entity removeDataObject(String str)
+    {
+        return entity_map.remove(str.toUpperCase());
     }
 
     /**
