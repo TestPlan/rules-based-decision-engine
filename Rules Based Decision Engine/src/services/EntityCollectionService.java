@@ -1,5 +1,6 @@
 package services;
 
+import models.Data;
 import models.Entity;
 
 import java.util.HashMap;
@@ -9,7 +10,7 @@ import java.util.HashMap;
  */
 public class EntityCollectionService {
     private static EntityCollectionService INSTANCE;
-    private static HashMap<String, Entity> entity_list = new HashMap<String, Entity>();
+    private static HashMap<String, Entity> entity_map = new HashMap<String, Entity>();
 
     public EntityCollectionService(){}
 
@@ -26,19 +27,52 @@ public class EntityCollectionService {
         return INSTANCE;
     }
 
-    public static boolean insertEntity(Entity e)
+    /**
+     * Insert an Entity into the entity_list
+     * @param key A descriptive, memorable key to attach to this Entity
+     * @param e The entity to add
+     * @return <code>True</code> if the add was successful
+     */
+    public static boolean insertEntity(String key, Entity e)
     {
+        key = key.trim().toUpperCase();
+        if(entity_map.containsKey(key))
+        {
+            return false;
+        }
+        else
+        {
+            entity_map.put(key, e);
+        }
+
+        //TODO: add each of these data objects to ObjectCollectionService
         return true;
     }
 
+    /**
+     * Retrieve an Entity from the collection by its key
+     * @param key Key of the Entity to retrieve
+     * @return The Entity attached to the given key
+     */
     public static Entity retrieveEntity(String key)
     {
-        return null;
+        key = key.trim().toUpperCase();
+        if (entity_map.containsKey(key))
+        {
+            return entity_map.get(key);
+        }
+        else
+        {
+            return null;
+        }
     }
 
+    /**
+     * Clears the collection of entities.
+     */
     public static void clearEntityService()
     {
-
+        entity_map.clear();
     }
 
 

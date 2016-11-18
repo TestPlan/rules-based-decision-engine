@@ -3,6 +3,7 @@ package views;
 import services.EntityCollectionService;
 import services.FileReaderService;
 import models.Entity;
+import services.ObjectCollectionService;
 
 import javax.swing.*;
 import java.awt.*;
@@ -108,7 +109,7 @@ public class ImportDataDialog extends JDialog
                 onCancel();
             } else if (datafile.getAbsolutePath().toUpperCase().endsWith(".JSON")) {
                 e = fr.readJsonFile(datafile.getAbsolutePath());
-                EntityCollectionService.getInstance()
+                EntityCollectionService.getInstance().insertEntity(e);
             } else if (datafile.getAbsolutePath().toUpperCase().endsWith(".CSV")) {
                 fr.readFile(datafile.getAbsolutePath());
                 //This method will have to call a CSV-specific method
