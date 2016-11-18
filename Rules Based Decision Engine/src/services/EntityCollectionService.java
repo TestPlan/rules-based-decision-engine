@@ -85,10 +85,10 @@ public class EntityCollectionService {
      */
     public String toString()
     {
-        String temp = null;
+        String temp = "";
         for (String key : entity_map.keySet())
         {
-            entity_map.get(key).toString();
+            temp = temp + entity_map.get(key).toString() + "\n";
         }
         return temp;
     }
