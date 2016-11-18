@@ -1,7 +1,7 @@
 package views;
 
-import com.thoughtworks.xstream.mapper.Mapper;
 import services.FileReaderService;
+import models.Entity;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +11,7 @@ import java.io.File;
 public class ImportDataDialog extends JDialog
 {
     private JPanel contentPane;
-    private JButton buttonOK;
+    private JButton buttonSave;
     private JButton buttonCancel;
     private JLabel lblDataFile;     //Will never change
     private JPanel pnlSelectFile;   //Will never change
@@ -38,16 +38,16 @@ public class ImportDataDialog extends JDialog
     {
         setContentPane(contentPane);
         setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
+        getRootPane().setDefaultButton(buttonSave);
 
         /**
-         * Listener for OK button
+         * Listener for Save button
          */
-        buttonOK.addActionListener(new ActionListener()
+        buttonSave.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
             {
-                onOK();
+                onSave();
             }
         });
 
@@ -97,11 +97,12 @@ public class ImportDataDialog extends JDialog
     /**
      * Parses selected file to save it as an Entity
      */
-    private void onOK()
+    private void onSave()
     {
         FileReaderService fr = FileReaderService.getInstance();
 
         try {
+            Entity e;
             if (datafile == null) {
                 onCancel();
             } else if (datafile.getAbsolutePath().toUpperCase().endsWith(".JSON")) {
@@ -176,9 +177,9 @@ public class ImportDataDialog extends JDialog
         final JPanel panel2 = new JPanel();
         panel2.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 2, new Insets(0, 0, 0, 0), -1, -1, true, false));
         panel1.add(panel2, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        buttonOK = new JButton();
-        buttonOK.setText("OK");
-        panel2.add(buttonOK, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        buttonSave = new JButton();
+        buttonSave.setText("OK");
+        panel2.add(buttonSave, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         buttonCancel = new JButton();
         buttonCancel.setText("Cancel");
         panel2.add(buttonCancel, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
