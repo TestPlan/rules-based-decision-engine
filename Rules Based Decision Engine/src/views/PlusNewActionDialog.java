@@ -1,10 +1,17 @@
 package views;
 
+import controllers.ActionController;
 import services.ActionCollectionService;
 
 import javax.swing.*;
 import java.awt.event.*;
 
+/**
+ * Dialog for creating new Action from MainView screen
+ *
+ * @author Michael Crinite
+ * @version 11.17.16
+ */
 public class PlusNewActionDialog extends JDialog
 {
     private JPanel contentPane;
@@ -66,9 +73,7 @@ public class PlusNewActionDialog extends JDialog
 
     private void onOK()
     {
-        ActionCollectionService acr = ActionCollectionService.getInstance();
-        //acr.insertActions(txtActionName.getText(), txtActionDescription.getText());
-        //TODO: Add code to create a new action here? (Can't directly call models.Action according to MVC)
+        ActionController.getInstance().newAction(txtActionName.getText(), txtActionDescription.getText());
         //if(automaticallyTriggerCheckBox.isSelected()){
         //TODO: Set Action to auto trigger if above condition is met
         dispose();
