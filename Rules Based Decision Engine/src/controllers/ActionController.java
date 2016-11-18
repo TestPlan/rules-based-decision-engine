@@ -12,7 +12,7 @@ import services.ActionCollectionService;
  */
 public class ActionController
 {
-    public static ActionController INSTANCE = null;
+    public static ActionController INSTANCE;
 
     public ActionController() {}
 
