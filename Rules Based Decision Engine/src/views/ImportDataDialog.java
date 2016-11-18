@@ -1,5 +1,6 @@
 package views;
 
+import controllers.EntityDataController;
 import services.EntityCollectionService;
 import services.FileReaderService;
 import models.Entity;
@@ -109,7 +110,7 @@ public class ImportDataDialog extends JDialog
                 onCancel();
             } else if (datafile.getAbsolutePath().toUpperCase().endsWith(".JSON")) {
                 e = fr.readJsonFile(datafile.getAbsolutePath());
-                EntityCollectionService.getInstance().insertEntity(e.getName(), e);
+                EntityDataController.getINSTANCE().addEntity(e);
             } else if (datafile.getAbsolutePath().toUpperCase().endsWith(".CSV")) {
                 fr.readFile(datafile.getAbsolutePath());
                 //This method will have to call a CSV-specific method
