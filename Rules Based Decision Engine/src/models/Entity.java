@@ -38,12 +38,16 @@ public class Entity
     /**
      * Finds the value of a Data object based on its key
      *
-     * @param str The key in the hashmap associated with the object
+     * @param key The key in the hashmap associated with the object
      * @return The value of the associated Data object
      */
-    public Object getValue(String str)
+    public Object getValue(String key)
     {
-        Data temp = get(str);   // get (below) standardizes str
+        key = key.toUpperCase();
+        Data temp = null;
+        if(this.data.containsKey(key)){
+            temp = this.data.get(key);   // get (below) standardizes str
+        }
         return temp.getData();
     }
 
