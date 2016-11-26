@@ -21,7 +21,7 @@ public class InputParserService
 
     /*
      * GLOBAL SERVICES
-     */ 
+     */
 	ObjectCollectionService obj_svc = ObjectCollectionService.getInstance();
 	EntityCollectionService entity_svc = EntityCollectionService.getInstance();
 
@@ -58,14 +58,14 @@ public class InputParserService
         Object[] data = new Object[3];
         String entity_name = "";
         boolean first_line = true;
-        
+
         for (int i = 0; i < lines.size(); i++)
         {
             if (!isComment(lines.get(i)))
             {
                 data = lines.get(i).split(":", 3);
                 data[0] = data[0].toString().toUpperCase().trim();
-                
+
             	if (first_line)
             	{
             		if(data[0].toString().trim() == "entity_name")
@@ -82,9 +82,9 @@ public class InputParserService
         }
         obj_svc.putAll(entity_map);
     	entity_svc.put(new Entity(entity_name , entity_map.keySet()));
-        
+
     }
-    
+
     /**
 	 * This method iterates through an array of Data objects and saves them into the ObjectCollectionService.
 	 *
@@ -93,27 +93,27 @@ public class InputParserService
 	public void parseJson(Map<String,Object> map)
 	{
 		HashMap<String, Object> entity_map = new HashMap<String, Object>();
-		
+
 		String entity_name = (String) map.remove("entity.name");
-		
+
 		if(entity_name == null)
 		{
 			entity_name = entity_svc.defaultName();
 		}
-		
+
 		entity_name = entity_name.toUpperCase();
 
-		
-		for(Iterator<String> iterator = map.keySet().iterator(); iterator.hasNext();) 
+
+		for(Iterator<String> iterator = map.keySet().iterator(); iterator.hasNext();)
 		{
 			String key = iterator.next();
 			Object value = map.get(key);
-			
+
 			entity_map.put(entity_name + "." + key.toUpperCase(), dataConversion(value));
 		}
-		
+
 		obj_svc.putAll(entity_map);
-		    	
+
 		entity_svc.put(new Entity(entity_name , entity_map.keySet()));
 	}
 
@@ -138,9 +138,9 @@ public class InputParserService
 			else
 				return (String)obj;
 		}
-		
+
 		return obj;
-		
+
 	}
 
 
@@ -155,7 +155,7 @@ public class InputParserService
     {
     	String value = (String) obj[2];
     	value = value.trim();
-    	
+
         obj_type = null;
         Object data;
         if (getObjectType(obj[1].toString()))
@@ -187,7 +187,7 @@ public class InputParserService
         {
             throw new IllegalArgumentException("DataConversionService::dataChecker(): [" + obj[1].toString() + "] is NOT an accepted data type");
         }
-       
+
         data = obj[2];
         return data;
 
@@ -211,7 +211,7 @@ public class InputParserService
 	    {
 	        value = Double.valueOf(str + ".0");
 	    }
-	
+
 	    return value;
 	}
 
@@ -250,15 +250,15 @@ public class InputParserService
 	private char charParser(String str)
 	{
 	    char ch;
-	
+
 	    str.trim();
 	    if (str.length() != 1)
 	    {
 	        throw new IllegalArgumentException("DataConversionService::charParse - Input stream exceeds maximum length of char: [Input value: " + str + " ]");
 	    }
-	
+
 	    ch = str.charAt(0);
-	
+
 	    return ch;
 	}
 
@@ -298,7 +298,7 @@ public class InputParserService
     private boolean isChar(String str)
 	{
 		boolean result = false;
-		
+
 		if (str.trim().length() == 1)
 		{
 			result = true;
@@ -343,18 +343,18 @@ public class InputParserService
         }
         return result;
     }
-    
-    
+
+
     /**
     * Converts .drl Conditional Element from infix notation to postfix notation for object storage.
-    * @param str
+    * @param infix
     * @return postfix notation of infix string.
     */
-   public String infixToPostfix(String str)
+   public String infixToPostfix(String infix)
    {
        Stack<String> opStack = new Stack<String>();
        StringBuilder builder = new StringBuilder();
-       String[] input = str.split(" ");
+       String[] input = infix.split(" ");
 
        for(int i = 0; i < input.length; i++)
        {
@@ -362,7 +362,7 @@ public class InputParserService
 
            if(!isOperator(value))
                builder.append(value + " ");
-           
+
            else if(opStack.isEmpty() || operatorPriority(opStack.peek(), value))
            {
                if(!value.equals(")"))
@@ -393,6 +393,37 @@ public class InputParserService
        return builder.toString();
    }
 
+    /**
+     * Converts Conditional Element object from its stored postfix notation to infix notation for .drl file building.
+     * @param postfix - The stored parameters for the conditional element object in postfix notation
+     * @return Infix notation of postfix string.
+     */
+   public String postfixToInfix(String postfix)
+   {
+       Stack<String> infStack = new Stack<String>();
+       String[] input = postfix.split(" ");
+
+
+       for(int i = 0; i < input.length; i++)
+       {
+           String value = input[i].trim();
+           if(!isOperator(value))
+           {
+               infStack.push(value);
+           }
+           else
+           {
+               String operandB = infStack.pop();
+               String operandA = infStack.pop();
+               String answer = "( " + operandA + " " + value + " " + operandB + " )";
+               infStack.push(answer);
+
+           }
+
+       }
+       return infStack.pop();
+   }
+
    /**
     * Method compares the current operator to the operator on the top of the operator stack.
     * @param topStack
@@ -407,7 +438,7 @@ public class InputParserService
        {
            if(nextOp.equals("&&") || nextOp.equals("("))
                value = true;
-           
+
            else if(nextOp.equals("||"))
                value = false;
        }
