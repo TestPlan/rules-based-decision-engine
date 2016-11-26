@@ -1,6 +1,5 @@
 package controllers;
 
-import exceptions.ActionException;
 import models.Action;
 import services.ActionCollectionService;
 
@@ -32,55 +31,27 @@ public class ActionTester
         System.out.println("-> " + a3);
 
 
-        try
-        {
-            a.insertActions("Action-1", a1);
-        }
-        catch (ActionException e)
-        {
-            System.out.println(e.toString());
-        }
+        a.put("Action-1", a1);
 
         System.out.println("\nAction List adding a1: " + a);
-        try
-        {
-            a.insertActions("Action-2", a2);
-        }
-        catch (ActionException e)
-        {
-            System.out.println(e.toString());
-        }
+        a.put("Action-2", a2);
 
         System.out.println("Action List adding a2: " + a);
 
-        a.removeAction("Action-1");
+        a.remove("Action-1");
 
         System.out.println("After Remove Action a1 List: " + a);
 
 
         a1.setAction("Action 1 modified");
-        try
-        {
-            a.insertActions("Action-3", a3);
-        }
-        catch (ActionException e)
-        {
-            System.out.println(e.toString());
-        }
+        a.put("Action-3", a3);
 
-        try
-        {
-            a.insertActions("Action-1", a1);
-        }
-        catch (ActionException e)
-        {
-            System.out.println(e.toString());
-        }
+        a.put("Action-1", a1);
 
         System.out.println("After Adding Action List: " + a);
 
 
-        //    a.removeAction("Action-5");
-        // System.out.println("Tried Removing A-5");
+            a.remove("Action-5");
+         System.out.println("Tried Removing A-5");
     }
 }

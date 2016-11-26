@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  * Created by shiv on 10/23/2016.
@@ -15,10 +14,10 @@ import java.util.Iterator;
 public class RulesReader
 {
     /**
-    *   @pathName - Stores the path where the file is located
-    *   @fileName - Stores the Name of the file
-    *   @line     - Stores the Line after reading from the file
-    */
+     * @pathName - Stores the path where the file is located
+     * @fileName - Stores the Name of the file
+     * @line - Stores the Line after reading from the file
+     */
     public String pathName = "./src//rules//";
     public String fileName = "avoid.drl";
     public HashMap<String, String> ruleList = new HashMap<String, String>();
@@ -79,7 +78,6 @@ public class RulesReader
     public String printKeys()
     {
         String temp = "";
-        Iterator iterator = ruleList.entrySet().iterator();
         for (String key : ruleList.keySet())
         {
             temp += "\n" + "Rule Key: " + key.toString();
@@ -90,7 +88,7 @@ public class RulesReader
     public String printMap()
     {
         String temp = "";
-        Iterator iterator = ruleList.entrySet().iterator();
+       // Iterator iterator = ruleList.entrySet().iterator();
         for (String key : ruleList.keySet())
         {
             temp += "\n" + "Rule Key: " + key.toString() + "\n" + ruleList.get(key);
@@ -98,13 +96,16 @@ public class RulesReader
         return temp;
     }
 
-    public String getRule(String title){
-        if(ruleList.isEmpty()){
+    public String getRule(String title)
+    {
+        if (ruleList.isEmpty())
+        {
             readDroolsFile();
         }
 
         return ruleList.get(title).toString();
     }
+
     /*
      * Reads the file line by line and stores the current line to a String line
      * and Prints the entire file
@@ -131,7 +132,7 @@ public class RulesReader
                     //  = line.substring(0, 4);
                     title = line.substring(4);
                     title = title.trim();
-                   // System.out.println(title);
+                    // System.out.println(title);
 
                     //Skipping Blank Lines
                     while ((line = bufferedReader.readLine()) == null)
@@ -146,7 +147,7 @@ public class RulesReader
                         {
                             ruleLines += line;
                         }
-                       // System.out.println("when" + "\n" + ruleLines);
+                        // System.out.println("when" + "\n" + ruleLines);
                         ruleList.put(title, ruleLines);
 
                     }

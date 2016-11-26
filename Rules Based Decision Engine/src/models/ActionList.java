@@ -67,7 +67,7 @@ public class ActionList
 		
 		if(act_svc.containsKey(name))
 		{
-			this.action = act_svc.getAction(name);
+			this.action = act_svc.get(name);
 			if(this.action.equals(action))
 			{
 				result = true;
@@ -79,7 +79,7 @@ public class ActionList
 				//TODO: should user update existing <key,value> pair or should user enter a new key for the value?
 			}
 		}
-		else if (act_svc.containsAction(this.action))
+		else if (act_svc.containsValue(this.action))
 		{
 			//TODO: Notify the user that action already exists in a different <key,value> pair. 
 			//TODO: Prompt the user for a new Key or ask the user if they want to use existing <key,value> pair matching key.
@@ -87,12 +87,7 @@ public class ActionList
 		else
 		{
 			result = true;
-			// Unique <key,value> pair results in a new entry directly into ActionCollectionService and actionMap
-			try {
-				act_svc.insertActions(name, action);
-			} catch (ActionException e) {
-				e.printStackTrace();
-			}
+			act_svc.put(name, action);
 		}
 		
 		return result;

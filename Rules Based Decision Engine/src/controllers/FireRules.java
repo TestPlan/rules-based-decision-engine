@@ -1,6 +1,5 @@
 package controllers;
 
-import models.ObjectData;
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieBuilder;
 import org.kie.api.builder.KieFileSystem;
@@ -29,7 +28,7 @@ public class FireRules {
     private KieFileSystem kfs;
     private KieRepository kRepo;
 
-    public FireRules(String filename, ObjectData objectData)
+    public FireRules(String filename, Object obj)
     {
         this.kServices = KieServices.Factory.get();
         this.kResources = kServices.getResources();
@@ -37,7 +36,7 @@ public class FireRules {
         this.kRepo = kServices.getRepository();
 
         addExistingFile(filename);
-        buildKnowledgeSession(objectData);
+        buildKnowledgeSession(obj);
         fireAllRules();
         dispose();
     }
@@ -63,7 +62,7 @@ public class FireRules {
                                                                                     //existing drl files.
     }
 
-    public KieSession buildKnowledgeSession(ObjectData objectData)
+    public KieSession buildKnowledgeSession(Object obj)
     {
         KieBuilder kb = kServices.newKieBuilder(kfs);
         kb.buildAll();
@@ -77,7 +76,7 @@ public class FireRules {
 
         kSession = this.kContainer.newKieSession();
 
-        kSession.insert(objectData);
+        kSession.insert(obj);
 
         return kSession;
     }

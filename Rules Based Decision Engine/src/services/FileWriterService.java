@@ -13,7 +13,7 @@ import java.io.IOException;
  *
  * @author Michael Crinite
  */
-public class FileWriterService 
+public class FileWriterService
 {
     private static FileWriterService INSTANCE = null;
 
@@ -24,9 +24,9 @@ public class FileWriterService
      *
      * @return The class instance
      */
-    public static FileWriterService getInstance() 
+    public static FileWriterService getInstance()
     {
-        if (INSTANCE == null) 
+        if (INSTANCE == null)
         {
             INSTANCE = new FileWriterService();
         }
@@ -34,6 +34,7 @@ public class FileWriterService
     }
 
     /**
+     *
      * Attempts to write to a file. Accepts the File object and the Rule object.
      * If a file does not exist in the specified location, it creates one there.
      *
@@ -42,16 +43,16 @@ public class FileWriterService
      * @param append If <code>true</code>, the writer will begin writing at the end of the file, rather
      *               than at the beginning. If <code>false</code> the writer will overwrite the file.
      */
-    public void writeToFile(File file, Rule rule, boolean append) 
+    public void writeToFile(File file, Rule rule, boolean append)
     {
-        try 
+        try
         {
             String content = rule.toString();
 
             // Create file if it doesn't exist
-            if (!file.exists()) 
+            if (!file.exists())
             {
-                new CreateDroolsFile(rule.getTitle());
+                new CreateDroolsFile().makeDroolsFile(rule.getTitle());
             }
 
             FileWriter fw = new FileWriter(file.getAbsoluteFile(), append);
@@ -60,12 +61,30 @@ public class FileWriterService
 
             bw.write("\n\n"); // Newlines for writing additional rules
             bw.close();
-        } 
-        catch (IOException e) 
+        }
+        catch (IOException e)
         {
             e.printStackTrace();
         }
-
     }
 
+    //TODO: Finish export rules method
+/*    public void exportRulesMade()
+    {
+        PrintWriter outputStream = null;     //Writes the notes in notebook to the text file
+        try
+        {
+            outputStream = new PrintWriter(fileLoc);
+            for (int i = 0; i < rules.size(); i++)
+            {
+                outputStream.println(rules.get(i).getTitle() + "," + rules.get(i).getAction());
+            }
+            outputStream.close();
+        }
+        catch (FileNotFoundException e)
+        {
+            System.out.println("Error opening file!");
+            System.exit(0);
+        }
+    }*/
 }

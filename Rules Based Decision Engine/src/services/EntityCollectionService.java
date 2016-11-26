@@ -1,35 +1,34 @@
 package services;
 
-import models.Rule;
+import models.Entity;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Set;
 
-
 /**
- * Created by Mike on 10/9/2016.
- * Modified 11/24/16 (Trae X. Lewis)
+ * Created by Mike on 11/17/2016.
  */
-public class RuleCollectionService implements Collectable<Rule>
+public class EntityCollectionService implements Collectable<Entity>
 {
+    private static EntityCollectionService INSTANCE;
+    private HashMap<String, Entity> map = new HashMap<String, Entity>();
+    private HashMap<String, Entity> redundant_list = new HashMap<String, Entity>();
 
-    private static RuleCollectionService INSTANCE = null;
-    private HashMap<String, Rule> rules = new HashMap<String, Rule>();
-    private HashMap<String, Rule> redundant_list = new HashMap<String, Rule>();
+    private int Counter = 1;
 
+    private EntityCollectionService(){}
 
-
-    public static RuleCollectionService getInstance()
+    /**
+     * Creates the single instance of this Class, or returns the only existing one
+     * @return The single instance of this class
+     */
+    public static EntityCollectionService getInstance()
     {
         if (INSTANCE == null)
         {
-        	INSTANCE = new RuleCollectionService();
+            INSTANCE = new EntityCollectionService();
         }
         return INSTANCE;
-    }
-
-    private RuleCollectionService()
-    {
     }
 
     /**
@@ -43,8 +42,8 @@ public class RuleCollectionService implements Collectable<Rule>
 	public void clear()
 	{
 		redundant_list.clear();
-		this.rules = redundant_list;
-	    this.rules.clear();
+		this.map = redundant_list;
+	    this.map.clear();
 	}
 
 	/**
@@ -54,7 +53,7 @@ public class RuleCollectionService implements Collectable<Rule>
 	 */
 	public boolean containsKey(String key)
 	{
-	    return rules.containsKey(key);
+	    return map.containsKey(key);
 	}
 
 
@@ -63,9 +62,17 @@ public class RuleCollectionService implements Collectable<Rule>
 	 * @param value: value whose presence in this map is to be tested.
 	 * @return true if this map maps one or more keys to the specified value.
 	 */
-	public boolean containsValue(Rule value) 
+	public boolean containsValue(Entity value) 
 	{
-	    return rules.containsValue(value);
+	    return map.containsValue(value);
+	}
+
+	
+	public String defaultName()
+	{
+		String name = "ENTITY_" + Counter;
+		Counter++;
+		return name;
 	}
 
 	/**
@@ -74,9 +81,9 @@ public class RuleCollectionService implements Collectable<Rule>
 	 * 
 	 * @return a set view of the mappings contained in this map.
 	 */
-	public Set<Entry<String, Rule>> entrySet()
+	public Set<Entry<String, Entity>> entrySet()
 	{
-	    return this.rules.entrySet();
+	    return map.entrySet();
 	}
 
 	/**
@@ -86,10 +93,25 @@ public class RuleCollectionService implements Collectable<Rule>
 	 * @param key the key whose associated value is to be returned
 	 * @return the value to which the specified key is mapped, or null if this map contains no mapping for the key
 	 */
-	public Rule get(String key)
+	public Entity get(String key)
 	{
-	    return this.rules.get(key);
+	    return map.get(key);
 	}
+
+	/**
+     * Associates the specified Entity with the specified key in this map. 
+     * If the map previously contained a mapping for the key, the old value is replaced.
+     * The key is derived from the Entity object itself.
+     * @param value  value to be associated with the specified key
+     * @return the previous value associated with key, or null if there was no mapping for key. 
+     *         (A null return can also indicate that the map previously associated null with key.)
+     */
+    public Entity put(Entity value)
+    {
+    	String key = value.getEntityName().trim().toUpperCase();
+
+        return this.map.put(key, value);
+    }
 
 	/**
      * Associates the specified value with the specified key in this map (optional operation). 
@@ -101,9 +123,9 @@ public class RuleCollectionService implements Collectable<Rule>
      *         (A null return can also indicate that the map previously associated null with key, 
      *         if the implementation supports null values.)
      */
-    public Rule put(String key, Rule value) 
+    public Entity put(String key, Entity value) 
     {
-       return this.rules.put(key, value);
+       return this.map.put(key, value);
     }
     
     
@@ -114,33 +136,35 @@ public class RuleCollectionService implements Collectable<Rule>
      * 
      * @param map mappings to be stored in this map
      */
-    public void putAll(HashMap<String,Rule> map)
+    public void putAll(HashMap<String,Entity> map)
     {
-    	rules.putAll(map);
+    	map.putAll(map);
     }
-    
+
     /**
      * Removes the mapping for the specified key from this map if present.
      *
      * @param key key whose mapping is to be removed from the map
      * @return the previous value associated with key, or null if there was no mapping for key. (A null return can also indicate that the map previously associated null with key.)
      */
-    public Rule remove(String key)
+    public Entity remove(String key)
     {
-        return rules.remove(key);
+        return map.remove(key);
     }
-    
 
+    /**
+     * Returns a string representation of the object. 
+     * In general, the toString method returns a string that "textually represents" this object. 
+     * @return a string representation of the object.
+     */
     public String toString()
     {
-        String s = new String();
-
-        for (HashMap.Entry<String, Rule> rule : this.rules.entrySet())
+        String temp = "";
+        for (String key : this.map.keySet())
         {
-            s += "Rule: " + rule.getKey() + "\n";
+            temp = temp + this.map.get(key).toString() + "\n";
         }
-
-        return s;
+        return temp;
     }
 
 

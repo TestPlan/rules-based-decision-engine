@@ -1,18 +1,24 @@
 package models;
 
+import java.io.Serializable;
+
 /**
  * Created by Shiv on 10/11/2016.
  * @version 1.50
  */
-public class Action
+public class Action implements Serializable
 {
 
-    private String action;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1607992443410504330L;
+	private String action;
 
     public Action()
     {
     }
-    
+
     public Action(String action)
     {
         this.action = action;

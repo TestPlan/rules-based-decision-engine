@@ -1,9 +1,11 @@
 package rules;
+import models.*;
 dialect  "mvel"
 
 rule "avoid"
     when
-        eval(true)
+        d : Data (getData() < 50)
+        da : Data (getData() > 50)
     then
-        System.out.println("Success!");
+        System.out.println("Too Cold!");
 end

@@ -1,6 +1,6 @@
 package controllers;
 
-import models.ObjectData;
+
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieBuilder;
 import org.kie.api.builder.KieFileSystem;
@@ -22,7 +22,7 @@ import java.io.File;
 public class RuleActivation
 {
 
-    final private String localFilePath = new File("").getAbsolutePath() + "/src/rules/"; //Local path where our drl files are stored used by the KieFileSystem
+    private String localFilePath = new File("").getAbsolutePath() + "/src/rules/"; //Local path where our drl files are stored used by the KieFileSystem
 
     final private String kfsFilePath = "src/main/resources/org/kie/example/newRule.drl"; //path for the KieFileSystem to create a drl from a string
     //Must begin with src/main/resources/org
@@ -38,17 +38,18 @@ public class RuleActivation
     /**
      * This constructor creates the necessary components to activate the rules
      * from one drl file (retrieved from the passed in filename) and runs the passed in data with them.
-     * @param filename File name input for the KieFileSystem to use in rule activation
-     * @param objectData Data from the user to pass into the drl files
+     * @param localFilePath File name input for the KieFileSystem to use in rule activation
+     * @param data Data from the user to pass into the drl files
      */
-    public RuleActivation(String filename, ObjectData objectData)
+    public RuleActivation(String localFilePath, Object obj)
     {
+        this.localFilePath = localFilePath;
         this.kServices = KieServices.Factory.get();
         this.kRepo = kServices.getRepository();
         this.kfs = kServices.newKieFileSystem();
 
-        addExistingFile(filename);
-        buildKnowledgeSession(objectData);
+        addExistingFile(localFilePath);
+        buildKnowledgeSession(obj);
         fireAllRules();
         dispose();
     }
@@ -56,20 +57,20 @@ public class RuleActivation
     /**
      * This constructor creates the necessary components to activate the rules
      * from multiple drl files (retrieved from the passed in filenames) and runs the passed in data with them.
-     * @param filenames File names inputted for the KieFileSystem to use in rule activation.
-     * @param objectData Data from the user to pass into the drl file.
+     * @param filePaths File names inputted for the KieFileSystem to use in rule activation.
+     * @param data Data from the user to pass into the drl file.
      */
-    public RuleActivation(String[] filenames, ObjectData objectData)
+    public RuleActivation(String[] filePaths, Object obj)
     {
         this.kServices = KieServices.Factory.get();
         this.kfs = kServices.newKieFileSystem();
         this.kRepo = kServices.getRepository();
 
-        for (String filename : filenames)
+        for (String filename : filePaths)
         {
             addExistingFile(filename);
         }
-        buildKnowledgeSession(objectData);
+        buildKnowledgeSession(obj);
         fireAllRules();
         dispose();
     }
@@ -78,16 +79,29 @@ public class RuleActivation
      * This constructor creates the necessary components to activate the rules
      * from a string-created drl file (not existing in local file system)
      * and runs the passed in data with them.
-     * @param objectData Data from the user to pass into the drl file.
+     * @param data Data from the user to pass into the drl file.
      */
-    public RuleActivation(ObjectData objectData)
+    public RuleActivation(Object obj)
     {
         this.kServices = KieServices.Factory.get();
         this.kfs = kServices.newKieFileSystem();
         this.kRepo = kServices.getRepository();
 
         addNonExistingFile();
-        buildKnowledgeSession(objectData);
+        buildKnowledgeSession(obj);
+        fireAllRules();
+        dispose();
+    }
+
+    public RuleActivation(String localFilePath, Object[] dataList){
+
+        this.localFilePath = localFilePath;
+        this.kServices = KieServices.Factory.get();
+        this.kfs = kServices.newKieFileSystem();
+        this.kRepo = kServices.getRepository();
+
+        addExistingFile(localFilePath);
+        buildKnowledgeSession(dataList);
         fireAllRules();
         dispose();
     }
@@ -99,7 +113,7 @@ public class RuleActivation
      */
     public void addExistingFile(String filename)
     {
-        kfs.write(ResourceFactory.newFileResource(new File(localFilePath + filename)));  //This used to fire rules from
+        kfs.write(ResourceFactory.newFileResource(new File(localFilePath)));  //This used to fire rules from
         //existing drl files.
     }
 
@@ -117,9 +131,9 @@ public class RuleActivation
      * This method's job is to create the necessary components in order to create a kSession.
      * In turn, the kSession is used to receive the data inputted from the user and insert it for use
      * in the kieFileSystem so it can be associated with drl files.
-     * @param objectData Data from the user to pass into the drl file.
+     * @param data Data from the user to pass into the drl file.
      */
-    public void buildKnowledgeSession(ObjectData objectData)
+    public void buildKnowledgeSession(Object obj)
     {
         KieBuilder kb = kServices.newKieBuilder(kfs);
         kb.buildAll();
@@ -133,7 +147,32 @@ public class RuleActivation
 
         kSession = this.kContainer.newKieSession();
 
-        kSession.insert(objectData);
+        kSession.insert(obj);
+
+    }
+
+    /**
+     * Overloaded method in case a user needs to insert multiple data objects into a drl file
+     * @param dataList
+     */
+    public void buildKnowledgeSession(Object[] dataList)
+    {
+        KieBuilder kb = kServices.newKieBuilder(kfs);
+        kb.buildAll();
+
+        if (kb.getResults().hasMessages(Message.Level.ERROR))
+        {
+            throw new RuntimeException("Build Errors: \n" + kb.getResults().toString());
+        }
+
+        kContainer = kServices.newKieContainer(kRepo.getDefaultReleaseId());
+
+        kSession = this.kContainer.newKieSession();
+
+        for(Object obj : dataList)
+        {
+            kSession.insert(obj);
+        }
 
     }
 
@@ -165,7 +204,7 @@ public class RuleActivation
 
             "rule \"avoid\"\n" +
             "when\n" +
-            "   d : ObjectData( d.getData() <= 50.0 )" +
+            "   d : Data( d.getData() <= 50.0 )" +
             "then\n" +
             "   System.out.println(d.getName() + \" too cold; Move away!\");\n" +    //new Action(\"Hello\"))\n" +
             "end";

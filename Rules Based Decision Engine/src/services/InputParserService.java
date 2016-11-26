@@ -1,267 +1,455 @@
 package services;
 
 
-import models.ObjectData;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Stack;
+
+import models.Entity;
 import models.ObjectType;
 
 /**
  * This class is responsible for parsing the text data from Input file and storing it into its
  * proper data objects.
- * 
+ *
  * @author Trae X. Lewis
- *@version 2.0 10/20/2016
+ * @version 2.0 10/20/2016
  */
-public class InputParserService 
+public class InputParserService
 {
 
-	/*
-	 * GLOBAL SERVICES
-	 */
+    /*
+     * GLOBAL SERVICES
+     */ 
 	ObjectCollectionService obj_svc = ObjectCollectionService.getInstance();
+	EntityCollectionService entity_svc = EntityCollectionService.getInstance();
 
-	private ObjectData obj_data;
-	private ObjectType obj_type;
-	private static InputParserService INSTANCE = null;
-	private int selector = 0;
+    private ObjectType obj_type;
+    private static InputParserService INSTANCE = null;
+    private int selector = 0;
 
-	/**
-	 * Retrieves the static instance of FileParserService.
-	 * @return Instance of FileParserService.
+    /**
+     * Retrieves the static instance of FileParserService.
+     *
+     * @return Instance of FileParserService.
+     */
+    public static InputParserService getInstance()
+    {
+        if (INSTANCE == null)
+        {
+            INSTANCE = new InputParserService();
+
+        }
+        return INSTANCE;
+    }
+
+
+    /**
+     * Takes an array of lines of a text file and turns them into an objectdata objects.
+     *
+     * @param lines - Line of text file.
+     */
+    public void parseText(java.util.ArrayList<String> lines)
+    {
+    	HashMap<String, Object> entity_map = new HashMap<String, Object>();
+
+        selector = 1;
+        Object[] data = new Object[3];
+        String entity_name = "";
+        boolean first_line = true;
+        
+        for (int i = 0; i < lines.size(); i++)
+        {
+            if (!isComment(lines.get(i)))
+            {
+                data = lines.get(i).split(":", 3);
+                data[0] = data[0].toString().toUpperCase().trim();
+                
+            	if (first_line)
+            	{
+            		if(data[0].toString().trim() == "entity_name")
+            			entity_name = data[2].toString().toUpperCase().trim();
+            		else
+            			entity_name = entity_svc.defaultName();
+            		first_line = false;
+            	}
+            	else
+            	{
+                    entity_map.put(entity_name + "." + data[0] , dataConversion(data));
+            	}
+            }
+        }
+        obj_svc.putAll(entity_map);
+    	entity_svc.put(new Entity(entity_name , entity_map.keySet()));
+        
+    }
+    
+    /**
+	 * This method iterates through an array of Data objects and saves them into the ObjectCollectionService.
+	 *
+	 * @param data - Array of Data parsed from JSON file
 	 */
-	public static InputParserService getInstance()
+	public void parseJson(Map<String,Object> map)
 	{
-		if (INSTANCE == null)
+		HashMap<String, Object> entity_map = new HashMap<String, Object>();
+		
+		String entity_name = (String) map.remove("entity.name");
+		
+		if(entity_name == null)
 		{
-			INSTANCE = new InputParserService();
+			entity_name = entity_svc.defaultName();
+		}
+		
+		entity_name = entity_name.toUpperCase();
+
+		
+		for(Iterator<String> iterator = map.keySet().iterator(); iterator.hasNext();) 
+		{
+			String key = iterator.next();
+			Object value = map.get(key);
 			
+			entity_map.put(entity_name + "." + key.toUpperCase(), dataConversion(value));
 		}
-		return INSTANCE;
-	}
-	
-	
-	/**
-	 * Takes an array of lines of a text file and turns them into an objectdata objects.
-	 * @param line - Line of text file.
-	 */
-	public void parseTextLine( java.util.ArrayList<String> lines)
-	{
-		selector = 1;
-		String[] data = new String[3];
-		for(String sl : lines)
-		{
-			obj_data.clearData();
-			
-			if(!isComment(sl))
-			{
-				sl = sl.trim();
-				data = sl.split(":", 3);
-				obj_data.setName(data[0].trim());
-				obj_data.setType(data[1].trim());
-				obj_data.setData(data[2].trim());
-				if(dataChecker())
-				{
-					obj_svc.insertDataObject(obj_data.getName(), obj_data);
-				}
-			}
-		}
-	}
-	
-	/**
-	 * This method iterates through an array of ObjectData objects and saves them into the ObjectCollectionService.
-	 * @param data - Array of ObjectData parsed from JSON file
-	 */
-	public void parseJsonObjects(ObjectData[] data)
-	{
-		// Removes previously stored ObjectData objects stored from other files
-		//TODO: Add configurable to allow option to concatenate data from multiple files
-		//TODO: Add JSON feed functionality and support
-		obj_svc.clearObjectService();
 		
-		for(ObjectData od : data)
-		{
-			this.obj_data = od;
-			obj_data.setName(obj_data.getName().toUpperCase());
-			if(dataChecker())
-			{
-				obj_svc.insertDataObject(obj_data.getName(), obj_data);
-			}
-		}
+		obj_svc.putAll(entity_map);
+		    	
+		entity_svc.put(new Entity(entity_name , entity_map.keySet()));
 	}
-	
 
 
 	/**
-	 * Checks if argument is a valid ObjectType.
-	 * @param dataType
-	 * @return true if dataType is a valid enumeration.
+	 * For JSON Parser, this method applies a cast to an Object data.
+	 * @param obj
+	 * @return obj as a casted datatype.
 	 */
-	private boolean dataChecker()
+	private Object dataConversion(Object obj)
 	{
-		boolean result = false;
-		obj_type = null;
-
-		if(getObjectType())
+		if(obj instanceof Double)
+	    	return (double)obj;
+		else if(obj instanceof Integer)
+			return (int)obj;
+		else if(obj instanceof Boolean)
+			return (boolean)obj;
+		else if(obj instanceof String)
 		{
-			result = true;
-			switch(obj_type)
-			{
-			case STRING:
-				break;
-			case INT:
-				obj_data.setData(intParse(obj_data.getData().toString()));
-				break;
-			case CHAR:
-				obj_data.setData(Character.valueOf(charParse(obj_data.getData().toString())));
-				break;
-			case DOUBLE: 
-				if(selector == 1)
-				{
-					obj_data.setData(doubleParse(obj_data.getData().toString()));
-					break;
-				}
-				break;
-			case BOOL:
-				obj_data.setData(boolParse(obj_data.getData().toString().toUpperCase()));
-				break;
-			default:
-			}
+			if (isChar((String)obj))
+				return Character.valueOf(charParser((String) obj));
+			else
+				return (String)obj;
 		}
-		else
-		{
-			// Throws exception if not accepted data type.
-			throw new IllegalArgumentException("DataConversionService::dataChecker():135 - [" + obj_data.getType() + "] is NOT an accepted data type");
-		}
-		return result;
-	
+		
+		return obj;
 		
 	}
 
 
-	/**
-	 * For ObjectData objects that have a declared type of DOUVLE, this method checks the value of the ObjectData type field
-	 * and verifies that it is a double in a string representation.
-	 * 
-	 * @param str String representation of ObjectData type field.
-	 * @return Double object holding the value of the specified string.
+    /**
+     * For Text parser, this method checks the validity of the described datatype and formats
+     * the associated str to the appropriate datatype.
+     *
+     * @return Object of the correct datatype.
+     */
+    //TODO: Add support for Array datatypes.
+    private Object dataConversion(Object[] obj)
+    {
+    	String value = (String) obj[2];
+    	value = value.trim();
+    	
+        obj_type = null;
+        Object data;
+        if (getObjectType(obj[1].toString()))
+        {
+            switch (obj_type)
+            {
+                case STRING:
+                	obj[2] = value;
+                    break;
+                case INT:
+                	obj[2] = intParser(value);
+                    break;
+                case CHAR:
+                	obj[2] = Character.valueOf(charParser(value));
+                    break;
+                case DOUBLE:
+                    if (selector == 1)
+                    {
+                    	obj[2] = doubleParser(value);
+                        break;
+                    }
+                    break;
+                case BOOL:
+                	obj[2] = boolParser(value);
+                    break;
+            }
+        }
+        else
+        {
+            throw new IllegalArgumentException("DataConversionService::dataChecker(): [" + obj[1].toString() + "] is NOT an accepted data type");
+        }
+       
+        data = obj[2];
+        return data;
+
+
+    }
+
+
+    /**
+	 * This method parses string for Double value.
+	 * @param str string containing Double value
+	 * @return Double value of string
 	 */
-	private double doubleParse(String str)
+	private double doubleParser(String str)
 	{
-		double value = 0.0;
-		if(str.matches("^[\\-]{0,1}[\\d]*[\\.][\\d]+$"))
-		{
-			value = Double.valueOf(str);
-		}
-		else if(str.matches("^[\\-]{0,1}\\d+$"))
-		{
-			value = Double.valueOf(str + ".0");
-		}
-		
-		return value;
-	}
+	    double value = 0.0;
+	    if (str.matches("^[\\-]{0,1}[\\d]*[\\.][\\d]+$"))
+	    {
+	        value = Double.valueOf(str);
+	    }
+	    else if (str.matches("^[\\-]{0,1}\\d+$"))
+	    {
+	        value = Double.valueOf(str + ".0");
+	    }
 	
+	    return value;
+	}
+
+
 	/**
-	 * For ObjectData objects that have a declared type of INT, this method checks the value of the ObjectData type field
-	 * and verifies that it is an integer in a string representation.
-	 * 
-	 * @param str String representation of ObjectData type field.
-	 * @return Integer object holding the value of the specified string.
+	 * This method parses string for Integer value.
+	 * @param str string containing Integer value
+	 * @return Integer value of string
 	 */
-	private int intParse(String str)
+	private int intParser(String str)
 	{
-		int value = 0;
-		if(str.matches("^[\\-]{0,1}\\d+$"))
-		{
-			value = Integer.valueOf(str);
-		} // Does string match a double between -∞ and +∞ with?
-		else if(str.matches("^[\\-]{0,1}[\\d]*[\\.][\\d]+$"))
-		{
-			value = Integer.valueOf(str.substring(0,str.indexOf('.')));
-		}
-		else
-		{
-			throw new IllegalArgumentException("ParserService:intParse - Expected Integer: Returned: " + str.toString());
-		}
-		return value;
+	    int value = 0;
+	    if (str.matches("^[\\-]{0,1}\\d+$"))
+	    {
+	        value = Integer.valueOf(str);
+	    } // Does string match a double between -∞ and +∞ with?
+	    else if (str.matches("^[\\-]{0,1}[\\d]*[\\.][\\d]+$"))
+	    {
+	        value = Integer.valueOf(str.substring(0, str.indexOf('.')));
+	    }
+	    else
+	    {
+	        throw new IllegalArgumentException("ParserService:intParse - Expected Integer: Returned: " + str.toString());
+	    }
+	    return value;
 	}
 
 
 	/**
 	 * This method checks input string for correct amount of characters to be considered a char data type.
 	 * If str.length() != 1 , then str does not conform.
+	 *
 	 * @param str - argument to be transformed to char data type.
 	 * @return char representation of string
 	 */
-	private char charParse(String str)
+	private char charParser(String str)
 	{
-		char ch;
-		
-		str.trim();
-		if(str.length() != 1)
-		{
-			throw new IllegalArgumentException("DataConversionService::charParse - Input stream exceeds maximum length of char: [Input value: " + str + " ]");
-		}
-		
-		ch = str.charAt(0);
-		
-		return ch; 
-	}
-
-
-	// TODO: add support for binary 0,1 for true/false condition
-	// TODO: make sure true/false are only characters in string.
-	private boolean boolParse(String str)
-	{
-		boolean value;
-		if(str.matches("^[T]{1}(RUE)?$"))
-		{
-			value = true;
-		}
-		else if (str.matches("^[F]{1}(ALSE)?$"))
-		{
-			value = false;
-		}
-		else
-		{
-			throw new IllegalArgumentException("ParserService:boolParse - Expected Boolean: Returned: " + str.toString());			
-		}
-		
-		return value;
+	    char ch;
+	
+	    str.trim();
+	    if (str.length() != 1)
+	    {
+	        throw new IllegalArgumentException("DataConversionService::charParse - Input stream exceeds maximum length of char: [Input value: " + str + " ]");
+	    }
+	
+	    ch = str.charAt(0);
+	
+	    return ch;
 	}
 
 
 	/**
-	 * This method checks to see if first character of line is a comment. If so, line read from
-	 * buffered reader is not saved.
-	 * @param line - string currently being processed by buffered reader.
-	 * @return true - if line is comment, false otherwise.
+	 * This method parses string for boolean value.
+	 * @param str string containing boolean value
+	 * @return boolean value of string
 	 */
-	private boolean isComment(String line)
-	{
-		//TODO: create an enum for all escape characters. Should be a separate class. Decouple!
-		boolean val = false;
-		char character = line.charAt(0);
-		
-		// Compare the first character of line to comment characters
-		if(character == '#')
-		{
-			val = true;
-		}
-		return val;
-	}
-	
-	
-	private boolean getObjectType()
+	private boolean boolParser(String str)
+    {
+    	str = str.trim();
+        boolean value;
+        if (str.matches("^[Tt]{1}(RUE|rue)?$") || str.matches("^[1]{1}$"))
+        {
+            value = true;
+        }
+        else if (str.matches("^[Ff]{1}(ALSE|alse)?$") || str.matches("^[0]{1}$"))
+        {
+            value = false;
+        }
+        else
+        {
+            throw new IllegalArgumentException("ParserService:boolParse - Expected Boolean: Returned: " + str.toString());
+        }
+
+        return value;
+    }
+
+
+	/**
+	 * This method checks to see if str argument conforms to the conditions of a Character Object.
+	 * String must contain a non-white space character.
+	 * @param str arguement to be checked.
+	 * @return true if str arguement is a char.
+	 */
+    private boolean isChar(String str)
 	{
 		boolean result = false;
 		
-		for(ObjectType obj : ObjectType.values())
+		if (str.trim().length() == 1)
 		{
-			if(obj.getValue().equals(obj_data.getType()))
-			{
-				obj_type = obj;
-				result = true;
-			}
+			result = true;
 		}
 		return result;
 	}
+
+
+	/**
+     * This method checks to see if first character of line is a comment. If so, line read from
+     * buffered reader is not saved.
+     *
+     * @param line - string currently being processed by buffered reader.
+     * @return true - if line is comment, false otherwise.
+     */
+    private boolean isComment(String line)
+    {
+        //TODO: create an enum for all escape characters. Should be a separate class. Decouple!
+        boolean val = false;
+        char character = line.charAt(0);
+
+        // Compare the first character of line to comment characters
+        if (character == '#')
+        {
+            val = true;
+        }
+        return val;
+    }
+
+
+    private boolean getObjectType(String str)
+    {
+        boolean result = false;
+
+        for (ObjectType obj : ObjectType.values())
+        {
+            if (obj.getValue().equals(str.trim().toUpperCase()))
+            {
+                obj_type = obj;
+                result = true;
+            }
+        }
+        return result;
+    }
+    
+    
+    /**
+    * Converts .drl Conditional Element from infix notation to postfix notation for object storage.
+    * @param str
+    * @return postfix notation of infix string.
+    */
+   public String infixToPostfix(String str)
+   {
+       Stack<String> opStack = new Stack<String>();
+       StringBuilder builder = new StringBuilder();
+       String[] input = str.split(" ");
+
+       for(int i = 0; i < input.length; i++)
+       {
+           String value = input[i].trim();
+
+           if(!isOperator(value))
+               builder.append(value + " ");
+           
+           else if(opStack.isEmpty() || operatorPriority(opStack.peek(), value))
+           {
+               if(!value.equals(")"))
+               {
+                   opStack.push(value);
+               }
+           }
+           else
+           {
+               while(!opStack.empty() && !opStack.peek().equals("(") && !operatorPriority(opStack.peek(), value))
+               {
+                   builder.append(opStack.pop() + " ");
+               }
+               if(!opStack.isEmpty() && value.equals(")"))
+               {
+                   opStack.pop();
+               }
+               else if(opStack.isEmpty() || operatorPriority(opStack.peek(), value))
+               {
+                   opStack.push(value);
+               }
+           }
+       }
+       while(!opStack.isEmpty())
+       {
+           builder.append(opStack.pop() + " ");
+       }
+       return builder.toString();
+   }
+
+   /**
+    * Method compares the current operator to the operator on the top of the operator stack.
+    * @param topStack
+    * @param nextOp
+    * @return Returns true if the next operator going onto the stack is greater than the operator on top of the stack.
+    */
+   private boolean operatorPriority(String topStack, String nextOp)
+   {
+       boolean value = false;
+
+       if(topStack.equals("||"))
+       {
+           if(nextOp.equals("&&") || nextOp.equals("("))
+               value = true;
+           
+           else if(nextOp.equals("||"))
+               value = false;
+       }
+       else if(topStack.equals("&&"))
+       {
+           if(nextOp.equals("("))
+               value = true;
+           else
+               value = false;
+       }
+       else if(topStack.equals("("))
+       {
+           if(!nextOp.equals(")"))
+               value = true;
+       }
+       return value;
+   }
+
+
+private  boolean isOperator(String str)
+   {
+       boolean valid = false;
+
+       switch(str)
+       {
+           case "(": valid = true;
+                     break;
+           case ")": valid = true;
+                     break;
+           case "&&": valid = true;
+                      break;
+           case "and": valid = true;
+                       break;
+           case ",": valid = true;
+                     break;
+           case "||": valid = true;
+                      break;
+           case "or": valid = true;
+                      break;
+           default: break;
+
+       }
+       return valid;
+   }
 }
