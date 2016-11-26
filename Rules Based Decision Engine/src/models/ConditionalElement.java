@@ -9,7 +9,11 @@ import java.io.Serializable;
 
 public class ConditionalElement implements Serializable
 {
-    private String patternBinding = ""; //instantiate with an empty string to alleviate nullPointer error
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3246148510901967794L;
+	private String patternBinding = ""; //instantiate with an empty string to alleviate nullPointer error
     private String pattern;
     private ConstraintList constraints;
 
@@ -96,32 +100,32 @@ public class ConditionalElement implements Serializable
 
     /*GETTERS AND SETTERS*/
 //TODO: Why have private setters and getters..
-    private void setPatternBinding(String newPB)
+    public void setPatternBinding(String newPB)
     {
         this.patternBinding = newPB;
     }
 
-    private String getPatternBinding()
+    public String getPatternBinding()
     {
         return this.patternBinding;
     }
 
-    private void setPattern(String newP)
+    public void setPattern(String newP)
     {
         this.pattern = newP;
     }
 
-    private String getPattern()
+    public String getPattern()
     {
         return this.pattern;
     }
 
-    private void setRestraint(ConstraintList newCList)
+    public void setRestraint(ConstraintList newCList)
     {
         this.constraints = newCList;
     }
 
-    private String getRestraint()
+    public String getRestraint()
     {
         return this.constraints.toString();   //not sure if this method call will exist
     }

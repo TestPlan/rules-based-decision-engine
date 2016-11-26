@@ -1,25 +1,17 @@
-{
-  "entityName" : "TraeSub1",
-  "data":[
-    {
-      "name": "CONDITION",
-      "type": "DOUBLE",
-      "value": 3.0
-    },
-    {
-      "name": "DISTANCE",
-      "type": "DOUBLE",
-      "value": 40203.34
-    },
-    {
-      "name": "TEMPERATURE",
-      "type": "DOUBLE",
-      "value": 5.0
-    },
-    {
-      "name": "SURVIVOR_COUNT",
-      "type": "INT",
-      "value": 3
-    }
-  ]
-}
+[{
+	"entity.name": "TraeSub1",
+	"name": "Trae",
+	"type": "ship",
+	"value": 3.0,
+	"smart": false,
+	"caring": ["two", 5, false],
+	"letter": "A"
+}, {
+	"entity.name": "TraeSub2",
+	"name": "Trae",
+	"type": "ship",
+	"value": 3.0,
+	"smart": false,
+	"caring": ["two", 5, false],
+	"letter": "A"
+}]

@@ -1,9 +1,5 @@
 package services;
 
-import models.Rule;
-import org.kie.internal.agent.conf.ScanDirectoriesOption;
-
-import javax.swing.*;
 import java.io.*;
 
 /**
@@ -17,7 +13,6 @@ import java.io.*;
 public class SerializationService
 {
     private final String fileExt = ".ser";
-    private boolean b = false;
     private static SerializationService instance = null;
 
     /**
@@ -29,8 +24,8 @@ public class SerializationService
     }
 
     /**
-     * getInstance needed for the singleton pattern; checks to see if an instance of this
-     * class has been created.  If not, it creates a new instance, if so, it returns the instance already made.
+     * Returns an instance of SerializationService.
+     * 
      * @return instance of SerializationService
      */
     public static SerializationService getInstance()
@@ -49,9 +44,8 @@ public class SerializationService
      * @param o - The object being serialized
      * @param filepath
      */
-    public void serialize(Object o, String filepath)
+    public <T>void serialize(T o, String filepath)
     {
-        this.b = true;
 
         if(o instanceof Serializable)
         {
@@ -84,7 +78,6 @@ public class SerializationService
     public Object deserialize(String filepath)
     {
         Object o = new Object();
-        this.b = false;
 
         try
         {

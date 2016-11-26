@@ -1,6 +1,5 @@
 package controllers;
 
-import exceptions.ActionException;
 import models.Action;
 import services.ActionCollectionService;
 
@@ -30,14 +29,7 @@ public class ActionController
         Action action = new Action(actionDescription);
         ActionCollectionService acr = ActionCollectionService.getInstance();
 
-        try
-        {
-            acr.insertActions(actionName, action);
-        }
-        catch(ActionException ae)
-        {
-            System.out.println(ae.getMessage());
-        }
+        acr.put(actionName, action);
     }
 
     //TODO: Add functionality for removing an Action?

@@ -1,6 +1,6 @@
 package controllers;
 
-import models.Data;
+
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieBuilder;
 import org.kie.api.builder.KieFileSystem;
@@ -41,7 +41,7 @@ public class RuleActivation
      * @param localFilePath File name input for the KieFileSystem to use in rule activation
      * @param data Data from the user to pass into the drl files
      */
-    public RuleActivation(String localFilePath, Data data)
+    public RuleActivation(String localFilePath, Object obj)
     {
         this.localFilePath = localFilePath;
         this.kServices = KieServices.Factory.get();
@@ -49,7 +49,7 @@ public class RuleActivation
         this.kfs = kServices.newKieFileSystem();
 
         addExistingFile(localFilePath);
-        buildKnowledgeSession(data);
+        buildKnowledgeSession(obj);
         fireAllRules();
         dispose();
     }
@@ -60,7 +60,7 @@ public class RuleActivation
      * @param filePaths File names inputted for the KieFileSystem to use in rule activation.
      * @param data Data from the user to pass into the drl file.
      */
-    public RuleActivation(String[] filePaths, Data data)
+    public RuleActivation(String[] filePaths, Object obj)
     {
         this.kServices = KieServices.Factory.get();
         this.kfs = kServices.newKieFileSystem();
@@ -70,7 +70,7 @@ public class RuleActivation
         {
             addExistingFile(filename);
         }
-        buildKnowledgeSession(data);
+        buildKnowledgeSession(obj);
         fireAllRules();
         dispose();
     }
@@ -81,19 +81,19 @@ public class RuleActivation
      * and runs the passed in data with them.
      * @param data Data from the user to pass into the drl file.
      */
-    public RuleActivation(Data data)
+    public RuleActivation(Object obj)
     {
         this.kServices = KieServices.Factory.get();
         this.kfs = kServices.newKieFileSystem();
         this.kRepo = kServices.getRepository();
 
         addNonExistingFile();
-        buildKnowledgeSession(data);
+        buildKnowledgeSession(obj);
         fireAllRules();
         dispose();
     }
 
-    public RuleActivation(String localFilePath, Data[] dataList){
+    public RuleActivation(String localFilePath, Object[] dataList){
 
         this.localFilePath = localFilePath;
         this.kServices = KieServices.Factory.get();
@@ -133,7 +133,7 @@ public class RuleActivation
      * in the kieFileSystem so it can be associated with drl files.
      * @param data Data from the user to pass into the drl file.
      */
-    public void buildKnowledgeSession(Data data)
+    public void buildKnowledgeSession(Object obj)
     {
         KieBuilder kb = kServices.newKieBuilder(kfs);
         kb.buildAll();
@@ -147,7 +147,7 @@ public class RuleActivation
 
         kSession = this.kContainer.newKieSession();
 
-        kSession.insert(data);
+        kSession.insert(obj);
 
     }
 
@@ -155,7 +155,7 @@ public class RuleActivation
      * Overloaded method in case a user needs to insert multiple data objects into a drl file
      * @param dataList
      */
-    public void buildKnowledgeSession(Data[] dataList)
+    public void buildKnowledgeSession(Object[] dataList)
     {
         KieBuilder kb = kServices.newKieBuilder(kfs);
         kb.buildAll();
@@ -169,9 +169,9 @@ public class RuleActivation
 
         kSession = this.kContainer.newKieSession();
 
-        for(Data data : dataList)
+        for(Object obj : dataList)
         {
-            kSession.insert(data);
+            kSession.insert(obj);
         }
 
     }

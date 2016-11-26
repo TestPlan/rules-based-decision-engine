@@ -1,27 +1,24 @@
 package services;
 
 import models.Action;
-
-import java.util.*;
-
-import exceptions.ActionException;
+import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  * Created by shiv on 10/14/2016.
  *
- * @author Shiv , Trae X. Lewis
+ * @author Shiv ,
+ * @author Trae X. Lewis
+ * @version 2.0 11/24/16
  */
 
-public class ActionCollectionService
+public class ActionCollectionService implements Collectable<Action>
 {
-    /*
-       A Collection of Different Actions added to HashMap
-       @actions     a HashMap of String as a Key and Action as a Value
-       @insertAction    adds Action to HashMap
-       @removeAction    removes Action from the HashMap
 
-     */
-    private static Map<String, Action> actions = new HashMap<String, Action>();
+    private HashMap<String, Action> actions = new HashMap<String, Action>();
+    private HashMap<String, Action> redundant_list = new HashMap<String, Action>();
+    
     private static ActionCollectionService Instance;
 
 
@@ -34,103 +31,102 @@ public class ActionCollectionService
         return Instance;
     }
 
-    /*
-        takes String and an Action and tries to add to HashMap
-        Throws Exception if duplicate Key(String) and duplicate value(Action)
-     */
-    public void insertActions(String actionName, Action action) throws ActionException
-    {
-        actionName = actionName.toUpperCase();
-
-        if (actions.keySet().contains(actionName))
-        {
-            throw new ActionException("ActionCollectionService::insertActions::39 - Action Key Exists: " + actionName);
-        }
-
-        if (duplicateAction(action))
-        {
-            throw new ActionException("ActionCollectionService::insertActions::39 - Duplicate Action Exists: " + action);
-        }
-
-        actions.put(actionName, action);
-    }
-
-
-    /*
-        Removes Action using the Key
+    /**
+	 * CAUTION:
+	 * Removes all of the mappings from this map. The map will be empty after this call returns.
+	 * 
+	 * As a precaution, Map<key,value> is backed up to a redundant storage list.
+	 * Redundant storage is cleared on the proceeding clear() method call which will effectively destroy
+	 * any past data.
 	 */
-    public void removeAction(String actionName) throws ActionException
+	public void clear() 
     {
-        actionName = actionName.toUpperCase();
+		redundant_list.clear();
+		actions = redundant_list;
+		actions.clear();
+	}
 
-        if (!actions.containsKey(actionName.toUpperCase()))
-        {
-            throw new ActionException("Action Named: " + actionName + "Not Found");
-        }
+	/**
+	 * Returns true if this map contains an Action mapping for the specified key. 
+	 * @param key: key whose presence in this map is to be tested.
+	 * @return true if this map contains a mapping for the specified key.
+	 */
+	public boolean containsKey(String key)
+	{
+	    return actions.containsKey(key.toUpperCase());
+	}
 
-        actions.remove(actionName);
+	/**
+	 * Returns true if this map maps one or more keys to the specified value. 
+	 * @param value: value whose presence in this map is to be tested.
+	 * @return true if this map maps one or more keys to the specified value.
+	 */
+	public boolean containsValue(Action value)
+	{
+	    return actions.containsValue(value);
+	}
+	
+	/**
+	 * Returns a Set view of the mappings contained in this map. 
+	 * The set is backed by the map, so changes to the map are reflected in the set, and vice-versa.
+	 * 
+	 * @return a set view of the mappings contained in this map.
+	 */
+	public Set<Entry<String, Action>> entrySet()
+	{
+	    return actions.entrySet();
+	}
+
+	/**
+	 * Returns the Action Object to which the specified key is mapped, or null if this map contains no mapping for the key.
+	 *
+	 * @param key key the key whose associated value is to be returned.
+	 * @return Action matching key if found, else returns null.
+	 */
+	public Action get(String key)
+	{
+	    return actions.get(key);	    
+	}
+
+	/**
+     * Associates the specified value with the specified key in this Map<str,Action>. 
+     * If the map previously contained a mapping for the key, the old value is replaced by the specified value. 
+     * @param key: key with which the specified value is to be associated
+     * @param value: value to be associated with the specified key.
+     */
+    public Action put(String key, Action value)
+    {        
+       return actions.put(key.trim().toUpperCase(), value);
     }
 
     /**
-     * Returns an action from the ActionCollectionService.
-     *
-     * @param actionName Name of the action to query
-     * @return Action matching name if found, else returns null.
+     * Copies all of the mappings from the specified map to this map. 
+     * These mappings will replace any mappings that this map had for any of the 
+     * keys currently in the specified map.
+     * 
+     * @param map mappings to be stored in this map
      */
-    public Action getAction(String actionName)
+    public void putAll(HashMap<String,Action> map)
     {
-        actionName = actionName.toUpperCase();
-        Action action = actions.get(actionName);
-
-        return action;
+    	actions.putAll(map);
     }
 
-    public boolean containsAction(Action action)
+
+    /**
+     * Removes the Action mapping for a key from this map if it is present.
+     * Null key not permitted.
+     * @param key: key whose mapping is to be removed from the map
+     * @return the previous value associated with key, or null if there was no mapping for key.
+     */
+    public Action remove(String key)
     {
-        boolean result = false;
-
-        if (actions.containsValue(action))
-        {
-            result = true;
-        }
-
-        return result;
-    }
-
-    public boolean containsKey(String key)
-    {
-        boolean result = false;
-
-        if (actions.containsKey(key.toUpperCase()))
-        {
-            result = true;
-        }
-
-        return result;
+       return actions.remove(key.toUpperCase());
     }
 
     /**
-     * This method checks for duplicate actions in the HashMap.
-     *
-     * @param action
-     * @return true if Action is found, false otherwise
-     */
-    private boolean duplicateAction(Action action)
-    {
-        boolean result = false;
-
-        for (Action value : actions.values())
-        {
-            if (value.equals(action))
-            {
-                result = true;
-            }
-        }
-        return result;
-    }
-
-    /*
-        @returns String Representation of the Collections of the Action
+     * Returns a string representation of the object. 
+     * In general, the toString method returns a string that "textually represents" this object. 
+     * @return a string representation of the object.
      */
     public String toString()
     {
@@ -142,4 +138,6 @@ public class ActionCollectionService
         }
         return temp;
     }
+
+
 }

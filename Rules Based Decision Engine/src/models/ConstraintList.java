@@ -13,7 +13,11 @@ import java.util.ArrayList;
 //TODO: but this class may be obsolete.
 public class ConstraintList implements Serializable
 {
-    private ArrayList<Constraint> constraintList;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2784615968462618057L;
+	private ArrayList<Constraint> constraintList;
 
     public ConstraintList()
     {

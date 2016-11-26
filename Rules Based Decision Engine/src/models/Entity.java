@@ -1,6 +1,11 @@
 package models;
 
-import java.util.HashMap;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import services.EntityCollectionService;
+import services.ObjectCollectionService;
 
 /**
  * An Entity is a collection of Data objects.
@@ -13,27 +18,30 @@ import java.util.HashMap;
  */
 public class Entity
 {
-    private String entityName;
-    private HashMap<String, Data> data = new HashMap<>();
+    private String entity_name;
+    private Set<String> key_set = new HashSet<String>();
+    ObjectCollectionService obj_svc = ObjectCollectionService.getInstance();
+    EntityCollectionService entity_svc = EntityCollectionService.getInstance();
 
     /**
      * Default constructor for type Entity
      */
-    public Entity(){
-        entityName = "ENTITY";
+    public Entity()
+    {
+    	entity_name = entity_svc.defaultName();
+    }
+    
+    public Entity(String entity_name)
+    {
+    	this.entity_name = entity_name;
+    }
+    
+    public Entity(String entity_name, Set<String> set)
+    {
+    	this.entity_name = entity_name;
+    	this.key_set = set;
     }
 
-    /**
-     * Constructor for type Entity
-     *
-     * @param name The name of the thing this Entity object represents
-     * @param map The map containing the Data for this object
-     */
-    public Entity(String name, HashMap<String, Data> map)
-    {
-        setName(name);
-        setData(map);
-    }
 
     /**
      * Finds the value of a Data object based on its key
@@ -43,166 +51,155 @@ public class Entity
      */
     public Object getValue(String key)
     {
-        key = key.toUpperCase();
-        Data temp = null;
-        if(this.data.containsKey(key)){
-            temp = this.data.get(key);   // get (below) standardizes str
-        }
-        return temp.getData();
+    	if(this.key_set.contains(key))
+    	{
+    		return obj_svc.get(key);
+    	}
+    	return null;
     }
 
     /**
-     * Adds each Data object from <code>toAppend</code> to <code>map</code> only if its key does not
-     * already exist in <code>map</code>
+     *Adds all of the elements in the specified collection to this set if they're not already present (optional operation). 
+     *The addAll operation effectively modifies this set so that its value is the union of the two sets.
      *
-     * @param toAppend The Map of Data objects to append to the existing field <code>map</code>
+     * @param  c represents a collection of keys corresponding to a mapping inside ObjectCollectionService.
+     * @return true if this set changed as a result of the call
      */
-    public void appendToMap(HashMap<String,Data> toAppend)
+    public boolean insertKeySet(Set<String> keys)
     {
-        data.putAll(toAppend);
+    	int count = 0;
+    	
+    	for(String key : keys)
+    	{
+    		if(obj_svc.containsKey(key))
+    		{
+    			key_set.add(key);
+    			count++;
+    		}
+    	}
+    	return (count != 0);
+    }
+    
+
+
+    /**
+	 * Adds the specified key to this set if it is not already present (optional operation).
+	 *  If this set already contains the element, the call leaves the set unchanged and returns false. 
+	 *  
+	 * This function is designed to insert a single key corresponding to a Map<key,value> mapping in the ObjectCollectionService.
+	 * The key is a reference to a key the ObjectCollectionService and therefore must exist in the OCS.
+	 * 
+	 * @param key key to be added to this set.
+	 * @return true if this set did not already contain the specified element.
+	 */
+	public boolean insertKey(String key)
+	{
+		boolean result = false;
+		
+		if(obj_svc.containsKey(key))
+			result = key_set.add(key);
+		
+		return result;
+	}
+
+	/**
+     * Associates the specified value with the specified key in ObjectCollectionService data map. 
+     * If the map previously contained a mapping for the key, the old value is replaced.
+     * 
+     * This method strictly updates the value mapped to the key IFF the key exists in Set<key> of instance.
+     * 
+     * NOTE: ObjectCollectionService data objects are shared collective across all Entity instances.
+     * 		 Instance of Entity only contains a set of keys that reference the data objects in ObjectCollectionService.
+     * 		 An update to the Map<String,Object> from one Entity effects all Entity instances.
+     * @param key The key of the object being replaced. This will also be the key of the new object.
+     * @param value The Object which will replace the previous data for the specified key.
+     */
+    public Object updateData(String key, Object value)
+    {
+    	Object temp = null;
+    	
+    	if(obj_svc.containsKey(key) && key_set.contains(key))
+    	{
+        	temp = obj_svc.put(key, value);
+    	}
+
+    	
+    	return temp;
+    }
+    
+    
+    /**
+     * Associates the specified value with the specified a generated key derived from the entity name and name argument.
+     * Key and value pair is then inserted in ObjectCollectionService and key is added to the Entity key set.
+     *  
+     * Overrides any data associated with the key if it is discovered it is not a unique key.
+     * @param name name describing the object. (Should not contain entity_name prefix)
+     * @param value value to be associated with the specified key
+     * @return true if this set did not already contain the specified element
+     */
+    //TODO: More error checking required.
+    public boolean insertData(String name, Object value)
+    {
+        String key = entity_name + "." + name.toUpperCase().trim();
+        
+        obj_svc.put(key, value);
+
+       return key_set.add(key);    
+
     }
 
     /**
-     * Replaces the entry in <code>map</code> for the specified key only if it is mapped to a value
-     *
-     * @param key The key of the object being replaced. This will also be the key of the new object
-     * @param newData The Data object which will replace the old data at the specified key
+     * Removes the specified element from this set if it is present (optional operation).
+     *  
+     * @param key key corresponding to map entry in ObjectCollectionService to be removed from Entity key set.
+     * @return true if key set contained the specified key.
      */
-    public void updateData(String key, Data newData)
+    public boolean removeData(String key)
     {
-        key = key.trim().toUpperCase();
-        data.replace(key, newData);
+    	return this.key_set.remove(key.trim().toUpperCase());
     }
 
-    /**
-     * Updates the value of the field <code>value</code> in the Data object at the specified key
-     * @param key The key of the object whose value will be updated
-     * @param newValue The new value of the Data object
-     */
-    public void updateData(String key, Object newValue) {
-        key = key.trim().toUpperCase();
-        Data d = data.get(key);
 
-        if (newValue instanceof Integer
-            || newValue instanceof String
-            || newValue instanceof Double
-            || newValue instanceof Character
-            || newValue instanceof Boolean) {
-            d.setData(newValue);
-        }
-    }
-
-    /**
-     * Adds data to map, only if the data's <code>name</code> is not already a key in the map
-     *
-     * @param d The Data object to add to the map
-     * @return <code>False</code> if the map already contained the key for this data
-     */
-    public boolean addData(Data d)
-    {
-        String key = entityName + "." + d.getName().trim().toUpperCase();
-        if(data.containsKey(key))
-        {
-            return false;
-        }
-        else
-        {
-            data.put(key, d);
-            return true;
-        }
-    }
-
-    /**
-     * Removes the Data object at the specified key from the map
-     * @param key The key the Data is expected to be mapped to
-     */
-    public void removeData(String key)
-    {
-        key = key.trim().toUpperCase();
-        data.remove(key);
-    }
-
-    /**
-     * Gets the Data object mapped to the specified key, if it exists
-     *
-     * @param key The key of the object to get from the map
-     * @return The object mapped to the specified key
-     */
-    public Data get(String key)
-    {
-        key = key.trim().toUpperCase();
-        if(data.containsKey(key))
-        {
-            return data.get(key);
-        }
-        else
-        {
-            return null;
-        }
-    }
 
     /**
      * Sets the name of the Entity
      * @param name Name to set
      */
-    public void setName(String name)
+    //TODO: requires a decent amout of work. Not so simple.
+    //TODO: Decide whether user is capable of updating entity name.
+    //TODO: Decide the scope of the update name change. It effects all data objects associated with entity.
+    //TODO: Need to update the KeySet for every Entity in EntityCollectionService from the old name to new name.
+    public void updateEntityName(String name)
     {
-        if(name != null)
-        {
-            this.entityName = name.toUpperCase();
-        }
-        else
-        {
-            this.entityName = "ENTITY";
-        }
+    	
     }
 
-    /**
-     * Associates a map of Data objects with the Entity
-     * @param newMap A HashMap of Data objects
-     */
-    public void setData(HashMap<String,Data> newMap)
-    {
-        data.clear();
-        data.putAll(newMap);
-    }
+
 
     /**
      * Getter for field <code>name</code>
      * @return The name of the Entity
      */
-    public String getName()
+    public String getEntityName()
     {
-        return entityName;
+        return this.entity_name;
     }
 
-    /**
-     * Getter for field <code>map</code>
-     * Allows the user to do work directly on the map if the
-     * put, append, remove, and replace functionality in this Class
-     * are not sufficient
-     *
-     * @return The map of Data for the entity
-     */
-    public HashMap<String,Data> getData()
-    {
-        return data;
-    }
+
 
     /**
      * Formats info in Entity to a printable string.
      * @return Formatted string containing all data in Entity
      */
-    @Override
     public String toString()
     {
-        String temp = "";
-        temp += entityName + ":\n";
-        for(String s : data.keySet()){
-            temp += s + data.get(s).toString();
-            temp += "\n";
-        }
-
-        return temp;
+    	String result = "Entity Name:\t" + this.entity_name + "\n";
+    	for(String key : key_set)
+    	{
+    		Object value = obj_svc.get(key);
+    		result += key + ":\t" + value +"\n";
+    	}
+    	
+    	return result;
     }
 }

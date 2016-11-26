@@ -9,7 +9,11 @@ import java.io.Serializable;
 public class Action implements Serializable
 {
 
-    private String action;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1607992443410504330L;
+	private String action;
 
     public Action()
     {

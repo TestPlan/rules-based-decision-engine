@@ -8,7 +8,11 @@ import java.util.ArrayList;
  */
 public class ConditionalElementList implements Serializable
 {
-    private ArrayList<ConditionalElement> conditionalElementsList;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -7306340286128720533L;
+	private ArrayList<ConditionalElement> conditionalElementsList;
 
     //TODO: Add LogicalConjunction
 

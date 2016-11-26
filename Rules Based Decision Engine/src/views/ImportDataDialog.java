@@ -1,12 +1,14 @@
 package views;
 
-import controllers.EntityDataController;
 import services.EntityCollectionService;
 import services.FileReaderService;
 import models.Entity;
 import services.ObjectCollectionService;
 
 import javax.swing.*;
+
+import controllers.EntityDataController;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;

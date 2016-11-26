@@ -11,7 +11,11 @@ import java.io.Serializable;
  */
 public class Constraint implements Serializable
 {
-    private Operator operator;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6900198280404781569L;
+	private Operator operator;
     private Object leftHandSide;
     private Object rightHandSide;
     private LogicalConjunction logicalConjunction;

@@ -66,7 +66,25 @@ public class FileWriterService
         {
             e.printStackTrace();
         }
-
     }
 
+    //TODO: Finish export rules method
+/*    public void exportRulesMade()
+    {
+        PrintWriter outputStream = null;     //Writes the notes in notebook to the text file
+        try
+        {
+            outputStream = new PrintWriter(fileLoc);
+            for (int i = 0; i < rules.size(); i++)
+            {
+                outputStream.println(rules.get(i).getTitle() + "," + rules.get(i).getAction());
+            }
+            outputStream.close();
+        }
+        catch (FileNotFoundException e)
+        {
+            System.out.println("Error opening file!");
+            System.exit(0);
+        }
+    }*/
 }

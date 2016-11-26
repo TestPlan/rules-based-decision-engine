@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  * Created by shiv on 10/23/2016.
@@ -79,7 +78,6 @@ public class RulesReader
     public String printKeys()
     {
         String temp = "";
-        Iterator iterator = ruleList.entrySet().iterator();
         for (String key : ruleList.keySet())
         {
             temp += "\n" + "Rule Key: " + key.toString();
