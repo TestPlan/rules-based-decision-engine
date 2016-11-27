@@ -18,7 +18,7 @@ public class ActionCollectionService implements Collectable<Action>
 
     private HashMap<String, Action> actions = new HashMap<String, Action>();
     private HashMap<String, Action> redundant_list = new HashMap<String, Action>();
-    
+
     private static ActionCollectionService Instance;
 
 
@@ -34,12 +34,12 @@ public class ActionCollectionService implements Collectable<Action>
     /**
 	 * CAUTION:
 	 * Removes all of the mappings from this map. The map will be empty after this call returns.
-	 * 
+	 *
 	 * As a precaution, Map<key,value> is backed up to a redundant storage list.
 	 * Redundant storage is cleared on the proceeding clear() method call which will effectively destroy
 	 * any past data.
 	 */
-	public void clear() 
+	public void clear()
     {
 		redundant_list.clear();
 		actions = redundant_list;
@@ -47,7 +47,7 @@ public class ActionCollectionService implements Collectable<Action>
 	}
 
 	/**
-	 * Returns true if this map contains an Action mapping for the specified key. 
+	 * Returns true if this map contains an Action mapping for the specified key.
 	 * @param key: key whose presence in this map is to be tested.
 	 * @return true if this map contains a mapping for the specified key.
 	 */
@@ -57,7 +57,7 @@ public class ActionCollectionService implements Collectable<Action>
 	}
 
 	/**
-	 * Returns true if this map maps one or more keys to the specified value. 
+	 * Returns true if this map maps one or more keys to the specified value.
 	 * @param value: value whose presence in this map is to be tested.
 	 * @return true if this map maps one or more keys to the specified value.
 	 */
@@ -65,11 +65,11 @@ public class ActionCollectionService implements Collectable<Action>
 	{
 	    return actions.containsValue(value);
 	}
-	
+
 	/**
-	 * Returns a Set view of the mappings contained in this map. 
+	 * Returns a Set view of the mappings contained in this map.
 	 * The set is backed by the map, so changes to the map are reflected in the set, and vice-versa.
-	 * 
+	 *
 	 * @return a set view of the mappings contained in this map.
 	 */
 	public Set<Entry<String, Action>> entrySet()
@@ -85,25 +85,31 @@ public class ActionCollectionService implements Collectable<Action>
 	 */
 	public Action get(String key)
 	{
-	    return actions.get(key);	    
+	    return actions.get(key);
 	}
 
+    /**
+     * Return the entire list of actions
+     * @return Map containing all actions
+     */
+	public HashMap<String, Action> getMap(){ return actions; }
+
 	/**
-     * Associates the specified value with the specified key in this Map<str,Action>. 
-     * If the map previously contained a mapping for the key, the old value is replaced by the specified value. 
+     * Associates the specified value with the specified key in this Map<str,Action>.
+     * If the map previously contained a mapping for the key, the old value is replaced by the specified value.
      * @param key: key with which the specified value is to be associated
      * @param value: value to be associated with the specified key.
      */
     public Action put(String key, Action value)
-    {        
+    {
        return actions.put(key.trim().toUpperCase(), value);
     }
 
     /**
-     * Copies all of the mappings from the specified map to this map. 
-     * These mappings will replace any mappings that this map had for any of the 
+     * Copies all of the mappings from the specified map to this map.
+     * These mappings will replace any mappings that this map had for any of the
      * keys currently in the specified map.
-     * 
+     *
      * @param map mappings to be stored in this map
      */
     public void putAll(HashMap<String,Action> map)
@@ -124,8 +130,8 @@ public class ActionCollectionService implements Collectable<Action>
     }
 
     /**
-     * Returns a string representation of the object. 
-     * In general, the toString method returns a string that "textually represents" this object. 
+     * Returns a string representation of the object.
+     * In general, the toString method returns a string that "textually represents" this object.
      * @return a string representation of the object.
      */
     public String toString()

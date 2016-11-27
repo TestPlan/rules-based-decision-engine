@@ -3,6 +3,8 @@ package controllers;
 import models.Action;
 import services.ActionCollectionService;
 
+import java.util.ArrayList;
+
 /**
  * Controller for interfacing between the + New Action view and the Action model.
  *
@@ -12,6 +14,7 @@ import services.ActionCollectionService;
 public class ActionController
 {
     public static ActionController INSTANCE;
+    ActionCollectionService acr = ActionCollectionService.getInstance();
 
     public ActionController() {}
 
@@ -27,10 +30,12 @@ public class ActionController
     public void newAction(String actionName, String actionDescription)
     {
         Action action = new Action(actionDescription);
-        ActionCollectionService acr = ActionCollectionService.getInstance();
 
         acr.put(actionName, action);
     }
 
-    //TODO: Add functionality for removing an Action?
+    public void retrieveActions()
+    {
+        ArrayList<Action> list = new ArrayList<Action>();
+    }
 }
