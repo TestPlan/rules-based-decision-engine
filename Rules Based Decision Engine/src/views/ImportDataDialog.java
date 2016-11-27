@@ -1,13 +1,8 @@
 package views;
 
-import services.EntityCollectionService;
-import services.FileReaderService;
-import models.Entity;
-import services.ObjectCollectionService;
-
 import javax.swing.*;
 
-import controllers.EntityDataController;
+import controllers.EntityController;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -104,26 +99,11 @@ public class ImportDataDialog extends JDialog
      */
     private void onSave()
     {
-        FileReaderService fr = FileReaderService.getInstance();
-
-        try {
-            Entity e;
-            if (datafile == null) {
-                onCancel();
-            } else if (datafile.getAbsolutePath().toUpperCase().endsWith(".JSON")) {
-                e = fr.readJsonFile(datafile.getAbsolutePath());
-                EntityDataController.getINSTANCE().addEntity(e);
-            } else if (datafile.getAbsolutePath().toUpperCase().endsWith(".CSV")) {
-                fr.readFile(datafile.getAbsolutePath());
-                //This method will have to call a CSV-specific method
-                //TODO: Add code to parse a CSV file
-            }
+        if (datafile == null) {
+            dispose();
+        } else {
+            EntityController.getINSTANCE().addEntity(datafile);
         }
-        catch(NullPointerException n)
-        {
-            System.out.println(n.getMessage());
-        }
-        dispose();
     }
 
     /**
