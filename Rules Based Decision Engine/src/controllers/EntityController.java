@@ -44,16 +44,28 @@ public class EntityController
         }
     }
 
+    /**
+     * Add an Entity to the collection service
+     * @param e Entity to add
+     */
     public static void addEntity(Entity e)
     {
         svc.put(e);
     }
 
+    /**
+     * Remove an Entity from the collection service by its key
+     * @param key
+     */
     public static void removeEntity(String key)
     {
         svc.remove(key);
     }
 
+    /**
+     * Retrieve an Entity from the collection service by its key
+     * @param key
+     */
     public static void retrieveEntity(String key)
     {
         svc.get(key);
