@@ -28,6 +28,7 @@ public class MainView
         frame.setContentPane(new MainView().MainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 

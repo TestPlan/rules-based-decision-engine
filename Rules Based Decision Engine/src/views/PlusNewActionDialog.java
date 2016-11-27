@@ -28,7 +28,9 @@ public class PlusNewActionDialog extends JDialog
     public static void main(String[] args)
     {
         PlusNewActionDialog dialog = new PlusNewActionDialog();
+        dialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         dialog.pack();
+        dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
     }
 

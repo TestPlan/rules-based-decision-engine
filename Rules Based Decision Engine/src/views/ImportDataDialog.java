@@ -27,7 +27,9 @@ public class ImportDataDialog extends JDialog
     public static void main(String[] args)
     {
         ImportDataDialog dialog = new ImportDataDialog();
+        dialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         dialog.pack();
+        dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
     }
 
@@ -104,6 +106,7 @@ public class ImportDataDialog extends JDialog
         } else {
             EntityController.getINSTANCE().addEntity(datafile);
         }
+        dispose();
     }
 
     /**
