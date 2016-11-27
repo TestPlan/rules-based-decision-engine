@@ -1,6 +1,8 @@
 package services;
 
 import models.Action;
+
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -92,7 +94,18 @@ public class ActionCollectionService implements Collectable<Action>
      * Return the entire list of actions
      * @return Map containing all actions
      */
-	public HashMap<String, Action> getMap(){ return actions; }
+	public String[] getActions()
+    {
+        String[] actionArr = new String[actions.size()];
+        int index = 0;
+
+        for(String s : actions.keySet()){
+            actionArr[index] = s;
+            index++;
+        }
+
+        return actionArr;
+    }
 
 	/**
      * Associates the specified value with the specified key in this Map<str,Action>.

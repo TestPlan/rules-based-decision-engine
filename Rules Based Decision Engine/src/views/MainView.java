@@ -82,6 +82,12 @@ public class MainView
 
             }
         });
+        newRuleButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                new PlusNewRule();
+            }
+        });
     }
 
     {

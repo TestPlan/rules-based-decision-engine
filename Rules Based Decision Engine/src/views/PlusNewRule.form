@@ -94,7 +94,7 @@
                   <text value="Actions"/>
                 </properties>
               </component>
-              <component id="736c5" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+              <component id="736c5" class="javax.swing.JComboBox" binding="actionBox">
                 <constraints>
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="303" height="26"/>

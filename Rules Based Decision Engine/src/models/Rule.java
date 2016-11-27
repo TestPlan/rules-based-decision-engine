@@ -11,7 +11,7 @@ public class Rule implements Serializable
 {
     private String title;
     private ConditionalElementList conditionalElemList;
-    private Action action;
+    private Action action; //todo: Use ActionList?
     transient ActionCollectionService act_svc = ActionCollectionService.getInstance();
 
     private static final long serialVersionUID = 75643827956748L;

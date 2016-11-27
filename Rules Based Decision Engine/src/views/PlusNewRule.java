@@ -1,5 +1,9 @@
 package views;
 
+import controllers.ActionController;
+import models.*;
+import models.Action;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,24 +16,48 @@ public class PlusNewRule {
     private JButton cancelButton;
     private JButton saveButton;
     private JTextField enterRuleTitleTextField;
-    private JComboBox comboBox1;
+    private JComboBox actionBox;
     private JButton addActionButton;
     private JButton addConditionButton;
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Rule");
-        frame.setContentPane(new PlusNewRule().panel1);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-    }
+    private static JFrame frame;
+
+    Action a; //todo: Use ActionList?
+    private static ActionController ac = ActionController.getInstance();
 
     public PlusNewRule() {
+        frame = new JFrame("Rule");
+        frame.setContentPane(panel1);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        //actionBox = new JComboBox(ac.retrieveActions());
+        //Populate JComboBox actionBox
+        for(int i = 0; i < ac.retrieveActions().length; i++){
+            actionBox.addItem(ac.retrieveActions()[i]);
+        }//Todo: improve if possible
+
+
         addActionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
+                String s = (String) actionBox.getSelectedItem();
+                a = ac.getAction(s);
+                System.out.println(a);
             }
         });
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                frame.dispose();
+            }
+        });
+
+
+
+
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+
     }
 }

@@ -4,6 +4,8 @@ import models.Action;
 import services.ActionCollectionService;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Controller for interfacing between the + New Action view and the Action model.
@@ -34,8 +36,13 @@ public class ActionController
         acr.put(actionName, action);
     }
 
-    public void retrieveActions()
+    public String[] retrieveActions()
     {
-        ArrayList<Action> list = new ArrayList<Action>();
+        return acr.getActions();
+    }
+
+    public Action getAction(String key)
+    {
+        return acr.get(key);
     }
 }
