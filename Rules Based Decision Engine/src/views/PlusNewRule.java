@@ -110,7 +110,8 @@ public class PlusNewRule
         }
         catch (NullPointerException n)
         {
-            System.out.println("Something was not created");
+            JOptionPane.showMessageDialog(frame, "Please make sure you have created an Action\n and filled in your Condition " +
+                "before attempting to create a rule.", "Incomplete Rule Fields", JOptionPane.ERROR_MESSAGE);
         }
     }
 

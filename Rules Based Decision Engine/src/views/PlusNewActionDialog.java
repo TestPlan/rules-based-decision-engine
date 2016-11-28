@@ -84,6 +84,8 @@ public class PlusNewActionDialog extends JDialog
     private void onOK()
     {
         ActionController.getInstance().newAction(txtActionName.getText(), txtActionDescription.getText());
+        //TODO: Cleanse Action fields to replace whitespace with either nothing, or an underscore
+        //TODO: Error when nothing is entered in fields.
         //TODO: Set Action to auto trigger if automaticallyTriggerCheckBox.isSelected() is met
         dispose();
     }
