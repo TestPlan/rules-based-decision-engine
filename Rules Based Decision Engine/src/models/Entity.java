@@ -80,6 +80,11 @@ public class Entity
     	return (count != 0);
     }
 
+    public Set<String> getKeys()
+    {
+        return key_set;
+    }
+
 
 
     /**

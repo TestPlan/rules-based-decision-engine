@@ -1,5 +1,6 @@
 package views;
 
+import controllers.EntityController;
 import models.Operator;
 import models.*;
 import services.EntityCollectionService;
@@ -14,7 +15,9 @@ public class ConditionDialog extends JDialog {
     private JComboBox entityBox;
     private JComboBox keyBox;
     private JComboBox operatorBox;
-    private JComboBox valueBox;
+    private JTextField valueTxt;
+
+    EntityController svc = EntityController.getINSTANCE();
 
     public ConditionDialog() {
         setContentPane(contentPane);
@@ -22,13 +25,14 @@ public class ConditionDialog extends JDialog {
         getRootPane().setDefaultButton(buttonOK);
 
         //Populate entityBox
+        entityBox.addItem("<Select Entity>");
         for(String s : EntityCollectionService.getInstance().getMap().keySet())
         {
             entityBox.addItem(s);
         }
 
         //Populate keyBox
-
+        keyBox.addItem("No Data Imported");
 
         //Populate OperatorBox
         //operatorBox = new JComboBox(Operator.values());
@@ -37,7 +41,7 @@ public class ConditionDialog extends JDialog {
             operatorBox.addItem(o);
         } //Todo: improve if possible
 
-        //valueBox can be input
+        //valueBox will be user-input
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -59,6 +63,20 @@ public class ConditionDialog extends JDialog {
             }
         });
 
+        entityBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent itemEvent) {
+                 if(!entityBox.getSelectedItem().equals("<Select Entity>")) {
+                     keyBox.removeAllItems();
+
+                     String s = (String) entityBox.getSelectedItem();
+                     for (String str : svc.retrieveFields(s)) {
+                         keyBox.addItem(str);
+                     }
+                 }
+            }
+        });
+
         // call onCancel() on ESCAPE
 //        contentPane.registerKeyboardAction(new ActionListener() {
 //            public void actionPerformed(ActionEvent e) {
@@ -72,7 +90,11 @@ public class ConditionDialog extends JDialog {
     }
 
     private void onOK() {
-        // add your code here
+        String entity = (String) entityBox.getSelectedItem();
+        String field = (String) keyBox.getSelectedItem();
+        Operator o = (Operator) operatorBox.getSelectedItem();
+        String value = (String) valueTxt.getText();
+
         dispose();
     }
 

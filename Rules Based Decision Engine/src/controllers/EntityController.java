@@ -5,6 +5,7 @@ import services.EntityCollectionService;
 import services.FileReaderService;
 
 import java.io.File;
+import java.util.Set;
 
 /**
  * Created by Mike on 11/17/2016.
@@ -69,5 +70,10 @@ public class EntityController
     public static void retrieveEntity(String key)
     {
         svc.get(key);
+    }
+
+    public static String[] retrieveFields(String key)
+    {
+        return svc.retrieveFields(key);
     }
 }

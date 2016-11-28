@@ -4,6 +4,7 @@ import models.Entity;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 /**
  * Created by Mike on 11/17/2016.
@@ -174,6 +175,27 @@ public class EntityCollectionService implements Collectable<Entity>
             temp = temp + this.map.get(key).toString() + "\n";
         }
         return temp;
+    }
+
+    /**
+     * Build an array of an Entity's fields from the Entity's key
+     *
+     * @param key Key of Entity to search for in the collection
+     * @return An array of all the possible fields in the Entity
+     */
+    public String[] retrieveFields(String key)
+    {
+        Entity e = map.get(key);
+        String[] arr = new String[e.getKeys().size()];
+        int index = 0;
+
+        for(String s : e.getKeys())
+        {
+            arr[index] = s.substring(s.indexOf('.') + 1);
+            index++;
+        }
+
+        return arr;
     }
 
 

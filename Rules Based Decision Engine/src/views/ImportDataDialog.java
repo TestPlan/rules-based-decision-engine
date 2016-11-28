@@ -1,6 +1,7 @@
 package views;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controllers.EntityController;
 
@@ -121,6 +122,7 @@ public class ImportDataDialog extends JDialog
         chooser.setDialogTitle("Select Data File:");
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         chooser.setAcceptAllFileFilterUsed(false);
+        chooser.setFileFilter(new FileNameExtensionFilter("Acceptable File Types: .json, .csv, .txt", "json", "csv", "txt"));
 
         if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
         {

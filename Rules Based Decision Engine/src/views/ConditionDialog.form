@@ -77,14 +77,6 @@
             </constraints>
             <properties/>
           </component>
-          <component id="b6982" class="javax.swing.JComboBox" binding="valueBox">
-            <constraints>
-              <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <editable value="true"/>
-            </properties>
-          </component>
           <component id="34a15" class="javax.swing.JLabel">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -108,6 +100,14 @@
             <properties>
               <text value="Value"/>
             </properties>
+          </component>
+          <component id="f88b6" class="javax.swing.JTextField" binding="valueTxt">
+            <constraints>
+              <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties/>
           </component>
         </children>
       </grid>
