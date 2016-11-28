@@ -80,7 +80,7 @@
               </grid>
             </constraints>
             <properties>
-              <text value="Enter a memorable Action name"/>
+              <text value=""/>
             </properties>
           </component>
           <component id="16297" class="javax.swing.JTextField" binding="txtActionDescription">
@@ -90,7 +90,7 @@
               </grid>
             </constraints>
             <properties>
-              <text value="Enter Action description"/>
+              <text value=""/>
             </properties>
           </component>
         </children>

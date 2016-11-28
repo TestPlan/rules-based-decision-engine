@@ -68,6 +68,10 @@ public class PlusNewActionDialog extends JDialog
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
+
+        txtActionName.setToolTipText("Enter a memorable Action name");
+        txtActionDescription.setToolTipText("Enter an Action description");
+
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
