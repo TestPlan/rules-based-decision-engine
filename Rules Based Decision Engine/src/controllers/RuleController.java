@@ -56,7 +56,7 @@ public class RuleController {
         return new Rule(title, cel, action);
     }
 
-    public static boolean addRuleToCollection(Rule r)
+    public static void addRuleToCollection(Rule r)
     {
         ruleSVC.put(r.getTitle(), r);
     }
