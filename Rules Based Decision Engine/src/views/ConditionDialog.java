@@ -93,10 +93,13 @@ public class ConditionDialog extends JDialog
             @Override
             public void itemStateChanged(ItemEvent itemEvent)
             {
-                if (!entityBox.getSelectedItem().equals("<Select Entity>"))
+                keyBox.removeAllItems();
+                if (entityBox.getSelectedItem().equals("<Select Entity>"))
                 {
-                    keyBox.removeAllItems();
-
+                    keyBox.addItem("<Select Entity>");
+                }
+                else
+                {
                     String s = (String) entityBox.getSelectedItem();
                     for (String str : svc.retrieveFields(s))
                     {
