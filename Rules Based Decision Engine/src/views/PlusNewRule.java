@@ -28,7 +28,7 @@ public class PlusNewRule {
     public PlusNewRule() {
         frame = new JFrame("Rule");
         frame.setContentPane(panel1);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         //actionBox = new JComboBox(ac.retrieveActions());
         //Populate JComboBox actionBox
@@ -51,13 +51,15 @@ public class PlusNewRule {
                 frame.dispose();
             }
         });
-
-
-
+        addConditionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                new ConditionDialog();
+            }
+        });
 
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-
     }
 }
