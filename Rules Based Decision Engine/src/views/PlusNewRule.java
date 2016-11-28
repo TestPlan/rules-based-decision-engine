@@ -20,10 +20,10 @@ public class PlusNewRule {
     private JButton addActionButton;
     private JButton addConditionButton;
 
-    private static JFrame frame;
+    private JFrame frame;
 
     Action a; //todo: Use ActionList?
-    private static ActionController ac = ActionController.getInstance();
+    private ActionController ac = ActionController.getInstance();
 
     public PlusNewRule() {
         frame = new JFrame("Rule");

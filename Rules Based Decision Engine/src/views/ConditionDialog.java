@@ -25,8 +25,6 @@ public class ConditionDialog extends JDialog {
         for(String s : EntityCollectionService.getInstance().getMap().keySet())
         {
             entityBox.addItem(s);
-            System.out.println(s);
-            System.out.println(EntityCollectionService.getInstance().get(s));
         }
 
         //Populate keyBox
@@ -39,7 +37,7 @@ public class ConditionDialog extends JDialog {
             operatorBox.addItem(o);
         } //Todo: improve if possible
 
-        //valueBox can input
+        //valueBox can be input
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -62,11 +60,11 @@ public class ConditionDialog extends JDialog {
         });
 
         // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+//        contentPane.registerKeyboardAction(new ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//                onCancel();
+//            }
+//        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
         this.pack();
         this.setLocationRelativeTo(null);

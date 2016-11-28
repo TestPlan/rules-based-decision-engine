@@ -24,7 +24,7 @@ public class MainView
 
     public static void main(String[] args)
     {
-        JFrame frame = new JFrame("MainView");
+        JFrame frame = new JFrame("Rules-Based Decision Engine");
         frame.setContentPane(new MainView().MainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
@@ -76,12 +76,6 @@ public class MainView
         });
 
         // + New Rule button
-        newRuleButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-
-            }
-        });
         newRuleButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
