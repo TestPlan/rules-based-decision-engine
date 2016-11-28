@@ -41,7 +41,7 @@ public class MainView
             public void actionPerformed(ActionEvent e)
             {
                 // The ImportDataDialog should handle the creation of the Entity object
-                ImportDataDialog.main(new String[0]);
+                new ImportDataDialog();
             }
         });
 
@@ -52,7 +52,7 @@ public class MainView
             public void actionPerformed(ActionEvent e)
             {
                 // The PlusNewActionDialog handles the creation of the Action object
-                PlusNewActionDialog.main(new String[0]);
+                new PlusNewActionDialog();
             }
         });
 

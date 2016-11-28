@@ -21,23 +21,12 @@ public class ImportDataDialog extends JDialog
     private File datafile;
 
     /**
-     * Code for creating ImportDataDialog
-     * @param args Command line arguments
-     */
-    public static void main(String[] args)
-    {
-        ImportDataDialog dialog = new ImportDataDialog();
-        dialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        dialog.pack();
-        dialog.setLocationRelativeTo(null);
-        dialog.setVisible(true);
-    }
-
-    /**
      * Sets up dialog box
      */
     public ImportDataDialog()
     {
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonSave);
@@ -94,6 +83,10 @@ public class ImportDataDialog extends JDialog
                 onCancel();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
+        this.pack();
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
     }
 
     /**

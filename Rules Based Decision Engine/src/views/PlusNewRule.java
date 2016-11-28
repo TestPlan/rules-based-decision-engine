@@ -42,7 +42,7 @@ public class PlusNewRule {
             public void actionPerformed(ActionEvent actionEvent) {
                 String s = (String) actionBox.getSelectedItem();
                 a = ac.getAction(s);
-                System.out.println(a);
+                //System.out.println(a);
             }
         });
         cancelButton.addActionListener(new ActionListener() {
