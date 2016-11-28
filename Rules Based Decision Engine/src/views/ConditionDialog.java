@@ -10,8 +10,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * This Dialog object allows for the creation of the body of the Condition/Constraints
+ * At the moment, it allows for a single Constraint in a single Condition, just as proof
+ * of concept.
+ *
+ * @author Michael Crinite and Ian Markind
+ * @version 1.0 11/27/16
+ */
 public class ConditionDialog extends JDialog
 {
+    //Components
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
@@ -20,9 +29,13 @@ public class ConditionDialog extends JDialog
     private JComboBox operatorBox;
     private JTextField valueTxt;
 
+    //Fields
     private EntityController svc = EntityController.getINSTANCE();
     private RuleController rc = RuleController.getInstance();
 
+    /**
+     * Creates a new ConditionDialog instance
+     */
     public ConditionDialog()
     {
         setContentPane(contentPane);
@@ -106,6 +119,10 @@ public class ConditionDialog extends JDialog
         this.setVisible(true);
     }
 
+    /**
+     * To be called when the OK button is clicked.
+     * Creates the fields of the rule from user input/selections
+     */
     private void onOK()
     {
         String entity = (String) entityBox.getSelectedItem();
@@ -122,6 +139,9 @@ public class ConditionDialog extends JDialog
         dispose();
     }
 
+    /**
+     * Disposes of the window and forgets data input
+     */
     private void onCancel()
     {
         dispose();
