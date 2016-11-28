@@ -1,6 +1,7 @@
 package views;
 
 import controllers.EntityController;
+import controllers.RuleController;
 import models.Operator;
 import models.*;
 import services.EntityCollectionService;
@@ -17,7 +18,8 @@ public class ConditionDialog extends JDialog {
     private JComboBox operatorBox;
     private JTextField valueTxt;
 
-    EntityController svc = EntityController.getINSTANCE();
+    private EntityController svc = EntityController.getINSTANCE();
+    private RuleController rc = RuleController.getInstance();
 
     public ConditionDialog() {
         setContentPane(contentPane);
@@ -77,12 +79,12 @@ public class ConditionDialog extends JDialog {
             }
         });
 
-        // call onCancel() on ESCAPE
-//        contentPane.registerKeyboardAction(new ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                onCancel();
-//            }
-//        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        //call onCancel() on ESCAPE
+        contentPane.registerKeyboardAction(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                onCancel();
+            }
+        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
         this.pack();
         this.setLocationRelativeTo(null);
@@ -93,8 +95,18 @@ public class ConditionDialog extends JDialog {
         String entity = (String) entityBox.getSelectedItem();
         String field = (String) keyBox.getSelectedItem();
         Operator o = (Operator) operatorBox.getSelectedItem();
-        String value = (String) valueTxt.getText();
+        String value = valueTxt.getText();
 
+        System.out.println(entity + " " + field + " " + o + " " + value);
+        System.out.println("First");
+
+        ConditionalElement ce = rc.addConditionalElement(
+            rc.addConstraintList(
+                rc.addConstraint(entity + "." + field, o, value)));
+
+        //TODO: FIX THIS ^
+
+        PlusNewRule.cel.add(ce);
         dispose();
     }
 

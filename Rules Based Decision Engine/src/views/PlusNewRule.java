@@ -1,6 +1,7 @@
 package views;
 
 import controllers.ActionController;
+import controllers.RuleController;
 import models.*;
 import models.Action;
 
@@ -22,7 +23,12 @@ public class PlusNewRule {
 
     private JFrame frame;
 
-    Action a; //todo: Use ActionList?
+    private Rule rule;
+    public static ConditionalElementList cel = new ConditionalElementList();
+    private Action a; //todo: Use ActionList?
+
+    private RuleController rc = RuleController.getInstance();
+
     private ActionController ac = ActionController.getInstance();
 
     public PlusNewRule() {
@@ -30,13 +36,16 @@ public class PlusNewRule {
         frame.setContentPane(panel1);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
+        //Create new Rule object
+        rule = rc.createDefaultRule();
+
         //actionBox = new JComboBox(ac.retrieveActions());
         //Populate JComboBox actionBox
         for(int i = 0; i < ac.retrieveActions().length; i++){
             actionBox.addItem(ac.retrieveActions()[i]);
         }//Todo: improve if possible
 
-
+        // ActionListeners
         addActionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -57,9 +66,21 @@ public class PlusNewRule {
                 new ConditionDialog();
             }
         });
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                onSave(enterRuleTitleTextField.getText(), cel, a);
+            }
+        });
 
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+    }
+
+    public void onSave(String title, ConditionalElementList cel, Action action)
+    {
+        rule = rc.setRuleFields(title, cel, action);
+        System.out.println(rule);
     }
 }

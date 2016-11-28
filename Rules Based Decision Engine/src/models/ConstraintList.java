@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class ConstraintList implements Serializable
 {
     /**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -2784615968462618057L;
 	private ArrayList<Constraint> constraintList;
@@ -24,6 +24,14 @@ public class ConstraintList implements Serializable
         constraintList = new ArrayList<>();
     }
 
+    /**
+     * Use this constructor if there is exactly one known Constraint to be added to the ConstraintList
+     * @param c
+     */
+    public ConstraintList(Constraint c)
+    {
+        constraintList.add(c);
+    }
 
     public ConstraintList(ArrayList<Constraint> constraintList)
     {
