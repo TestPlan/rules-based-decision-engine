@@ -128,10 +128,7 @@ public class ConditionDialog extends JDialog
         String entity = (String) entityBox.getSelectedItem();
         String field = (String) keyBox.getSelectedItem();
         Operator o = (Operator) operatorBox.getSelectedItem();
-        String value = valueTxt.getText();
-
-        System.out.println(entity + " " + field + " " + o + " " + value);
-        System.out.println("First");
+        String value = valueTxt.getText().trim().replaceAll("\\s+", "_");
 
         ConditionalElement ce = rc.addConditionalElement(rc.addConstraintList(rc.addConstraint(entity + "." + field, o, value)));
 
