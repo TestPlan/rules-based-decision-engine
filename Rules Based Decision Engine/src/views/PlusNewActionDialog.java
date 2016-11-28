@@ -83,11 +83,17 @@ public class PlusNewActionDialog extends JDialog
      */
     private void onOK()
     {
-        ActionController.getInstance().newAction(txtActionName.getText(), txtActionDescription.getText());
-        //TODO: Cleanse Action fields to replace whitespace with either nothing, or an underscore
-        //TODO: Error when nothing is entered in fields.
+        if (txtActionName.getText().equals("") || txtActionName.getText().equals("\\s+") || txtActionDescription.getText().equals("") || txtActionDescription.getText().equals("\\s+"))
+        {
+            JOptionPane.showMessageDialog(new Frame(), "You must enter a name and description", "Incomplete Action Fields", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            ActionController.getInstance().newAction(txtActionName.getText().trim().replaceAll("\\s+", "_"), txtActionDescription.getText().trim().replaceAll("\\s+", "_"));
+            dispose();
+        }
         //TODO: Set Action to auto trigger if automaticallyTriggerCheckBox.isSelected() is met
-        dispose();
+
     }
 
     /**
