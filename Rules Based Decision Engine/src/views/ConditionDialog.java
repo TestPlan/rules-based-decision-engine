@@ -1,6 +1,8 @@
 package views;
 
 import models.Operator;
+import models.*;
+import services.EntityCollectionService;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -20,8 +22,15 @@ public class ConditionDialog extends JDialog {
         getRootPane().setDefaultButton(buttonOK);
 
         //Populate entityBox
+        for(String s : EntityCollectionService.getInstance().getMap().keySet())
+        {
+            entityBox.addItem(s);
+            System.out.println(s);
+            System.out.println(EntityCollectionService.getInstance().get(s));
+        }
 
         //Populate keyBox
+
 
         //Populate OperatorBox
         //operatorBox = new JComboBox(Operator.values());
@@ -29,6 +38,8 @@ public class ConditionDialog extends JDialog {
         {
             operatorBox.addItem(o);
         } //Todo: improve if possible
+
+        //valueBox can input
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

@@ -30,12 +30,12 @@ public class Entity
     {
     	entity_name = entity_svc.defaultName();
     }
-    
+
     public Entity(String entity_name)
     {
     	this.entity_name = entity_name;
     }
-    
+
     public Entity(String entity_name, Set<String> set)
     {
     	this.entity_name = entity_name;
@@ -59,7 +59,7 @@ public class Entity
     }
 
     /**
-     *Adds all of the elements in the specified collection to this set if they're not already present (optional operation). 
+     *Adds all of the elements in the specified collection to this set if they're not already present (optional operation).
      *The addAll operation effectively modifies this set so that its value is the union of the two sets.
      *
      * @param  c represents a collection of keys corresponding to a mapping inside ObjectCollectionService.
@@ -68,7 +68,7 @@ public class Entity
     public boolean insertKeySet(Set<String> keys)
     {
     	int count = 0;
-    	
+
     	for(String key : keys)
     	{
     		if(obj_svc.containsKey(key))
@@ -79,35 +79,35 @@ public class Entity
     	}
     	return (count != 0);
     }
-    
+
 
 
     /**
 	 * Adds the specified key to this set if it is not already present (optional operation).
-	 *  If this set already contains the element, the call leaves the set unchanged and returns false. 
-	 *  
+	 *  If this set already contains the element, the call leaves the set unchanged and returns false.
+	 *
 	 * This function is designed to insert a single key corresponding to a Map<key,value> mapping in the ObjectCollectionService.
 	 * The key is a reference to a key the ObjectCollectionService and therefore must exist in the OCS.
-	 * 
+	 *
 	 * @param key key to be added to this set.
 	 * @return true if this set did not already contain the specified element.
 	 */
 	public boolean insertKey(String key)
 	{
 		boolean result = false;
-		
+
 		if(obj_svc.containsKey(key))
 			result = key_set.add(key);
-		
+
 		return result;
 	}
 
 	/**
-     * Associates the specified value with the specified key in ObjectCollectionService data map. 
+     * Associates the specified value with the specified key in ObjectCollectionService data map.
      * If the map previously contained a mapping for the key, the old value is replaced.
-     * 
+     *
      * This method strictly updates the value mapped to the key IFF the key exists in Set<key> of instance.
-     * 
+     *
      * NOTE: ObjectCollectionService data objects are shared collective across all Entity instances.
      * 		 Instance of Entity only contains a set of keys that reference the data objects in ObjectCollectionService.
      * 		 An update to the Map<String,Object> from one Entity effects all Entity instances.
@@ -117,21 +117,21 @@ public class Entity
     public Object updateData(String key, Object value)
     {
     	Object temp = null;
-    	
+
     	if(obj_svc.containsKey(key) && key_set.contains(key))
     	{
         	temp = obj_svc.put(key, value);
     	}
 
-    	
+
     	return temp;
     }
-    
-    
+
+
     /**
      * Associates the specified value with the specified a generated key derived from the entity name and name argument.
      * Key and value pair is then inserted in ObjectCollectionService and key is added to the Entity key set.
-     *  
+     *
      * Overrides any data associated with the key if it is discovered it is not a unique key.
      * @param name name describing the object. (Should not contain entity_name prefix)
      * @param value value to be associated with the specified key
@@ -141,16 +141,16 @@ public class Entity
     public boolean insertData(String name, Object value)
     {
         String key = entity_name + "." + name.toUpperCase().trim();
-        
+
         obj_svc.put(key, value);
 
-       return key_set.add(key);    
+       return key_set.add(key);
 
     }
 
     /**
      * Removes the specified element from this set if it is present (optional operation).
-     *  
+     *
      * @param key key corresponding to map entry in ObjectCollectionService to be removed from Entity key set.
      * @return true if key set contained the specified key.
      */
@@ -171,10 +171,8 @@ public class Entity
     //TODO: Need to update the KeySet for every Entity in EntityCollectionService from the old name to new name.
     public void updateEntityName(String name)
     {
-    	
+
     }
-
-
 
     /**
      * Getter for field <code>name</code>
@@ -199,7 +197,7 @@ public class Entity
     		Object value = obj_svc.get(key);
     		result += key + ":\t" + value +"\n";
     	}
-    	
+
     	return result;
     }
 }

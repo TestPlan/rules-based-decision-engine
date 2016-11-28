@@ -34,7 +34,7 @@ public class EntityCollectionService implements Collectable<Entity>
     /**
 	 * CAUTION:
 	 * Removes all of the mappings from this map. The map will be empty after this call returns.
-	 * 
+	 *
 	 * As a precaution, Map<key,value> is backed up to a redundant storage list.
 	 * Redundant storage is cleared on the proceeding clear() method call which will effectively destroy
 	 * any past data.
@@ -47,7 +47,7 @@ public class EntityCollectionService implements Collectable<Entity>
 	}
 
 	/**
-	 * Returns true if this map contains an Action mapping for the specified key. 
+	 * Returns true if this map contains an Action mapping for the specified key.
 	 * @param key: key whose presence in this map is to be tested.
 	 * @return true if this map contains a mapping for the specified key.
 	 */
@@ -58,16 +58,16 @@ public class EntityCollectionService implements Collectable<Entity>
 
 
 	/**
-	 * Returns true if this map maps one or more keys to the specified value. 
+	 * Returns true if this map maps one or more keys to the specified value.
 	 * @param value: value whose presence in this map is to be tested.
 	 * @return true if this map maps one or more keys to the specified value.
 	 */
-	public boolean containsValue(Entity value) 
+	public boolean containsValue(Entity value)
 	{
 	    return map.containsValue(value);
 	}
 
-	
+
 	public String defaultName()
 	{
 		String name = "ENTITY_" + Counter;
@@ -76,9 +76,9 @@ public class EntityCollectionService implements Collectable<Entity>
 	}
 
 	/**
-	 * Returns a Set view of the mappings contained in this map. 
+	 * Returns a Set view of the mappings contained in this map.
 	 * The set is backed by the map, so changes to the map are reflected in the set, and vice-versa.
-	 * 
+	 *
 	 * @return a set view of the mappings contained in this map.
 	 */
 	public Set<Entry<String, Entity>> entrySet()
@@ -87,7 +87,7 @@ public class EntityCollectionService implements Collectable<Entity>
 	}
 
 	/**
-	 * Returns the value to which the specified key is mapped, 
+	 * Returns the value to which the specified key is mapped,
 	 * or null if this map contains no mapping for the key.
 	 *
 	 * @param key the key whose associated value is to be returned
@@ -99,11 +99,11 @@ public class EntityCollectionService implements Collectable<Entity>
 	}
 
 	/**
-     * Associates the specified Entity with the specified key in this map. 
+     * Associates the specified Entity with the specified key in this map.
      * If the map previously contained a mapping for the key, the old value is replaced.
      * The key is derived from the Entity object itself.
      * @param value  value to be associated with the specified key
-     * @return the previous value associated with key, or null if there was no mapping for key. 
+     * @return the previous value associated with key, or null if there was no mapping for key.
      *         (A null return can also indicate that the map previously associated null with key.)
      */
     public Entity put(Entity value)
@@ -114,31 +114,40 @@ public class EntityCollectionService implements Collectable<Entity>
     }
 
 	/**
-     * Associates the specified value with the specified key in this map (optional operation). 
-     * If the map previously contained a mapping for the key, the old value is replaced by the specified value. 
-     * 
+     * Associates the specified value with the specified key in this map (optional operation).
+     * If the map previously contained a mapping for the key, the old value is replaced by the specified value.
+     *
      * @param key key with which the specified value is to be associated
      * @param value value to be associated with the specified key
-     * @return the previous value associated with key, or null if there was no mapping for key. 
-     *         (A null return can also indicate that the map previously associated null with key, 
+     * @return the previous value associated with key, or null if there was no mapping for key.
+     *         (A null return can also indicate that the map previously associated null with key,
      *         if the implementation supports null values.)
      */
-    public Entity put(String key, Entity value) 
+    public Entity put(String key, Entity value)
     {
        return this.map.put(key, value);
     }
-    
-    
+
+
     /**
-     * Copies all of the mappings from the specified map to this map. 
-     * These mappings will replace any mappings that this map had for any of the 
+     * Copies all of the mappings from the specified map to this map.
+     * These mappings will replace any mappings that this map had for any of the
      * keys currently in the specified map.
-     * 
+     *
      * @param map mappings to be stored in this map
      */
     public void putAll(HashMap<String,Entity> map)
     {
     	map.putAll(map);
+    }
+
+    /**
+     * Retrieve the full map of Entities
+     * @return Map of Entities
+     */
+    public HashMap<String, Entity> getMap()
+    {
+        return map;
     }
 
     /**
@@ -153,8 +162,8 @@ public class EntityCollectionService implements Collectable<Entity>
     }
 
     /**
-     * Returns a string representation of the object. 
-     * In general, the toString method returns a string that "textually represents" this object. 
+     * Returns a string representation of the object.
+     * In general, the toString method returns a string that "textually represents" this object.
      * @return a string representation of the object.
      */
     public String toString()
