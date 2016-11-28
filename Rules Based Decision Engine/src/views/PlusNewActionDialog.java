@@ -15,6 +15,7 @@ import java.awt.event.*;
  */
 public class PlusNewActionDialog extends JDialog
 {
+    //Components
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
@@ -34,6 +35,8 @@ public class PlusNewActionDialog extends JDialog
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
 
+
+        //ActionListeners
         buttonOK.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)

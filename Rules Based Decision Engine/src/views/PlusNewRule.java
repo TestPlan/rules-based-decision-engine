@@ -51,7 +51,6 @@ public class PlusNewRule
         //Create new Rule object
         rule = rc.createDefaultRule();
 
-        //actionBox = new JComboBox(ac.retrieveActions());
         //Populate JComboBox actionBox
         for (int i = 0; i < ac.retrieveActions().length; i++)
         {
@@ -67,6 +66,7 @@ public class PlusNewRule
                 //Add another actionbox field?
             }
         });
+
         cancelButton.addActionListener(new ActionListener()
         {
             @Override
@@ -75,6 +75,7 @@ public class PlusNewRule
                 frame.dispose();
             }
         });
+
         addConditionButton.addActionListener(new ActionListener()
         {
             @Override
@@ -83,6 +84,7 @@ public class PlusNewRule
                 new ConditionDialog();
             }
         });
+
         saveButton.addActionListener(new ActionListener()
         {
             @Override

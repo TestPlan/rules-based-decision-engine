@@ -11,14 +11,16 @@ import java.io.File;
 
 public class ImportDataDialog extends JDialog
 {
+    //Components
     private JPanel contentPane;
     private JButton buttonSave;
     private JButton buttonCancel;
-    private JLabel lblDataFile;     //Will never change
-    private JPanel pnlSelectFile;   //Will never change
+    private JLabel lblDataFile;
+    private JPanel pnlSelectFile;
     private JButton btnChooseFile;
     private JTextField txtChooseFile;
 
+    //Fields
     private File datafile;
 
     /**
@@ -32,9 +34,7 @@ public class ImportDataDialog extends JDialog
         setModal(true);
         getRootPane().setDefaultButton(buttonSave);
 
-        /**
-         * Listener for Save button
-         */
+        //Listener for Save button
         buttonSave.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -43,9 +43,7 @@ public class ImportDataDialog extends JDialog
             }
         });
 
-        /**
-         * Listener for Cancel button
-         */
+        //Listener for Cancel button
         buttonCancel.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -54,9 +52,7 @@ public class ImportDataDialog extends JDialog
             }
         });
 
-        /**
-         * Listener for Choose File
-         */
+        //Listener for Choose File
         btnChooseFile.addActionListener(new ActionListener()
         {
             @Override

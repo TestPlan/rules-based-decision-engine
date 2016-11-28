@@ -61,6 +61,7 @@ public class ConditionDialog extends JDialog
 
         //valueBox will be user-input
 
+        // ActionListeners
         buttonOK.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)

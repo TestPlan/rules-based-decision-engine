@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
  */
 public class MainView
 {
+    //Components
     private JTable table1;
     private JButton importDataButton;
     private JButton newActionButton;
@@ -22,6 +23,11 @@ public class MainView
     private JButton fireRulesButton;
     private JPanel MainPanel;
 
+    /**
+     * Creates an instance of MainView
+     *
+     * @param args Command line arguments (Empty String array can be passed)
+     */
     public static void main(String[] args)
     {
         JFrame frame = new JFrame("Rules-Based Decision Engine");
@@ -32,6 +38,9 @@ public class MainView
         frame.setVisible(true);
     }
 
+    /**
+     * Creates an instance of the MainView window
+     */
     public MainView()
     {
         // Import Data button
@@ -71,7 +80,7 @@ public class MainView
         fireRulesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
+                //TODO: Code to fire all existing rules
             }
         });
 
