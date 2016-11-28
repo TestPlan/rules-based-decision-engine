@@ -12,10 +12,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Created by Mike on 11/27/2016.
+ * Creates a PlusNewRule Dialog in order to assist the user in creating
+ * their own Rule object (which will be used to create a DRL of the Rule.
+ *
+ * @author Michael Crinite and Ian Markind
+ * @version 0.1 11/27/16
  */
 public class PlusNewRule
 {
+    //Components
     private JPanel panel1;
     private JButton cancelButton;
     private JButton saveButton;
@@ -26,6 +31,7 @@ public class PlusNewRule
 
     private JFrame frame;
 
+    //Fields
     private Rule rule;
     public static ConditionalElementList cel = new ConditionalElementList();
     private Action a; //todo: Use ActionList?
@@ -34,6 +40,9 @@ public class PlusNewRule
 
     private ActionController ac = ActionController.getInstance();
 
+    /**
+     * Creates a new PlusNewRule instance.
+     */
     public PlusNewRule()
     {
         frame = new JFrame("Rule");
