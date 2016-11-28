@@ -37,7 +37,6 @@ public class PlusNewRule
     private Action a; //todo: Use ActionList?
 
     private RuleController rc = RuleController.getInstance();
-
     private ActionController ac = ActionController.getInstance();
 
     /**
@@ -89,7 +88,10 @@ public class PlusNewRule
             @Override
             public void actionPerformed(ActionEvent actionEvent)
             {
-                onSave(enterRuleTitleTextField.getText(), cel, a);
+                //Get Action from actionBox
+                String s = (String) actionBox.getSelectedItem();
+                a = ac.getAction(s);
+                onSave(enterRuleTitleTextField.getText().trim().replaceAll("\\s+", "_"), cel, a);
             }
         });
 
@@ -98,16 +100,18 @@ public class PlusNewRule
         frame.setVisible(true);
     }
 
+    /**
+     * Gathers rule info and calls rc to create a new Rule object and add it to the collection
+     * @param title
+     * @param cel
+     * @param action
+     */
     public void onSave(String title, ConditionalElementList cel, Action action)
     {
         try
         {
-            //Get Action from actionBox
-            String s = (String) actionBox.getSelectedItem();
-            a = ac.getAction(s);
-
             //Create Rule object
-            rule = rc.setRuleFields(title, cel, a);
+            rule = rc.setRuleFields(title, cel, action);
 
             //Add Rule to collection
             rc.addRuleToCollection(rule);
