@@ -1,12 +1,14 @@
 package controllers;
 
 import models.*;
+import services.RuleCollectionService;
 
 /**
  * Created by Mike on 11/27/2016.
  */
 public class RuleController {
     public static RuleController INSTANCE;
+    public static RuleCollectionService ruleSVC = RuleCollectionService.getInstance();
 
     public RuleController() {}
 
@@ -52,6 +54,11 @@ public class RuleController {
     public static Rule setRuleFields(String title, ConditionalElementList cel, Action action)
     {
         return new Rule(title, cel, action);
+    }
+
+    public static boolean addRuleToCollection(Rule r)
+    {
+        ruleSVC.put(r.getTitle(), r);
     }
 
 }

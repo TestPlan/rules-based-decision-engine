@@ -30,6 +30,7 @@ public class ConstraintList implements Serializable
      */
     public ConstraintList(Constraint c)
     {
+        constraintList = new ArrayList<>();
         constraintList.add(c);
     }
 
