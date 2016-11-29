@@ -65,7 +65,7 @@ public class Rule implements Serializable
             "dialect \"mvel\"\n\n" +
             "rule \"" + title + "\"\n" +
             "when \n    " + conditionalElemList.toString() + "\n" +
-            "then \n    " + action.toString() + "\n\n" +
+            "then \n    " + action.toString() + ";\n\n" +
             "end";
         return result;
     }
