@@ -101,7 +101,7 @@ public class MainView
             @Override
             public void actionPerformed(ActionEvent actionEvent)
             {
-                PlusNewRule pnr = new PlusNewRule();
+                new PlusNewRuleDialog();
                 //DefaultTableModel model = (DefaultTableModel) ruleTable.getModel();
                 //model.addRow(new String[]{"Rule"});
             }

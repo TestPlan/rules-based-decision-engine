@@ -18,7 +18,7 @@ import java.awt.event.ActionListener;
  * @author Michael Crinite and Ian Markind
  * @version 0.1 11/27/16
  */
-public class PlusNewRule
+public class PlusNewRule extends JDialog
 {
     //Components
     private JPanel panel1;
@@ -29,7 +29,7 @@ public class PlusNewRule
     private JButton addActionButton;
     private JButton addConditionButton;
 
-    private JFrame frame;
+    //private JFrame frame;
 
     //Fields
     private Rule rule;
@@ -44,9 +44,9 @@ public class PlusNewRule
      */
     public PlusNewRule()
     {
-        frame = new JFrame("Rule");
-        frame.setContentPane(panel1);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setTitle("Rule");
+        this.setContentPane(panel1);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         //Create new Rule object
         rule = rc.createDefaultRule();
@@ -72,7 +72,7 @@ public class PlusNewRule
             @Override
             public void actionPerformed(ActionEvent actionEvent)
             {
-                frame.dispose();
+                dispose();
             }
         });
 
@@ -97,9 +97,9 @@ public class PlusNewRule
             }
         });
 
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        this.pack();
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
     }
 
     /**
@@ -123,11 +123,11 @@ public class PlusNewRule
             //Create Drools File
             rc.createDroolsFileFromRule(rule);
 
-            frame.dispose();
+            dispose();
         }
         catch (NullPointerException n)
         {
-            JOptionPane.showMessageDialog(frame, "Please make sure you have created an Action\n and filled in your Condition " +
+            JOptionPane.showMessageDialog(null, "Please make sure you have created an Action\n and filled in your Condition " +
                 "before attempting to create a rule.", "Incomplete Rule Fields", JOptionPane.ERROR_MESSAGE);
         }
     }
