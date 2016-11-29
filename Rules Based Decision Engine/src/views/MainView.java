@@ -105,6 +105,7 @@ public class MainView
             {
                 new PlusNewRuleDialog();
                 DefaultTableModel model = (DefaultTableModel) ruleTable.getModel();
+                model.setRowCount(0);
                 for (Object o : RuleController.getInstance().getAllRules())
                 {
                     String s = (String) o;
