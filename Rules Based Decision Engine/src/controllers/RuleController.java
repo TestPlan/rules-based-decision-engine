@@ -72,4 +72,9 @@ public class RuleController {
         FileWriterService.getInstance().writeToFile(f, r, false);
     }
 
+    public Object[] getAllRules()
+    {
+        return ruleSVC.toArray();
+    }
+
 }

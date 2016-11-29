@@ -1,5 +1,6 @@
 package views;
 
+import controllers.RuleController;
 import services.EntityCollectionService;
 import services.ActionCollectionService;
 
@@ -102,8 +103,12 @@ public class MainView
             public void actionPerformed(ActionEvent actionEvent)
             {
                 new PlusNewRuleDialog();
-                //DefaultTableModel model = (DefaultTableModel) ruleTable.getModel();
-                //model.addRow(new String[]{"Rule"});
+                DefaultTableModel model = (DefaultTableModel) ruleTable.getModel();
+                for(Object o : RuleController.getInstance().getAllRules())
+                {
+                    String s = (String) o;
+                    model.addRow(new String[]{s});
+                }
             }
         });
     }
@@ -111,8 +116,15 @@ public class MainView
     private void createUIComponents()
     {
         //Properties for ruleTable
-        ruleModel = new DefaultTableModel(1, 1);
+        ruleModel = new DefaultTableModel(1, 1)
+        {
+            @Override
+            public boolean isCellEditable(int row, int column){
+                return false;
+            }
+        };
         ruleModel.setColumnIdentifiers(new String[]{"Rule Title"});
+
         ruleTable = new JTable(ruleModel);
     }
 
