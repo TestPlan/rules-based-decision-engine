@@ -1,5 +1,6 @@
 package views;
 
+import controllers.FireRules;
 import controllers.RuleController;
 import services.EntityCollectionService;
 import services.ActionCollectionService;
@@ -11,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 
 /**
  * Main GUI Menu for Rules Based Decision Engine
@@ -30,6 +32,7 @@ public class MainView
 
     //Fields
     private DefaultTableModel ruleModel;
+    private static boolean windows = false; //User OS
 
     /**
      * Creates an instance of MainView
@@ -51,6 +54,12 @@ public class MainView
      */
     public MainView()
     {
+        // Determine user's OS
+        if (System.getProperty("os.name").startsWith("Windows"))
+        {
+            windows = true;
+        }
+
         // Import Data button
         $$$setupUI$$$();
         importDataButton.addActionListener(new ActionListener()
