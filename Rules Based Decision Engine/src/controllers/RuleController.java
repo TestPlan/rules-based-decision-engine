@@ -77,4 +77,8 @@ public class RuleController {
         return ruleSVC.toArray();
     }
 
+    public String getRuleTextFromKey(String key){
+        return ruleSVC.get(key).toString();
+    }
+
 }

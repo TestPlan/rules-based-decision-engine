@@ -9,6 +9,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * Main GUI Menu for Rules Based Decision Engine
@@ -104,7 +106,7 @@ public class MainView
             {
                 new PlusNewRuleDialog();
                 DefaultTableModel model = (DefaultTableModel) ruleTable.getModel();
-                for(Object o : RuleController.getInstance().getAllRules())
+                for (Object o : RuleController.getInstance().getAllRules())
                 {
                     String s = (String) o;
                     model.addRow(new String[]{s});
@@ -119,13 +121,30 @@ public class MainView
         ruleModel = new DefaultTableModel(1, 1)
         {
             @Override
-            public boolean isCellEditable(int row, int column){
+            public boolean isCellEditable(int row, int column)
+            {
                 return false;
             }
         };
         ruleModel.setColumnIdentifiers(new String[]{"Rule Title"});
 
         ruleTable = new JTable(ruleModel);
+
+        ruleTable.addMouseListener(new MouseAdapter()
+        {
+            public void mousePressed(MouseEvent me)
+            {
+                JTable table = (JTable) me.getSource();
+                Point p = me.getPoint();
+                int row = table.rowAtPoint(p);
+                if (me.getClickCount() == 2 && row != -1)
+                {
+                    String title = (String) ruleTable.getValueAt(row, 0);
+                    String rule = RuleController.getInstance().getRuleTextFromKey(title);
+                    JOptionPane.showMessageDialog(null, rule, title, JOptionPane.PLAIN_MESSAGE);
+                }
+            }
+        });
     }
 
     /**
