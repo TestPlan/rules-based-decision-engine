@@ -30,7 +30,6 @@ public class MainView
 
     //Fields
     private DefaultTableModel ruleModel;
-    public static boolean update = false;
 
     /**
      * Creates an instance of MainView
