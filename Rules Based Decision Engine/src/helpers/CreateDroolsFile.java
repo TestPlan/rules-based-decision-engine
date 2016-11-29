@@ -32,9 +32,6 @@ public class CreateDroolsFile
 
         try
         {
-            File f = new File(".");
-            System.out.println(f.getAbsolutePath());
-
             file = new File(path, getFilename());
 
             if (file.createNewFile())
