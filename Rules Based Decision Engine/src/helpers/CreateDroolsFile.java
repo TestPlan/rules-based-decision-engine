@@ -25,11 +25,16 @@ public class CreateDroolsFile
      */
     public File makeDroolsFile(String filename)
     {
+        setPath();
+
         setFilename(filename + ".drl");
         File file = null; // TODO: error handling for this null value
 
         try
         {
+            File f = new File(".");
+            System.out.println(f.getAbsolutePath());
+
             file = new File(path, getFilename());
 
             if (file.createNewFile())
@@ -47,6 +52,19 @@ public class CreateDroolsFile
             e.printStackTrace();
         }
         return file;
+    }
+
+    /**
+     * Place files in correct directory on non-Windows computers
+     * TODO: check if this works on all Macs
+     * TODO: check if this works on Linux
+     */
+    private void setPath()
+    {
+        if (!System.getProperty("os.name").startsWith("Windows"))
+        {
+            path = "./Rules Based Decision Engine/src/rules";
+        }
     }
 
     public String getFilename()
