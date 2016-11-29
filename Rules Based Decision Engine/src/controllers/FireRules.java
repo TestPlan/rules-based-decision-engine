@@ -20,6 +20,8 @@ import java.io.File;
 public class FireRules {
 
     final private String filePath = "./src/rules/";
+    //TODO: Similar fix as in CreateDroolsFile
+
 
     private KieServices kServices;
     private KieContainer kContainer;
