@@ -33,6 +33,7 @@ public class MainView
     //Fields
     private DefaultTableModel ruleModel;
     private static boolean windows = false; //User OS
+    private String rulesPath;
 
     /**
      * Creates an instance of MainView
@@ -58,6 +59,11 @@ public class MainView
         if (System.getProperty("os.name").startsWith("Windows"))
         {
             windows = true;
+            rulesPath = "./src/rules";
+        }
+        else
+        {
+            rulesPath = "./Rules Based Decision Engine/src/rules";
         }
 
         // Import Data button
