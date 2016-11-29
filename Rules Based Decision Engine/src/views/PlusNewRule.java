@@ -120,6 +120,8 @@ public class PlusNewRule
 
             System.out.println(rule);
 
+            //Create Drools File
+            rc.createDroolsFileFromRule(rule);
 
             frame.dispose();
         }

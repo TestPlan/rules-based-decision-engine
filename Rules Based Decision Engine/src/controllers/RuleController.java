@@ -1,7 +1,11 @@
 package controllers;
 
+import helpers.CreateDroolsFile;
 import models.*;
+import services.FileWriterService;
 import services.RuleCollectionService;
+
+import java.io.File;
 
 /**
  * Created by Mike on 11/27/2016.
@@ -59,6 +63,13 @@ public class RuleController {
     public static void addRuleToCollection(Rule r)
     {
         ruleSVC.put(r.getTitle(), r);
+    }
+
+    public static void createDroolsFileFromRule(Rule r)
+    {
+        CreateDroolsFile cdf = new CreateDroolsFile();
+        File f = cdf.makeDroolsFile(r.getTitle());
+        FileWriterService.getInstance().writeToFile(f, r, false);
     }
 
 }
