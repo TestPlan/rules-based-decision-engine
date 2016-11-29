@@ -136,6 +136,7 @@ public class ConditionDialog extends JDialog
 
         ConditionalElement ce = rc.addConditionalElement(rc.addConstraintList(rc.addConstraint(entity + "." + field, o, value)));
 
+        PlusNewRuleDialog.cel = new ConditionalElementList();
         PlusNewRuleDialog.cel.add(ce);
         dispose();
     }
