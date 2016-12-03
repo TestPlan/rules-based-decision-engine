@@ -4,8 +4,8 @@ dialect  "mvel"
 
 rule "avoid"
     when
-        d : Data (getData() < 50)
-        da : Data (getData() > 50)
+        e1 : Entity (getValue("TRAESUB1.VALUE") < 50)
+        e2 : Entity (getValue("TRAESUB2.VALUE") > 50)
     then
         System.out.println("Too Cold!");
 end

@@ -2,7 +2,7 @@
 	"entity.name": "TraeSub1",
 	"name": "Trae",
 	"type": "ship",
-	"value": 3.0,
+	"value": 30.0,
 	"smart": false,
 	"caring": ["two", 5, false],
 	"letter": "A"
@@ -10,7 +10,7 @@
 	"entity.name": "TraeSub2",
 	"name": "Trae",
 	"type": "ship",
-	"value": 3.0,
+	"value": 90.0,
 	"smart": false,
 	"caring": ["two", 5, false],
 	"letter": "A"
