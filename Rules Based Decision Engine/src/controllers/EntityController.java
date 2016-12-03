@@ -8,7 +8,10 @@ import java.io.File;
 import java.util.Set;
 
 /**
- * Created by Mike on 11/17/2016.
+ * A Controller to allow the user to interact with Entity objects without accessing them directly
+ *
+ * @author Michael Crinite
+ * @version 12/02/2016
  */
 public class EntityController
 {
@@ -17,6 +20,10 @@ public class EntityController
 
     public EntityController(){}
 
+    /**
+     * Retrieves the instance of EntityController or creates one if none exist
+     * @return The single instance of EntityController
+     */
     public static EntityController getINSTANCE() {
         if(INSTANCE == null)
         {
@@ -25,6 +32,14 @@ public class EntityController
         return INSTANCE;
     }
 
+    /**
+     * Adds an Entity to the collection from the specified file.
+     * Determines filetype first, then parses file using FileReaderService.
+     * Current supported filetypes are .json, .txt
+     * CSVReader exists but is not connected. TODO: Connect CSVReader
+     *
+     * @param datafile File to read, from which to create Entities
+     */
     public static void addEntity(File datafile)
     {
         FileReaderService fr = FileReaderService.getInstance();
@@ -72,6 +87,11 @@ public class EntityController
         svc.get(key);
     }
 
+    /**
+     * Retrieve the fields from an Entity for the purpose of comparison
+     * @param key The Entity key to search for in the collection
+     * @return A String[] of the Entity's fields
+     */
     public static String[] retrieveFields(String key)
     {
         return svc.retrieveFields(key);
