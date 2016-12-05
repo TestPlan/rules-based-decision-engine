@@ -12,7 +12,7 @@ import javax.swing.*;
 /**
  * Created by Mike on 11/3/2016.
  */
-public class MikeMTest
+public class SerializationTest
 {
     public static void main(String[] args) throws Exception{
 
