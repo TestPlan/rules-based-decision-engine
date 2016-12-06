@@ -7,7 +7,10 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 /**
- * Created by Mike on 11/17/2016.
+ * This class stores each Entity instance in a HashMap
+ *
+ * @author Michael Crinite
+ * @author Trae Lewis
  */
 public class EntityCollectionService implements Collectable<Entity>
 {
