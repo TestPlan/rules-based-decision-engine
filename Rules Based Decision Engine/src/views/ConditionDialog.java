@@ -10,6 +10,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import static models.Operator.*;
+
 /**
  * This Dialog object allows for the creation of the body of the Condition/Constraints
  * At the moment, it allows for a single Constraint in a single Condition, just as proof
@@ -56,7 +58,24 @@ public class ConditionDialog extends JDialog
         //operatorBox = new JComboBox(Operator.values());
         for (Operator o : Operator.values())
         {
-            operatorBox.addItem(o);
+            // Convert from operator to unicode
+            switch (o)
+            {
+                case GREATER_EQUAL:
+                    operatorBox.addItem("\u2265");
+                    break;
+                case LESS_EQUAL:
+                    operatorBox.addItem("\u2264");
+                    break;
+                case NOT_EQUAL:
+                    operatorBox.addItem("\u2260");
+                    break;
+                case EQUAL_TO:
+                    operatorBox.addItem("=");
+                    break;
+                default:
+                    operatorBox.addItem(o);
+            }
         }
 
         //Todo: improve if possible
@@ -133,12 +152,31 @@ public class ConditionDialog extends JDialog
     {
         String entity = (String) entityBox.getSelectedItem();
         String field = (String) keyBox.getSelectedItem();
-        Operator o = (Operator) operatorBox.getSelectedItem();
+        //Convert from unicode to operator
+        String s = (String) operatorBox.getSelectedItem();
+        Operator o;
+        switch (s)
+        {
+            case "\u2265":
+                o = GREATER_EQUAL;
+                break;
+            case "\u2264":
+                o = LESS_EQUAL;
+                break;
+            case "\u2260":
+                o = NOT_EQUAL;
+                break;
+            case "=":
+                o = EQUAL_TO;
+                break;
+            default:
+                o = (Operator) operatorBox.getSelectedItem();
+        }
         String value = valueTxt.getText().trim().replaceAll("\\s+", "_");
 
         ConditionalElement ce = rc.addConditionalElement(rc.addConstraintList(rc.addConstraint(entity + "." + field, o, value)));
 
-       // PlusNewRuleDialog.cel = new ConditionalElementList();
+        // PlusNewRuleDialog.cel = new ConditionalElementList();
         PlusNewRuleDialog.cel.add(ce);
         PlusNewRuleDialog.entitylist.add(entity);
         dispose();
