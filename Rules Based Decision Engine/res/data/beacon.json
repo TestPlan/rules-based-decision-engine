@@ -1,0 +1,13 @@
+[{
+  "entity.name": "Beacon1",
+  "name": "b1",
+  "active": true,
+  "distance": 3.0,
+  "coordinates": [1, 2, 3]
+}, {
+  "entity.name": "Beacon2",
+  "name": "B2",
+  "active": false,
+  "distance": 3.0,
+  "coordinates": [2, 3, 4]
+}]
