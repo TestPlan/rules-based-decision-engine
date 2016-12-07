@@ -7,11 +7,20 @@
 	"caring": ["two", 5, false],
 	"letter": "A"
 }, {
-	"entity.name": "TraeSub2",
-	"name": "Trae",
+	"entity.name": "PREsident",
+	"Order": true,
 	"type": "ship",
 	"value": 90.0,
 	"smart": false,
 	"caring": ["two", 5, false],
 	"letter": "A"
-}]
+},
+  {
+    "entity.name": "FighterJet",
+    "Order": true,
+    "type": "JET",
+    "value": 90.0,
+    "smart": true,
+    "caring": ["two", 5, false],
+    "letter": "A"
+  }]

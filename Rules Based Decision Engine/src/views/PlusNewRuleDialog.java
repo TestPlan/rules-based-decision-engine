@@ -8,6 +8,7 @@ import models.Action;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 /**
  * Creates a PlusNewRule Dialog in order to assist the user in creating
@@ -25,11 +26,17 @@ public class PlusNewRuleDialog extends JDialog
     private JTextField enterRuleTitleTextField;
     private JButton addConditionButton;
     private JComboBox actionBox;
+    private JComboBox salienceComboBox;
+    private JButton add;
+    private JLabel lblActionList;
 
     //Fields
     private Rule rule;
     public static ConditionalElementList cel = new ConditionalElementList();
-    private Action a; //todo: Use ActionList?
+    public static ActionList actionList = new ActionList();
+    public static ArrayList<String> entitylist = new ArrayList<>();
+    private String keylist = "Actions: ";
+
 
     private RuleController rc = RuleController.getInstance();
     private ActionController ac = ActionController.getInstance();
@@ -52,6 +59,13 @@ public class PlusNewRuleDialog extends JDialog
         {
             actionBox.addItem(ac.retrieveActions()[i]);
         }//Todo: improve if possible
+
+        //Populate SalienceComboBox
+        for (int i = -10; i < 10; i++)
+        {
+            salienceComboBox.addItem(i);
+        }//Todo: improve if possible
+
 
         // ActionListeners
         cancelButton.addActionListener(new ActionListener()
@@ -79,11 +93,24 @@ public class PlusNewRuleDialog extends JDialog
             {
                 //Get Action from actionBox
                 String s = (String) actionBox.getSelectedItem();
-                a = ac.getAction(s);
-                onSave(enterRuleTitleTextField.getText().trim().replaceAll("\\s+", "_"), cel, a);
+                // actionList = ac.getAction(s);
+                onSave(enterRuleTitleTextField.getText().trim().replaceAll("\\s+", "_"), (Integer) salienceComboBox.getSelectedItem(), cel, actionList);
             }
         });
 
+        add.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+
+                String key = (String) actionBox.getSelectedItem();
+
+                actionList.insertAction(key, ac.getAction(key));
+                keylist += " | " + key;
+                lblActionList.setText(keylist);
+            }
+        });
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         addWindowListener(new WindowAdapter()
@@ -106,6 +133,7 @@ public class PlusNewRuleDialog extends JDialog
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+
     }
 
     /**
@@ -113,14 +141,14 @@ public class PlusNewRuleDialog extends JDialog
      *
      * @param title
      * @param cel
-     * @param action
+     * @param actionList
      */
-    public void onSave(String title, ConditionalElementList cel, Action action)
+    public void onSave(String title, Integer salience, ConditionalElementList cel, ActionList actionList)
     {
         try
         {
             //Create Rule object
-            rule = rc.setRuleFields(title, cel, action);
+            rule = rc.setRuleFields(title, salience, cel, actionList);
 
             //Add Rule to collection
             rc.addRuleToCollection(rule);
@@ -177,29 +205,40 @@ public class PlusNewRuleDialog extends JDialog
         splitPane1.setOrientation(0);
         panel3.add(splitPane1, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, new Dimension(200, 200), null, 0, false));
         final JPanel panel4 = new JPanel();
-        panel4.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(2, 2, new Insets(0, 0, 0, 0), -1, -1));
+        panel4.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(3, 2, new Insets(0, 0, 0, 0), -1, -1));
         splitPane1.setLeftComponent(panel4);
         final JLabel label1 = new JLabel();
         label1.setText("Title");
         panel4.add(label1, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label2 = new JLabel();
         label2.setText("Conditions");
-        panel4.add(label2, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel4.add(label2, new com.intellij.uiDesigner.core.GridConstraints(2, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         enterRuleTitleTextField = new JTextField();
         enterRuleTitleTextField.setText("Enter Rule Title");
         panel4.add(enterRuleTitleTextField, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
         addConditionButton = new JButton();
         addConditionButton.setHorizontalAlignment(0);
         addConditionButton.setText("+ Add Condition");
-        panel4.add(addConditionButton, new com.intellij.uiDesigner.core.GridConstraints(1, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        final JPanel panel5 = new JPanel();
-        panel5.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 2, new Insets(0, 0, 0, 0), -1, -1));
-        splitPane1.setRightComponent(panel5);
+        panel4.add(addConditionButton, new com.intellij.uiDesigner.core.GridConstraints(2, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label3 = new JLabel();
-        label3.setText("Label");
-        panel5.add(label3, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        label3.setText("Priority");
+        panel4.add(label3, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        salienceComboBox = new JComboBox();
+        panel4.add(salienceComboBox, new com.intellij.uiDesigner.core.GridConstraints(1, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JPanel panel5 = new JPanel();
+        panel5.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(2, 3, new Insets(0, 0, 0, 0), -1, -1));
+        splitPane1.setRightComponent(panel5);
+        final JLabel label4 = new JLabel();
+        label4.setText("Action");
+        panel5.add(label4, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 2, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         actionBox = new JComboBox();
         panel5.add(actionBox, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        lblActionList = new JLabel();
+        lblActionList.setText("Actions;");
+        panel5.add(lblActionList, new com.intellij.uiDesigner.core.GridConstraints(1, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        add = new JButton();
+        add.setText("+");
+        panel5.add(add, new com.intellij.uiDesigner.core.GridConstraints(0, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_EAST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**

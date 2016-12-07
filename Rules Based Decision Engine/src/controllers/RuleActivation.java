@@ -62,6 +62,7 @@ public class RuleActivation
      */
     public RuleActivation(String[] filePaths, Object obj)
     {
+
         this.kServices = KieServices.Factory.get();
         this.kfs = kServices.newKieFileSystem();
         this.kRepo = kServices.getRepository();

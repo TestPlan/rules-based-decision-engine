@@ -57,7 +57,9 @@ public class ConditionDialog extends JDialog
         for (Operator o : Operator.values())
         {
             operatorBox.addItem(o);
-        } //Todo: improve if possible
+        }
+
+        //Todo: improve if possible
 
         //valueBox will be user-input
 
@@ -136,8 +138,9 @@ public class ConditionDialog extends JDialog
 
         ConditionalElement ce = rc.addConditionalElement(rc.addConstraintList(rc.addConstraint(entity + "." + field, o, value)));
 
-        PlusNewRuleDialog.cel = new ConditionalElementList();
+       // PlusNewRuleDialog.cel = new ConditionalElementList();
         PlusNewRuleDialog.cel.add(ce);
+        PlusNewRuleDialog.entitylist.add(entity);
         dispose();
     }
 

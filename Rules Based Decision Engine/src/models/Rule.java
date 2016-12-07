@@ -10,8 +10,9 @@ import java.io.Serializable;
 public class Rule implements Serializable
 {
     private String title;
+    private Integer salience;
     private ConditionalElementList conditionalElemList;
-    private Action action; //todo: Use ActionList?
+    private ActionList actionList;
     transient ActionCollectionService act_svc = ActionCollectionService.getInstance();
 
     private static final long serialVersionUID = 75643827956748L;
@@ -20,11 +21,12 @@ public class Rule implements Serializable
     {
     }
 
-    public Rule(String title, ConditionalElementList conditionalElemList, Action action)
+    public Rule(String title, Integer salience, ConditionalElementList conditionalElemList, ActionList actionList)
     {
         this.title = title;
+        this.salience = salience;
         this.conditionalElemList = conditionalElemList;
-        this.action = action;
+        this.actionList = actionList;
     }
 
     public String getTitle()
@@ -47,14 +49,14 @@ public class Rule implements Serializable
         this.conditionalElemList = conditionalElemList;
     }
 
-    public Action getAction()
+    public ActionList getAction()
     {
-        return action;
+        return actionList;
     }
 
-    public void setAction(Action action)
+    public void setActionList(ActionList actionList)
     {
-        this.action = action;
+        this.actionList = actionList;
     }
 
     @Override
@@ -63,10 +65,23 @@ public class Rule implements Serializable
         String result =
             "import models.*;\n" +
             "dialect \"mvel\"\n\n" +
-            "rule \"" + title + "\"\n" +
-            "when \n    " + conditionalElemList.toString() + "\n" +
-            "then \n    " + action.toString() + ";\n\n" +
+            "rule \"" + title + "\"\n";
+            if(salience != null)
+            {
+                result += "salience " + salience + "\n";
+            }
+           result += "when \n" + conditionalElemList.toString() + "\n" +
+            "then \n" + actionList.toString() + "\n\n" +
             "end";
         return result;
+    }
+
+    public void setSalience(Integer salience)
+    {
+        this.salience = salience;
+    }
+    public Integer getSalience()
+    {
+       return salience;
     }
 }

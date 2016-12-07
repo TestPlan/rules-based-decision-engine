@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class Constraint implements Serializable
 {
     /**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -6900198280404781569L;
 	private Operator operator;
@@ -130,7 +130,7 @@ public class Constraint implements Serializable
     public String toString()
     {
         return this.getLogicalConjunction() + " " +
-            this.getLeftHandSide() + " " +
+            "\"" + this.getLeftHandSide() + "\") " +
             this.getOperator() + " " +
             this.getRightHandSide() + " ";
     }

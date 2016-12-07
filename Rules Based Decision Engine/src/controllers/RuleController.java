@@ -2,10 +2,12 @@ package controllers;
 
 import helpers.CreateDroolsFile;
 import models.*;
+import services.EntityCollectionService;
 import services.FileWriterService;
 import services.RuleCollectionService;
 
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Created by Mike on 11/27/2016.
@@ -13,6 +15,7 @@ import java.io.File;
 public class RuleController {
     public static RuleController INSTANCE;
     public static RuleCollectionService ruleSVC = RuleCollectionService.getInstance();
+    public static EntityCollectionService entity_svc = EntityCollectionService.getInstance();
 
     public RuleController() {}
 
@@ -50,14 +53,20 @@ public class RuleController {
         return cel;
     }
 
+    public void fireAllRules(ArrayList<String> keys){
+
+        Entity[] entities = EntityController.getINSTANCE().getEntityArray(keys);
+        RuleActivation ra = new RuleActivation(Driver.chooseFileLocation(),entities);
+    }
+
     public static Rule createDefaultRule()
     {
         return new Rule();
     }
 
-    public static Rule setRuleFields(String title, ConditionalElementList cel, Action action)
+    public static Rule setRuleFields(String title, Integer salience, ConditionalElementList cel, ActionList actionList)
     {
-        return new Rule(title, cel, action);
+        return new Rule(title, salience, cel, actionList);
     }
 
     public static void addRuleToCollection(Rule r)

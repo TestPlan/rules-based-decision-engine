@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class ConditionalElementList implements Serializable
 {
     /**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -7306340286128720533L;
 	private ArrayList<ConditionalElement> conditionalElementsList;
@@ -118,7 +118,7 @@ public class ConditionalElementList implements Serializable
         String result = "";
         for (int i = 0; i < conditionalElementsList.size(); i++)
         {
-            result += conditionalElementsList.get(i).toString() + "\n";
+            result += "    " + conditionalElementsList.get(i).toString() + "\n";
         }
         return result;
     }

@@ -68,15 +68,16 @@ public class SerializationTest
          * RULE
          *
          */
-        Rule rule = new Rule(ruleName , condList , action);
+        //TODO: Fix Errors salience
+       // Rule rule = new Rule(ruleName , salience, condList , actionList);
 
         SerializationService ss = SerializationService.getInstance();
-        ss.serialize(rule, chooseFileLocation() + rule.getTitle());
+       // ss.serialize(rule, chooseFileLocation() + rule.getTitle());
 
         Rule rule1 = new Rule();
         rule1 = (Rule) ss.deserialize(chooseFileLocation());
 
-        System.out.println(rule.toString());
+       // System.out.println(rule.toString());
         System.out.println(rule1.toString());
 
     }

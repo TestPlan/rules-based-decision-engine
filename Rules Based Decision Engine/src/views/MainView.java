@@ -1,6 +1,8 @@
 package views;
 
+import controllers.EntityController;
 import controllers.RuleController;
+import models.ConditionalElementList;
 import services.EntityCollectionService;
 import services.ActionCollectionService;
 
@@ -97,12 +99,15 @@ public class MainView
         // + Fire Rules button
         fireRulesButton.addActionListener(new ActionListener()
         {
+            //TODO: Fire all drl files
             @Override
             public void actionPerformed(ActionEvent actionEvent)
             {
-                //TODO: Code to fire all existing rules
+                RuleController.getInstance().fireAllRules(PlusNewRuleDialog.entitylist);
+
             }
         });
+
 
         // + New Rule button
         newRuleButton.addActionListener(new ActionListener()
@@ -110,6 +115,7 @@ public class MainView
             @Override
             public void actionPerformed(ActionEvent actionEvent)
             {
+                PlusNewRuleDialog.cel = new ConditionalElementList();
                 new PlusNewRuleDialog();
                 DefaultTableModel model = (DefaultTableModel) ruleTable.getModel();
                 model.setRowCount(0);

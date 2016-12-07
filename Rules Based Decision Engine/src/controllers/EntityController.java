@@ -5,6 +5,7 @@ import services.EntityCollectionService;
 import services.FileReaderService;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Set;
 
 /**
@@ -70,6 +71,19 @@ public class EntityController
     public static void retrieveEntity(String key)
     {
         svc.get(key);
+    }
+
+    public static Entity[] getEntityArray(ArrayList<String> keys){
+        Entity[] temp = new Entity[keys.size()];
+        int index =0;
+        Entity[] allEntities = svc.getAllEntities();
+        for(Entity e: allEntities){
+           if(keys.contains(e.getEntityName())){
+               temp[index] = e;
+               index++;
+           }
+        }
+        return temp;
     }
 
     public static String[] retrieveFields(String key)

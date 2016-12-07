@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class ConditionalElement implements Serializable
 {
     /**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -3246148510901967794L;
 	private String patternBinding = ""; //instantiate with an empty string to alleviate nullPointer error
@@ -89,11 +89,11 @@ public class ConditionalElement implements Serializable
         String result = "";
         if (!this.patternBinding.equals(""))
         {
-            result = this.patternBinding + " : " + this.pattern + " (" + this.constraints.toString() + ") ";
+            result = this.patternBinding + " : " + this.pattern + " (" + "getValue(" + this.constraints.toString() + ") ";
         }
         else
         {
-            result = this.pattern + " (" + this.constraints.toString() + ") ";
+            result = this.pattern + " (" + "getValue(" + this.constraints.toString() + " )";
         }
         return result;
     }

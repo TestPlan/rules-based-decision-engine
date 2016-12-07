@@ -19,12 +19,12 @@ public class RuleActivationTester {
         fr.readJsonFile(Driver.chooseFileLocation());
         //    fr.readJsonFile("./res/data/temp.json");
 
-        for (Map.Entry<String, Entity> e : entity_svc.entrySet()) {
-            Entity temp = e.getValue();
-            System.out.println(temp.toString());
-        }
+//        for (Map.Entry<String, Entity> e : entity_svc.entrySet()) {
+//            Entity temp = e.getValue();
+//            System.out.println(temp.toString());
+//        }
 
-        Entity[] entities = {entity_svc.get("TRAESUB1"), entity_svc.get("TRAESUB2")};
+        Entity[] entities = entity_svc.getAllEntities();
 
         RuleActivation ra = new RuleActivation(Driver.chooseFileLocation(),entities);
     }

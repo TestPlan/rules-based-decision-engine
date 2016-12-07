@@ -18,7 +18,9 @@ public class ActionController
     public static ActionController INSTANCE;
     ActionCollectionService acr = ActionCollectionService.getInstance();
 
-    public ActionController() {}
+    public ActionController()
+    {
+    }
 
     public static ActionController getInstance()
     {

@@ -99,6 +99,19 @@ public class EntityCollectionService implements Collectable<Entity>
 	    return map.get(key);
 	}
 
+	public Entity[] getAllEntities(){
+
+	    Entity[] temp = new Entity[map.size()];
+	    int index = 0;
+        for (String key : this.map.keySet())
+        {
+
+            temp[index] =  this.map.get(key);
+            index++;
+        }
+        return temp;
+    }
+
 	/**
      * Associates the specified Entity with the specified key in this map.
      * If the map previously contained a mapping for the key, the old value is replaced.
@@ -197,7 +210,4 @@ public class EntityCollectionService implements Collectable<Entity>
 
         return arr;
     }
-
-
-
 }
