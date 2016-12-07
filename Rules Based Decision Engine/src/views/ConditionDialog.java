@@ -163,26 +163,35 @@ public class ConditionDialog extends JDialog
         {
             String entity = (String) entityBox.getSelectedItem();
             String field = (String) keyBox.getSelectedItem();
-            //Convert from unicode to operator
-            String s = (String) operatorBox.getSelectedItem();
             Operator o;
-            switch (s)
+            String s;
+            //Convert from unicode to operator
+            if (operatorBox.getSelectedItem() instanceof String)
             {
-                case "\u2265":
-                    o = GREATER_EQUAL;
-                    break;
-                case "\u2264":
-                    o = LESS_EQUAL;
-                    break;
-                case "\u2260":
-                    o = NOT_EQUAL;
-                    break;
-                case "=":
-                    o = EQUAL_TO;
-                    break;
-                default:
-                    o = (Operator) operatorBox.getSelectedItem();
+                s = (String) operatorBox.getSelectedItem();
+                switch (s)
+                {
+                    case "\u2265":
+                        o = GREATER_EQUAL;
+                        break;
+                    case "\u2264":
+                        o = LESS_EQUAL;
+                        break;
+                    case "\u2260":
+                        o = NOT_EQUAL;
+                        break;
+                    case "=":
+                        o = EQUAL_TO;
+                        break;
+                    default:
+                        o = (Operator) operatorBox.getSelectedItem();
+                }
             }
+            else
+            {
+                o = (Operator) operatorBox.getSelectedItem();
+            }
+
             String value = valueTxt.getText().trim().replaceAll("\\s+", "_");
 
             ConditionalElement ce = rc.addConditionalElement(rc.addConstraintList(rc.addConstraint(entity + "." + field, o, value)));

@@ -122,4 +122,9 @@ public class ConditionalElementList implements Serializable
         }
         return result;
     }
+
+    public int size()
+    {
+        return conditionalElementsList.size();
+    }
 }

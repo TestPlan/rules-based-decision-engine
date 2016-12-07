@@ -36,6 +36,7 @@ public class PlusNewRuleDialog extends JDialog
     public static ActionList actionList = new ActionList();
     public static ArrayList<String> entitylist = new ArrayList<>();
     private String keylist = "Actions: ";
+    int attempts = 0; //For use in onSave()
 
 
     private RuleController rc = RuleController.getInstance();
@@ -147,18 +148,37 @@ public class PlusNewRuleDialog extends JDialog
     {
         try
         {
-            //Create Rule object
-            rule = rc.setRuleFields(title, salience, cel, actionList);
+            if (actionList.size() == 0)
+            {
+                JOptionPane.showMessageDialog(null, "Please select or create an Action\nYou must click the \"+\" to add the selected" + "Action.", "No Actions added", JOptionPane.ERROR_MESSAGE);
+            }
+            else if (cel.size() == 0 && attempts == 0)
+            {
+                JOptionPane.showMessageDialog(null, "Please add at least one Condition.", "Incomplete Rule Fields", JOptionPane.ERROR_MESSAGE);
+                //TODO: Change Rule creation to allow eval(true)?
+                //JOptionPane.showMessageDialog(null, "You haven't added any Conditions.\nIf you attempt to save again, the condition will be set to eval(true)", "Incomplete Rule Fields", JOptionPane.ERROR_MESSAGE);
+                //attempts++;
+            }
+            else
+            {
+                if (cel.size() == 0)
+                {
+                    cel.add(rc.addConditionalElement(rc.addConstraintList(rc.addConstraint("eval(true)", null, ""))));
+                }
 
-            //Add Rule to collection
-            rc.addRuleToCollection(rule);
+                //Create Rule object
+                rule = rc.setRuleFields(title, salience, cel, actionList);
 
-            System.out.println(rule);
+                //Add Rule to collection
+                rc.addRuleToCollection(rule);
 
-            //Create Drools File
-            rc.createDroolsFileFromRule(rule);
+                System.out.println(rule);
 
-            dispose();
+                //Create Drools File
+                rc.createDroolsFileFromRule(rule);
+
+                dispose();
+            }
         }
         catch (NullPointerException n)
         {
