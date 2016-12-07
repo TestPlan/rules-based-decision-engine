@@ -61,7 +61,7 @@ public class PlusNewRuleDialog extends JDialog
         }//Todo: improve if possible
 
         //Populate SalienceComboBox
-        for (int i = -10; i < 10; i++)
+        for (int i = 10; i >= -10; i--)
         {
             salienceComboBox.addItem(i);
         }//Todo: improve if possible
