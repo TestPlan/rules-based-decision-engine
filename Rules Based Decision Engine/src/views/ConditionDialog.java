@@ -150,36 +150,48 @@ public class ConditionDialog extends JDialog
      */
     private void onOK()
     {
-        String entity = (String) entityBox.getSelectedItem();
-        String field = (String) keyBox.getSelectedItem();
-        //Convert from unicode to operator
-        String s = (String) operatorBox.getSelectedItem();
-        Operator o;
-        switch (s)
+        if (entityBox.getSelectedItem().equals("<Select Entity>") || keyBox.getSelectedItem().equals("<Select Entity>") || keyBox.getSelectedItem().equals("No Data Imported"))
         {
-            case "\u2265":
-                o = GREATER_EQUAL;
-                break;
-            case "\u2264":
-                o = LESS_EQUAL;
-                break;
-            case "\u2260":
-                o = NOT_EQUAL;
-                break;
-            case "=":
-                o = EQUAL_TO;
-                break;
-            default:
-                o = (Operator) operatorBox.getSelectedItem();
+            JOptionPane.showMessageDialog(null, "Please select or import an Entity", "Incomplete Fields", JOptionPane.ERROR_MESSAGE);
         }
-        String value = valueTxt.getText().trim().replaceAll("\\s+", "_");
+        else if (valueTxt.getText().replaceAll("\\s+", "").equals("") // If it's only spaces
+            || valueTxt.getText().equals("")) // If it's an empty String
+        {
+            JOptionPane.showMessageDialog(null, "Please input a value to compare to.", "Incomplete Fields", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            String entity = (String) entityBox.getSelectedItem();
+            String field = (String) keyBox.getSelectedItem();
+            //Convert from unicode to operator
+            String s = (String) operatorBox.getSelectedItem();
+            Operator o;
+            switch (s)
+            {
+                case "\u2265":
+                    o = GREATER_EQUAL;
+                    break;
+                case "\u2264":
+                    o = LESS_EQUAL;
+                    break;
+                case "\u2260":
+                    o = NOT_EQUAL;
+                    break;
+                case "=":
+                    o = EQUAL_TO;
+                    break;
+                default:
+                    o = (Operator) operatorBox.getSelectedItem();
+            }
+            String value = valueTxt.getText().trim().replaceAll("\\s+", "_");
 
-        ConditionalElement ce = rc.addConditionalElement(rc.addConstraintList(rc.addConstraint(entity + "." + field, o, value)));
+            ConditionalElement ce = rc.addConditionalElement(rc.addConstraintList(rc.addConstraint(entity + "." + field, o, value)));
 
-        // PlusNewRuleDialog.cel = new ConditionalElementList();
-        PlusNewRuleDialog.cel.add(ce);
-        PlusNewRuleDialog.entitylist.add(entity);
-        dispose();
+            // PlusNewRuleDialog.cel = new ConditionalElementList();
+            PlusNewRuleDialog.cel.add(ce);
+            PlusNewRuleDialog.entitylist.add(entity);
+            dispose();
+        }
     }
 
     /**
