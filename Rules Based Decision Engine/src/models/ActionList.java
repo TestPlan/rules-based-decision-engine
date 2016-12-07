@@ -93,6 +93,11 @@ public class ActionList
 		return result;
 	}
 
+	public int size()
+    {
+        return actionMap.size();
+    }
+
 	public String toString()
 	{
 		String temp = "";
