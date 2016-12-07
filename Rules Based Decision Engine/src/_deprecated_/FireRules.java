@@ -1,4 +1,4 @@
-package controllers;
+package _deprecated_;
 
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieBuilder;

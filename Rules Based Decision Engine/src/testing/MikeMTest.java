@@ -1,4 +1,4 @@
-package controllers;
+package testing;
 
 import models.Constraint;
 import models.LogicalConjunction;
@@ -12,7 +12,7 @@ import javax.swing.*;
 /**
  * Created by Mike on 11/3/2016.
  */
-public class Driver_MikeM
+public class MikeMTest
 {
     public static void main(String[] args) throws Exception{
 

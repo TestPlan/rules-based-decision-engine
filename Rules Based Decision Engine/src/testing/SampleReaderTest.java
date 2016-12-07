@@ -1,4 +1,4 @@
-package controllers;
+package testing;
 
 import models.Entity;
 import services.EntityCollectionService;
@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 /**
  * Created by shiv on 11/12/2016.
  */
-public class SampleReader
+public class SampleReaderTest
 {
 
     public static void main(String args[])
@@ -24,5 +24,5 @@ public class SampleReader
         	System.out.println(temp.toString());
         }
     }
-        
+
 }
