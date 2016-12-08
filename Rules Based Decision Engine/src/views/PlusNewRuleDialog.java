@@ -154,10 +154,15 @@ public class PlusNewRuleDialog extends JDialog
             }
             else if (cel.size() == 0 && attempts == 0)
             {
-                JOptionPane.showMessageDialog(null, "Please add at least one Condition.", "Incomplete Rule Fields", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Please add at least one Condition.", "Incomplete Rule Fields", JOptionPane.WARNING_MESSAGE);
                 //TODO: Change Rule creation to allow eval(true)?
                 //JOptionPane.showMessageDialog(null, "You haven't added any Conditions.\nIf you attempt to save again, the condition will be set to eval(true)", "Incomplete Rule Fields", JOptionPane.ERROR_MESSAGE);
                 //attempts++;
+            }
+            else if (enterRuleTitleTextField.getText().equals("") || enterRuleTitleTextField.getText().replaceAll("\\s+", "").equals("") || enterRuleTitleTextField.getText().equals("Enter Rule Title"))
+            {
+                JOptionPane.showMessageDialog(null, "Please enter a Rule title", "Blank Title Field", JOptionPane.WARNING_MESSAGE);
+
             }
             else
             {
