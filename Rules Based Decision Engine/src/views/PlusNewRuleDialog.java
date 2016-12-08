@@ -156,6 +156,7 @@ public class PlusNewRuleDialog extends JDialog
             {
                 JOptionPane.showMessageDialog(null, "Please add at least one Condition.", "Incomplete Rule Fields", JOptionPane.WARNING_MESSAGE);
                 //TODO: Change Rule creation to allow eval(true)?
+                    // Once the above to do is completed, you simply need to remove the above line of code and uncomment the next two lines
                 //JOptionPane.showMessageDialog(null, "You haven't added any Conditions.\nIf you attempt to save again, the condition will be set to eval(true)", "Incomplete Rule Fields", JOptionPane.ERROR_MESSAGE);
                 //attempts++;
             }
