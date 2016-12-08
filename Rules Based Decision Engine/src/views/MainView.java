@@ -45,6 +45,16 @@ public class MainView
         JFrame frame = new JFrame("Rules-Based Decision Engine");
         frame.setContentPane(new MainView().MainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //Set look and feel to system
+        try
+        {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -101,6 +111,8 @@ public class MainView
                 System.out.println(ActionCollectionService.getInstance().toString());
             }
         });
+
+        //selectRuleSetButton.setVisible(false);
 
         // + Fire Rules button
         fireRulesButton.addActionListener(new ActionListener()
