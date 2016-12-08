@@ -52,89 +52,99 @@ public class RuleActivation
         if(Pattern.matches(regularExpressionPC, ruleInfo) || Pattern.matches(regularExpressionMac, ruleInfo)){
             //At this point, ruleInfo was found to be and will be used as a filepath
             addExistingFile(ruleInfo);
-            buildKnowledgeSession(obj);
-            fireAllRules();
-            dispose();
         }
         else{
             //At this point, ruleInfo was not in the filepath format, so it is assumed to be drl contents
             addNonExistingFile(ruleInfo);
-            buildKnowledgeSession(obj);
-            fireAllRules();
-            dispose();
         }
+        buildKnowledgeSession(obj);
+        fireAllRules();
+        dispose();
     }
 
     /**
      * This constructor creates the necessary components to activate the rules
-     * from one drl file (retrieved from the passed in filename) and runs the passed in data with them.
-     * @param localFilePath File name input for the KieFileSystem to use in rule activation
-     * @param obj Data from the user to pass into the drl files
+     * from multiple drl files (retrieved from the passed in filenames or contents) and runs the passed in data with them.
+     * @param ruleInfo Either multiple Filepaths or the contents of multiple drl files. Maybe the combination of both?
+     * @param obj Data from the user to pass into the drl file.
      */
-//    public RuleActivation(String localFilePath, Object obj)
-//    {
-//        this.localFilePath = localFilePath;
-//        this.kServices = KieServices.Factory.get();
-//        this.kRepo = kServices.getRepository();
-//        this.kfs = kServices.newKieFileSystem();
-//
-//        addExistingFile(localFilePath);
-//        buildKnowledgeSession(obj);
-//        fireAllRules();
-//        dispose();
-//    }
+    public RuleActivation(String[] ruleInfo, Object obj)
+    {
+        this.kServices = KieServices.Factory.get();
+        this.kRepo = kServices.getRepository();
+        this.kfs = kServices.newKieFileSystem();
+
+        for (int i = 0; i < ruleInfo.length; i++)
+        {
+            //Below states whether ruleInfo is in the format of a filepath or not.
+            if (Pattern.matches(regularExpressionPC, ruleInfo[i]) || Pattern.matches(regularExpressionMac, ruleInfo[i]))
+            {
+                //At this point, ruleInfo was found to be and will be used as a filepath
+                addExistingFile(ruleInfo[i]);
+            }
+            else
+            {
+                //At this point, ruleInfo was not in the filepath format, so it is assumed to be drl contents
+                addNonExistingFile(ruleInfo[i]);
+            }
+        }
+
+        buildKnowledgeSession(obj);
+        fireAllRules();
+        dispose();
+    }
+
+    public RuleActivation(String ruleInfo, Object[] objList)
+    {
+        this.kServices = KieServices.Factory.get();
+        this.kRepo = kServices.getRepository();
+        this.kfs = kServices.newKieFileSystem();
+
+        //Below states whether ruleInfo is in the format of a filepath or not.
+        if(Pattern.matches(regularExpressionPC, ruleInfo) || Pattern.matches(regularExpressionMac, ruleInfo)){
+            //At this point, ruleInfo was found to be and will be used as a filepath
+            addExistingFile(ruleInfo);
+        }
+        else{
+            //At this point, ruleInfo was not in the filepath format, so it is assumed to be drl contents
+            addNonExistingFile(ruleInfo);
+        }
+        buildKnowledgeSession(objList);
+        fireAllRules();
+        dispose();
+    }
 
     /**
      * This constructor creates the necessary components to activate the rules
-     * from multiple drl files (retrieved from the passed in filenames) and runs the passed in data with them.
-     * @param filePaths File names inputted for the KieFileSystem to use in rule activation.
-     * @param obj Data from the user to pass into the drl file.
+     * from multiple drl files (retrieved from the passed in filenames or contents) and runs the passed in data with them.
+     * @param ruleInfo Either multiple Filepaths or the contents of multiple drl files. Maybe the combination of both?
+     * @param objList Data from the user to pass into the drl file.
      */
-//    public RuleActivation(String[] filePaths, Object obj)
-//    {
-//
-//        this.kServices = KieServices.Factory.get();
-//        this.kfs = kServices.newKieFileSystem();
-//        this.kRepo = kServices.getRepository();
-//
-//        for (String filename : filePaths)
-//        {
-//            addExistingFile(filename);
-//        }
-//        buildKnowledgeSession(obj);
-//        fireAllRules();
-//        dispose();
-//    }
+    public RuleActivation(String[] ruleInfo, Object[] objList)
+    {
+        this.kServices = KieServices.Factory.get();
+        this.kRepo = kServices.getRepository();
+        this.kfs = kServices.newKieFileSystem();
 
-    /**
-     * This constructor creates the necessary components to activate the rules
-     * from a string-created drl file (not existing in local file system)
-     * and runs the passed in data with them.
-     * @param obj Data from the user to pass into the drl file.
-     */
-//    public RuleActivation(Object obj)
-//    {
-//        this.kServices = KieServices.Factory.get();
-//        this.kfs = kServices.newKieFileSystem();
-//        this.kRepo = kServices.getRepository();
-//
-//        addNonExistingFile();
-//        buildKnowledgeSession(obj);
-//        fireAllRules();
-//        dispose();
-//    }
-//
-//    public RuleActivation(String localFilePath, Object[] dataList)
-//    {
-//        this.kServices = KieServices.Factory.get();
-//        this.kfs = kServices.newKieFileSystem();
-//        this.kRepo = kServices.getRepository();
-//
-//        addExistingFile(localFilePath);
-//        buildKnowledgeSession(dataList);
-//        fireAllRules();
-//        dispose();
-//    }
+        for (int i = 0; i < ruleInfo.length; i++)
+        {
+            //Below states whether ruleInfo is in the format of a filepath or not.
+            if (Pattern.matches(regularExpressionPC, ruleInfo[i]) || Pattern.matches(regularExpressionMac, ruleInfo[i]))
+            {
+                //At this point, ruleInfo was found to be and will be used as a filepath
+                addExistingFile(ruleInfo[i]);
+            }
+            else
+            {
+                //At this point, ruleInfo was not in the filepath format, so it is assumed to be drl contents
+                addNonExistingFile(ruleInfo[i]);
+            }
+        }
+
+        buildKnowledgeSession(objList);
+        fireAllRules();
+        dispose();
+    }
 
     /**
      * This method takes a drl file from a computer's local file system

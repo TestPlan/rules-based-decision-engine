@@ -41,7 +41,7 @@ public class RuleActivationTester {
         for (Entity e : entities)
         System.out.println(e.toString());
 
-        RuleActivation ra = new RuleActivation(Driver.chooseFileLocation(),entities[0]);
-        RuleActivation ra2 = new RuleActivation(s, entities[0]);
+        RuleActivation ra = new RuleActivation(Driver.chooseFileLocation(),entities);
+        RuleActivation ra2 = new RuleActivation(s, entities);
     }
 }
