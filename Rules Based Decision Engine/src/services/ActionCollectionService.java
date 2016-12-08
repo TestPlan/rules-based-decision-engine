@@ -2,6 +2,7 @@ package services;
 
 import models.Action;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -15,12 +16,13 @@ import java.util.Set;
  * @version 2.0 11/24/16
  */
 
-public class ActionCollectionService implements Collectable<Action>
+public class ActionCollectionService implements Collectable<Action>, Serializable
 {
 
     private HashMap<String, Action> actions = new HashMap<String, Action>();
     private HashMap<String, Action> redundant_list = new HashMap<String, Action>();
 
+    private static final long serialVersionUID = 123456789L;
     private static ActionCollectionService Instance;
 
 

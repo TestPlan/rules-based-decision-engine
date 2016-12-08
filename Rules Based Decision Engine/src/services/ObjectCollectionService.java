@@ -1,5 +1,6 @@
 package services;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.Map.Entry;
@@ -11,15 +12,14 @@ import java.util.Map.Entry;
  * @author Trae X. Lewis
  * @version 2.0 10/20/2016
  */
-public class ObjectCollectionService implements Collectable<Object>
+public class ObjectCollectionService implements Collectable<Object>, Serializable
 {
-
 
     private HashMap<String, Object> data_list = new HashMap<String, Object>();
     private HashMap<String, Object> redundant_list = new HashMap<String, Object>();
-    
-    private static ObjectCollectionService INSTANCE;
 
+    private static ObjectCollectionService INSTANCE;
+    private static final long serialversionUID = 123456789L;
 
     private ObjectCollectionService()
     {
@@ -45,7 +45,7 @@ public class ObjectCollectionService implements Collectable<Object>
     /**
 	 * CAUTION:
 	 * Removes all of the mappings from this map. The map will be empty after this call returns.
-	 * 
+	 *
 	 * As a precaution, Map<key,value> is backed up to a redundant storage list.
 	 * Redundant storage is cleared on the proceeding clear() method call which will effectively destroy
 	 * any past data.
@@ -59,7 +59,7 @@ public class ObjectCollectionService implements Collectable<Object>
 
 
 	/**
-	 * Returns true if this map contains an Action mapping for the specified key. 
+	 * Returns true if this map contains an Action mapping for the specified key.
 	 * @param key: key whose presence in this map is to be tested.
 	 * @return true if this map contains a mapping for the specified key.
 	 */
@@ -70,19 +70,19 @@ public class ObjectCollectionService implements Collectable<Object>
 
 
 	/**
-	 * Returns true if this map maps one or more keys to the specified value. 
+	 * Returns true if this map maps one or more keys to the specified value.
 	 * @param value: value whose presence in this map is to be tested.
 	 * @return true if this map maps one or more keys to the specified value.
 	 */
-	public boolean containsValue(Object value) 
+	public boolean containsValue(Object value)
 	{
 	    return data_list.containsValue(value);
 	}
-	
+
 	/**
-	 * Returns a Set view of the mappings contained in this map. 
+	 * Returns a Set view of the mappings contained in this map.
 	 * The set is backed by the map, so changes to the map are reflected in the set, and vice-versa.
-	 * 
+	 *
 	 * @return a set view of the mappings contained in this map.
 	 */
 	public Set<Entry<String, Object>> entrySet()
@@ -92,7 +92,7 @@ public class ObjectCollectionService implements Collectable<Object>
 
 
 	/**
-	 * Returns the value to which the specified key is mapped, 
+	 * Returns the value to which the specified key is mapped,
 	 * or null if this map contains no mapping for the key.
 	 *
 	 * @param key the key whose associated value is to be returned
@@ -105,7 +105,7 @@ public class ObjectCollectionService implements Collectable<Object>
 
 
 	/**
-     * Associates the specified value with the specified key in this map. 
+     * Associates the specified value with the specified key in this map.
      * If the map previously contained a mapping for the key, the old value is replaced.
      *
      * @param key key with which the specified value is to be associated
@@ -117,17 +117,17 @@ public class ObjectCollectionService implements Collectable<Object>
     }
 
     /**
-     * Copies all of the mappings from the specified map to this map. 
-     * These mappings will replace any mappings that this map had for any of the 
+     * Copies all of the mappings from the specified map to this map.
+     * These mappings will replace any mappings that this map had for any of the
      * keys currently in the specified map.
-     * 
+     *
      * @param map mappings to be stored in this map
      */
     public void putAll(HashMap<String,Object> map)
     {
     	data_list.putAll(map);
     }
-    
+
     /**
      * Removes the mapping for the specified key from this map if present.
      *

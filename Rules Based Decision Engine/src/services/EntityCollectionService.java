@@ -1,6 +1,8 @@
 package services;
 
 import models.Entity;
+
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -9,9 +11,11 @@ import java.util.regex.Pattern;
 /**
  * Created by Mike on 11/17/2016.
  */
-public class EntityCollectionService implements Collectable<Entity>
+public class EntityCollectionService implements Collectable<Entity>, Serializable
 {
     private static EntityCollectionService INSTANCE;
+    private static final long serialVersionUID = 123456789L;
+
     private HashMap<String, Entity> map = new HashMap<String, Entity>();
     private HashMap<String, Entity> redundant_list = new HashMap<String, Entity>();
 

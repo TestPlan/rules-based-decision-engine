@@ -1,6 +1,8 @@
 package services;
 
 import models.Rule;
+
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -10,14 +12,14 @@ import java.util.Set;
  * Created by Mike on 10/9/2016.
  * Modified 11/24/16 (Trae X. Lewis)
  */
-public class RuleCollectionService implements Collectable<Rule>
+public class RuleCollectionService implements Collectable<Rule>, Serializable
 {
 
     private static RuleCollectionService INSTANCE = null;
+    private static final long serialversionUID = 123456789L;
+
     private HashMap<String, Rule> rules = new HashMap<String, Rule>();
     private HashMap<String, Rule> redundant_list = new HashMap<String, Rule>();
-
-
 
     public static RuleCollectionService getInstance()
     {

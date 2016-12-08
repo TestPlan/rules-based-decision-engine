@@ -38,7 +38,7 @@ public class RuleActivation
 
     /**
      * This constructor creates the necessary components to activate the rules
-     * from one drl file (retrieved from the passed in filename) and runs the passed in object with them.
+     * from one drl file (retrieved from the passed in info) and runs the passed in object with them.
      * @param ruleInfo Can either be the filePath for a drl file or the contents of a drl file
      * @param obj Data from the user to pass into the drl files
      */
@@ -48,9 +48,9 @@ public class RuleActivation
         this.kRepo = kServices.getRepository();
         this.kfs = kServices.newKieFileSystem();
 
-        //Below states whether ruleInfo is in the format of a filepath or not.
+        //Below checks whether ruleInfo is in the format of a filepath or not.
         if(Pattern.matches(regularExpressionPC, ruleInfo) || Pattern.matches(regularExpressionMac, ruleInfo)){
-            //At this point, ruleInfo was found to be and will be used as a filepath
+            //At this point, ruleInfo was found to be a filepah and will be used as such
             addExistingFile(ruleInfo);
         }
         else{
@@ -79,7 +79,7 @@ public class RuleActivation
             //Below states whether ruleInfo is in the format of a filepath or not.
             if (Pattern.matches(regularExpressionPC, ruleInfo[i]) || Pattern.matches(regularExpressionMac, ruleInfo[i]))
             {
-                //At this point, ruleInfo was found to be and will be used as a filepath
+                //At this point, ruleInfo was found to be a filepah and will be used as such
                 addExistingFile(ruleInfo[i]);
             }
             else
@@ -94,6 +94,12 @@ public class RuleActivation
         dispose();
     }
 
+    /**
+     * This constructor creates the necessary components to activate the rules
+     * from multiple drl files (retrieved from the passed in filenames or contents) and runs the passed in data with them.
+     * @param ruleInfo Either a Filepath or the contents of a drl file.
+     * @param objList Data from the user to pass into the drl file.
+     */
     public RuleActivation(String ruleInfo, Object[] objList)
     {
         this.kServices = KieServices.Factory.get();
@@ -102,7 +108,7 @@ public class RuleActivation
 
         //Below states whether ruleInfo is in the format of a filepath or not.
         if(Pattern.matches(regularExpressionPC, ruleInfo) || Pattern.matches(regularExpressionMac, ruleInfo)){
-            //At this point, ruleInfo was found to be and will be used as a filepath
+            //At this point, ruleInfo was found to be a filepah and will be used as such
             addExistingFile(ruleInfo);
         }
         else{
@@ -118,7 +124,7 @@ public class RuleActivation
      * This constructor creates the necessary components to activate the rules
      * from multiple drl files (retrieved from the passed in filenames or contents) and runs the passed in data with them.
      * @param ruleInfo Either multiple Filepaths or the contents of multiple drl files. Maybe the combination of both?
-     * @param objList Data from the user to pass into the drl file.
+     * @param objList List of Data from the user to pass into the drl file.
      */
     public RuleActivation(String[] ruleInfo, Object[] objList)
     {
@@ -131,7 +137,7 @@ public class RuleActivation
             //Below states whether ruleInfo is in the format of a filepath or not.
             if (Pattern.matches(regularExpressionPC, ruleInfo[i]) || Pattern.matches(regularExpressionMac, ruleInfo[i]))
             {
-                //At this point, ruleInfo was found to be and will be used as a filepath
+                //At this point, ruleInfo was found to be a filepah and will be used as such
                 addExistingFile(ruleInfo[i]);
             }
             else
