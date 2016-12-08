@@ -88,7 +88,7 @@ public class InputParserService
     /**
 	 * This method iterates through an array of Data objects and saves them into the ObjectCollectionService.
 	 *
-	 * @param data - Array of Data parsed from JSON file
+	 * @param map - Array of Data parsed from JSON file
 	 */
 	public void parseJson(Map<String,Object> map)
 	{

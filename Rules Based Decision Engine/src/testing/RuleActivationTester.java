@@ -24,8 +24,24 @@ public class RuleActivationTester {
 //            System.out.println(temp.toString());
 //        }
 
+        String s = "" +
+            "package rules;\n" +
+            "import models.*;\n" +
+            "dialect \"mvel\"\n\n" +
+
+            "rule \"temperature\"\n" +
+            "when\n" +
+            "   e1 : Entity(getValue(\"TRAESUB1.VALUE\") <= 50.0 )" +
+            "then\n" +
+            "   System.out.println(e1 + \" drl contents works!\");\n" +
+            "end";
+
         Entity[] entities = entity_svc.getAllEntities();
 
-        RuleActivation ra = new RuleActivation(Driver.chooseFileLocation(),entities);
+        for (Entity e : entities)
+        System.out.println(e.toString());
+
+        RuleActivation ra = new RuleActivation(Driver.chooseFileLocation(),entities[0]);
+        RuleActivation ra2 = new RuleActivation(s, entities[0]);
     }
 }
