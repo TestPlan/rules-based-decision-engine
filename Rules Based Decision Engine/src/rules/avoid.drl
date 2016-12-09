@@ -1,27 +1,27 @@
 package rules;
-import models.*;
+import models.*
+import services.*
+import services.ObjectCollectionService;
 
 dialect  "mvel"
 
-global Object array ;
+global Object temp;
 
 
 rule "avoid"
-    salience 2
-    when
-       e1: Entity (getValue("TRAESUB1.VALUE") < 50)
-       r1: Entity( getValue("PRESIDENT.ORDER") == true)
-    then
-        System.out.println("Too Cold To Be At War\n" + e1);
-        array = r1;
-        //System.out.println("Array\n" + array);
-        retract(r1);
-end
+       salience 2
+       when
+          e1: Entity (getValue("TRAESUB1.VALUE") < 50)
+       then
+           System.out.println("Too Cold To Be At War\n");
+           //temp = r1;
+           //System.out.println("Array\n" + array);
+   end
 
 
 rule "PRESIDENT order" salience -1
   when
-       Entity (getValue("PRESIDENT.ORDER") == true )
+      Entity (getValue("PRESIDENT.ORDER") == true )
   then
       System.out.print("Attack!\n");
       //retract(array);
@@ -30,10 +30,11 @@ end
 
 rule "is Jet order" salience 0
   when
-      not ( Entity (getValue("FIGHTERJET.ORDER") == false ))
+      Entity (getValue("FIGHTERJET.ORDER") == true )
      // r1: Entity( getValue("PRESIDENT.ORDER") == true)
   then
-      insert(new Entity());
+      Entity e = new Entity();
+      e = EntityCollectionService.getInstance().get("PRESIDENT");
+      insert(e);
       System.out.print("JET IS READY!\n");
-
 end

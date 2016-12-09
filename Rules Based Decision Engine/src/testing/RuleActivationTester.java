@@ -38,10 +38,11 @@ public class RuleActivationTester {
 
         Entity[] entities = entity_svc.getAllEntities();
 
+        Entity[] entities2 = {entities[0], entities[2]};
         for (Entity e : entities)
         System.out.println(e.toString());
 
-        RuleActivation ra = new RuleActivation(Driver.chooseFileLocation(),entities);
-        RuleActivation ra2 = new RuleActivation(s, entities);
+        RuleActivation ra = new RuleActivation(Driver.chooseFileLocation(),entities2);
+        //RuleActivation ra2 = new RuleActivation(s, entities);
     }
 }
