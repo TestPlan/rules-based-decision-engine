@@ -14,7 +14,6 @@ rule "avoid"
           e1: Entity (getValue("TRAESUB1.VALUE") < 50)
        then
            System.out.println("Too Cold To Be At War\n");
-           retract(e1);
            //temp = r1;
            //System.out.println("Array\n" + array);
    end
@@ -22,8 +21,7 @@ rule "avoid"
 
 rule "PRESIDENT order" salience -1
   when
-      //Entity (getValue("PRESIDENT.ORDER") == true )
-      e1: Entity (getValue("TRAESUB1.VALUE") < 50)
+      Entity (getValue("PRESIDENT.ORDER") == true )
   then
       System.out.print("Attack!\n");
       //retract(array);
@@ -36,7 +34,7 @@ rule "is Jet order" salience 0
      // r1: Entity( getValue("PRESIDENT.ORDER") == true)
   then
       Entity e = new Entity();
-      e = EntityCollectionService.getInstance().get("TRAESUB1");
+      e = EntityCollectionService.getInstance().get("PRESIDENT");
       insert(e);
       System.out.print("JET IS READY!\n");
 end

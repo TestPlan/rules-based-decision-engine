@@ -23,6 +23,9 @@ public class PlusNewActionDialog extends JDialog
     private JTextField txtActionDescription;
     private JCheckBox automaticallyTriggerCheckBox;
 
+    //Fields
+    public static String actionString;
+
     /**
      * Sets up dialog box and action listeners
      */

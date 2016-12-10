@@ -19,6 +19,8 @@ public class EntityCollectionService implements Collectable<Entity>, Serializabl
     private HashMap<String, Entity> map = new HashMap<String, Entity>();
     private HashMap<String, Entity> redundant_list = new HashMap<String, Entity>();
 
+    private HashMap<String, Entity> fromActions = new HashMap<>();
+
     private int Counter = 1;
 
     private EntityCollectionService(){}
@@ -116,6 +118,19 @@ public class EntityCollectionService implements Collectable<Entity>, Serializabl
         return temp;
     }
 
+    public Entity[] getAllEntitiesFromActions(){
+
+        Entity[] temp = new Entity[fromActions.size()];
+        int index = 0;
+        for (String key : this.fromActions.keySet())
+        {
+
+            temp[index] =  this.fromActions.get(key);
+            index++;
+        }
+        return temp;
+    }
+
 	/**
      * Associates the specified Entity with the specified key in this map.
      * If the map previously contained a mapping for the key, the old value is replaced.
@@ -129,6 +144,13 @@ public class EntityCollectionService implements Collectable<Entity>, Serializabl
     	String key = value.getEntityName().trim().toUpperCase();
 
         return this.map.put(key, value);
+    }
+
+    public Entity putTemp(Entity value)
+    {
+        String key = value.getEntityName().trim().toUpperCase();
+
+        return this.fromActions.put(key, value);
     }
 
 	/**
