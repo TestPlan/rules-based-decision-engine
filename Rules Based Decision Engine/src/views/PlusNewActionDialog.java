@@ -29,6 +29,9 @@ public class PlusNewActionDialog extends JDialog
     public static String function;
     public static boolean entityCreated = false;
 
+    //Fields
+    public static String actionString;
+
     /**
      * Sets up dialog box and action listeners
      */

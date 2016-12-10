@@ -65,16 +65,24 @@ public class EntityCreationForm extends JDialog
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
-        //Add Field Action Listener
-        addFieldButton.addActionListener(new ActionListener()
+        //Properties for ruleTable
+        fieldModel = new DefaultTableModel(1, 2)
         {
             @Override
-            public void actionPerformed(ActionEvent e)
+            public boolean isCellEditable(int row, int column)
             {
-                DefaultTableModel model = (DefaultTableModel) tblFields.getModel();
-                //model.setRowCount(model.getRowCount() + 1);
-                String[] row = {"", ""};
-                model.addRow(row);
+                return true;
+            }
+        };
+        fieldModel.setColumnIdentifiers(new String[]{"Field", "Value"});
+
+        tblFields = new JTable(fieldModel);
+
+        //Add Field Action Listener
+        addFieldButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fieldModel.addRow(new String[]{"",""});
             }
         });
 
@@ -85,7 +93,7 @@ public class EntityCreationForm extends JDialog
     /**
      * Store keys and vals in their respective arrays, and pass those
      * and the name to an Entity creator
-     * <p>
+     *
      * Adds this Entity to a temporary collection so that the user can
      * select the Entity for comparison in a Condition of a Rule, but the object
      * will not be added to the collection.
