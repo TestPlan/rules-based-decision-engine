@@ -1,11 +1,15 @@
 package controllers;
 
 import models.Entity;
+import org.drools.core.util.HashTableIterator;
 import services.EntityCollectionService;
 import services.FileReaderService;
+import services.ObjectCollectionService;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -24,6 +28,23 @@ public class EntityController
             INSTANCE = new EntityController();
         }
         return INSTANCE;
+    }
+
+    /**
+     * Creates a new Entity from a list of keys and their values
+     * @param name The Entity's name
+     * @param keys The list of keys representing the Entity's fields
+     * @param values The values associated with the Entity's fields
+     */
+    public void createEntity(String name, String[] keys, String[] values){
+        HashSet<String> keySet = new HashSet<String>(Arrays.asList(keys));
+
+        EntityCollectionService.getInstance().put(new Entity(name, keySet));
+
+        for(int i = 0; i < values.length; i++)
+        {
+            ObjectCollectionService.getInstance().put(keys[i], values[i]);
+        }
     }
 
     public static void addEntity(File datafile)
