@@ -150,7 +150,7 @@ public class InputParserService
      *
      * @return Object of the correct datatype.
      */
-    //TODO: Add support for Array datatypes.
+    @Deprecated
     private Object dataConversion(Object[] obj)
     {
     	String value = (String) obj[2];

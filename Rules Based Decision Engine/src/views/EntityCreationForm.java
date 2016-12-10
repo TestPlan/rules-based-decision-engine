@@ -51,24 +51,14 @@ public class EntityCreationForm extends JDialog {
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
-        //Properties for ruleTable
-        fieldModel = new DefaultTableModel(1, 2)
-        {
-            @Override
-            public boolean isCellEditable(int row, int column)
-            {
-                return true;
-            }
-        };
-        fieldModel.setColumnIdentifiers(new String[]{"Field", "Value"});
-
-        tblFields = new JTable(fieldModel);
-
         //Add Field Action Listener
         addFieldButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                fieldModel.addRow(new String[]{"",""});
+                DefaultTableModel model = (DefaultTableModel) tblFields.getModel();
+                //model.setRowCount(model.getRowCount() + 1);
+                String[] row = {"",""};
+                model.addRow(row);
             }
         });
 
@@ -89,7 +79,7 @@ public class EntityCreationForm extends JDialog {
         Create Entity object
         Add object to collection
          */
-        String name = txtEntityName.getName();
+        String name = txtEntityName.getText();
         int rows = fieldModel.getRowCount();
         String[] tableKeys = new String[rows];
         String[] tableVals = new String[rows];
@@ -115,12 +105,12 @@ public class EntityCreationForm extends JDialog {
             insert(e);
          */
         String action = "";
-        action += "HashSet<String> set;\n";
+        action += "HashSet<String> set;\n    ";
         for(String s : set)
         {
-            action += "set.add(" + s + ");\n";
+            action += "set.add(" + s + ");\n    ";
         }
-        action += "Entity e = new Entity(" + name + "\", \ninsert(e)";
+        action += "Entity e = new Entity(" + name + "\", set);\n    insert(e)";
 
         PlusNewActionDialog.actionString = action;
 
@@ -129,5 +119,25 @@ public class EntityCreationForm extends JDialog {
 
     private void onCancel() {
         dispose();
+    }
+
+    private void createUIComponents() {
+        //Properties for ruleTable
+        fieldModel = new DefaultTableModel(0, 2)
+        {
+            @Override
+            public boolean isCellEditable(int row, int column)
+            {
+                return true;
+            }
+        };
+        fieldModel.setColumnIdentifiers(new String[]{"Field", "Value"});
+
+        tblFields = new JTable(fieldModel){
+            public boolean isCellEditable(int row, int column)
+            {
+                return true;
+            }
+        };
     }
 }

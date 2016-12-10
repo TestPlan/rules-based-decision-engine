@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Entity;
+import org.codehaus.plexus.util.StringUtils;
 import org.drools.core.util.HashTableIterator;
 import services.EntityCollectionService;
 import services.FileReaderService;
@@ -37,13 +38,48 @@ public class EntityController
      * @param values The values associated with the Entity's fields
      */
     public void createEntity(String name, String[] keys, String[] values){
+        //TODO: try/catch
         HashSet<String> keySet = new HashSet<String>(Arrays.asList(keys));
 
         EntityCollectionService.getInstance().put(new Entity(name, keySet));
 
-        for(int i = 0; i < values.length; i++)
+        // Parse values for types
+        Object[] toAdd = new Object[values.length];
+        int i = 0;
+
+        for (String s : values)
         {
-            ObjectCollectionService.getInstance().put(keys[i], values[i]);
+            //TODO: add better regex
+            if (s.equalsIgnoreCase("false")
+                || s.equalsIgnoreCase("true"))
+            {
+                boolean b = Boolean.parseBoolean(s);
+                toAdd[i] = b;
+            }
+            else if (StringUtils.isNumeric(s))
+            {
+                if(s.contains(".")){
+                    double d = Double.parseDouble(s);
+                    toAdd[i] = d;
+                }
+                else
+                {
+                    int x = Integer.parseInt(s);
+                    toAdd[i] = x;
+                }
+            }
+            else
+            {
+                toAdd[i] = s;
+            }
+
+            i++;
+        }
+
+        //Finally add objects to the collection
+        for(int index = 0; i < values.length; index++)
+        {
+            ObjectCollectionService.getInstance().put(keys[index], toAdd[index]);
         }
     }
 
