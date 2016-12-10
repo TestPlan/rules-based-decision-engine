@@ -42,6 +42,15 @@ public class Entity
     	this.key_set = set;
     }
 
+    /**
+     * Create an copy of an existing Entity
+     * @param e Entity to copy
+     */
+    public Entity(Entity e){
+        entity_name = e.getEntityName();
+        key_set = e.getKeys();
+    }
+
 
     /**
      * Finds the value of a Data object based on its key
