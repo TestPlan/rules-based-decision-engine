@@ -24,23 +24,49 @@ public class RuleActivationTester {
 //            System.out.println(temp.toString());
 //        }
 
-        String s = "" +
-            "package rules;\n" +
-            "import models.*;\n" +
-            "dialect \"mvel\"\n\n" +
-
-            "rule \"temperature\"\n" +
+        String s = "import models.*;\n" +
+            "import services.*;\n" +
+            "dialect \"mvel\"\n" +
+            "\n" +
+            "rule \"avoid3\"\n" +
+            "salience 2\n" +
             "when\n" +
-            "   e1 : Entity(getValue(\"TRAESUB1.VALUE\") <= 50.0 )" +
+            "    Entity (getValue( \"TRAESUB1.VALUE\") < 50  )\n" +
+            "\n" +
             "then\n" +
-            "   System.out.println(e1 + \" drl contents works!\");\n" +
-            "end";
+            "    System.out.println(\"TooCOL\");\n" +
+            "\n" +
+            "\n" +
+            "end\n" +
+            "\n" +
+            "rule \"president_order\"\n" +
+            "salience -1\n" +
+            "when\n" +
+            "    Entity (getValue( \"PRESIDENT.Order\") == true  )\n" +
+            "\n" +
+            "then\n" +
+            "    System.out.println(\"ATTACK!\");\n" +
+            "\n" +
+            "end\n" +
+            "\n" +
+            "rule \"is_jet_order\"\n" +
+            "salience 0\n" +
+            "when\n" +
+            "    Entity (getValue( \"FIGHTERJET.ORDER\") == true  )\n" +
+            "\n" +
+            "then\n" +
+            "    Entity e = EntityCollectionService.getInstance().getFromActions(\"PRESIDENT\");\n" +
+            "    System.out.println(e);\n" +
+            "    insert(e);\n" +
+            "\n" +
+            "\n" +
+            "end\n";
 
         Entity[] entities = entity_svc.getAllEntities();
 
-        Entity[] entities2 = {entities[0], entities[2]};
-        for (Entity e : entities)
-        System.out.println(e.toString());
+        //Entity[] entities2 = {entities[0], entities[2]};
+        //for (Entity e : entities)
+        //System.out.println(e.toString());
 
         RuleActivation ra = new RuleActivation(Driver.chooseFileLocation(),entities);
         //RuleActivation ra2 = new RuleActivation(s, entities);

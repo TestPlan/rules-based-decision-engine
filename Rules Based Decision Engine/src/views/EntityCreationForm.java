@@ -1,6 +1,8 @@
 package views;
 
 import controllers.EntityController;
+import services.EntityCollectionService;
+import services.ObjectCollectionService;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -84,12 +86,15 @@ public class EntityCreationForm extends JDialog {
         String[] tableKeys = new String[rows];
         String[] tableVals = new String[rows];
         HashSet<String> set = new HashSet<>();
+        String key = "";
         for(int i = 0; i < rows; i++)
         {
             //TODO: Check for invalid input
             tableKeys[i] = (String) fieldModel.getValueAt(i, 0);
             tableVals[i] = (String) fieldModel.getValueAt(i, 1);
-            set.add(fieldModel.getValueAt(i,0) + "." + fieldModel.getValueAt(i,1));
+            key = "\"" + name + "." + fieldModel.getValueAt(i,0) + "\"";
+            set.add(key);
+            ObjectCollectionService.getInstance().put(key, fieldModel.getValueAt(i, 1));
         }
 
         EntityController.getINSTANCE().createEntity(name, tableKeys, tableVals);
@@ -104,16 +109,21 @@ public class EntityCreationForm extends JDialog {
             Entity e = new Entity("President", set);
             insert(e);
          */
+//        String action = "";
+//        action += "HashSet<String> set;\n    ";
+//        for(String s : set)
+//        {
+//            action += "set.add(" + s + ");\n    ";
+//        }
+//        action += "Entity e = new Entity(\"" + name + "\", set);\n    insert(e)";
+
         String action = "";
-        action += "HashSet<String> set;\n    ";
-        for(String s : set)
-        {
-            action += "set.add(" + s + ");\n    ";
-        }
-        action += "Entity e = new Entity(" + name + "\", set);\n    insert(e)";
+        action += "Entity e = EntityCollectionService.getInstance().getFromActions(\"" + name + "\");\n";
+        action += "    insert(e)";
 
         PlusNewActionDialog.actionString = action;
 
+        //TODO: Fix stupid exception where you have to click out of the box first
         dispose();
     }
 
