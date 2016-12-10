@@ -1,0 +1,14 @@
+import models.*;
+import java.util.HashSet;
+dialect "mvel"
+
+rule "president_order"
+salience -1
+when
+    Entity (getValue( "PRESIDENT.Order") == true  )
+
+then
+    System.out.println("ATTACK!");
+
+end
+

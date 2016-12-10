@@ -1,0 +1,18 @@
+import models.*;
+import java.util.HashSet;
+dialect "mvel"
+
+rule "is_jet_order"
+salience 0
+when 
+    Entity (getValue( "FIGHTERJET.ORDER") == true  )
+
+then 
+    System.out.println("ATTACK!"); 
+    System.out.println("TooCOL"); 
+    Entity e = EntityCollectionService.getInstance().getFromActions("President");
+    insert(e);; 
+
+
+end
+
