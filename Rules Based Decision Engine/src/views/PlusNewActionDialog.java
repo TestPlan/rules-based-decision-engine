@@ -1,7 +1,6 @@
 package views;
 
 import controllers.ActionController;
-import services.ActionCollectionService;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +20,7 @@ public class PlusNewActionDialog extends JDialog
     private JButton buttonCancel;
     private JTextField txtActionName;
     private JTextField txtActionDescription;
-    private JCheckBox automaticallyTriggerCheckBox;
+    private JCheckBox createEntityForChainingCheckBox;
 
     //Fields
     public static String actionString;
@@ -56,6 +55,22 @@ public class PlusNewActionDialog extends JDialog
             }
         });
 
+        createEntityForChainingCheckBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(createEntityForChainingCheckBox.isSelected())
+                {
+                    txtActionDescription.setEditable(false);
+                    new EntityCreationForm();
+                    txtActionDescription.setText(actionString);
+                }
+                else
+                {
+                    txtActionDescription.setEditable(true);
+                }
+            }
+        });
+
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         addWindowListener(new WindowAdapter()
@@ -82,6 +97,7 @@ public class PlusNewActionDialog extends JDialog
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+
     }
 
     /**
@@ -95,11 +111,20 @@ public class PlusNewActionDialog extends JDialog
         }
         else
         {
-            ActionController.getInstance().newAction(txtActionName.getText().trim().replaceAll("\\s+", "_"), txtActionDescription.getText().trim().replaceAll("\\s+", "_"));
+            String name = txtActionName.getText().trim().replaceAll("\\s+", "_");
+            String actionDescription = "";
+            if(!createEntityForChainingCheckBox.isSelected())
+            {
+                actionDescription = actionDescription.trim().replaceAll("\\s+", "_");
+                ActionController.getInstance().newAction(name, actionDescription);
+            }
+            else
+            {
+                ActionController.getInstance().newAction(name, actionString);
+            }
+
             dispose();
         }
-        //TODO: Set Action to auto trigger if automaticallyTriggerCheckBox.isSelected() is met
-
     }
 
     /**
@@ -160,9 +185,9 @@ public class PlusNewActionDialog extends JDialog
         final JPanel panel4 = new JPanel();
         panel4.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 2, new Insets(0, 0, 0, 0), -1, -1));
         contentPane.add(panel4, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        automaticallyTriggerCheckBox = new JCheckBox();
-        automaticallyTriggerCheckBox.setText("Automatically Trigger");
-        panel4.add(automaticallyTriggerCheckBox, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        createEntityForChainingCheckBox = new JCheckBox();
+        createEntityForChainingCheckBox.setText("Automatically Trigger");
+        panel4.add(createEntityForChainingCheckBox, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final com.intellij.uiDesigner.core.Spacer spacer2 = new com.intellij.uiDesigner.core.Spacer();
         panel4.add(spacer2, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
     }

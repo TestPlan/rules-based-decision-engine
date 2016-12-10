@@ -88,7 +88,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="2a1a1" class="javax.swing.JTable" binding="tblFields">
+              <component id="2a1a1" class="javax.swing.JTable" binding="tblFields" custom-create="true">
                 <constraints/>
                 <properties/>
               </component>
