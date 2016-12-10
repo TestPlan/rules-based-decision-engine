@@ -105,6 +105,11 @@ public class EntityCollectionService implements Collectable<Entity>, Serializabl
 	    return map.get(key);
 	}
 
+    public Entity getFromActions(String key)
+    {
+        return fromActions.get(key);
+    }
+
 	public Entity[] getAllEntities(){
 
 	    Entity[] temp = new Entity[map.size()];

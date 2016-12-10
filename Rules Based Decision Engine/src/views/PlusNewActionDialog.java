@@ -115,7 +115,7 @@ public class PlusNewActionDialog extends JDialog
             String actionDescription = "";
             if(!createEntityForChainingCheckBox.isSelected())
             {
-                actionDescription = actionDescription.trim().replaceAll("\\s+", "_");
+                actionDescription = txtActionDescription.getText().trim().replaceAll("\\s+", "_");
                 ActionController.getInstance().newAction(name, actionDescription);
             }
             else

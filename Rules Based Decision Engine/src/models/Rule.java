@@ -64,6 +64,7 @@ public class Rule implements Serializable
     {
         String result =
             "import models.*;\n" +
+            "import services.*;\n" +
             "dialect \"mvel\"\n\n" +
             "rule \"" + title + "\"\n";
             if(salience != null)
