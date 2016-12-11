@@ -1,14 +1,16 @@
 import models.*;
-import java.util.HashSet;
+import services.*;
 dialect "mvel"
 
-rule "president_order"
+rule "PRESIDENT_order"
 salience -1
-when
+when 
     Entity (getValue( "PRESIDENT.Order") == true  )
 
-then
-    System.out.println("ATTACK!");
+then 
+    System.out.println("Too_cold_to_be_at_war"); 
+    System.out.println("Attack!"); 
+
 
 end
 
