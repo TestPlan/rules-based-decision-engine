@@ -1,0 +1,68 @@
+[{
+  "entity.name": "BlackBeans",
+  "name": "b1",
+  "quantity": 10,
+  "calories": 42
+}, {
+  "entity.name": "PepperJackCheese",
+  "name": "pjc",
+  "quantity": 50,
+  "calories": 63
+},{
+  "entity.name": "MozzarellaCheese",
+  "name": "mc",
+  "quantity": 5,
+  "calories": 78
+},
+  {
+    "entity.name": "guacamole",
+    "name": "gc",
+    "quantity": 50,
+    "calories": 63
+  },
+  {
+    "entity.name": "Salsa",
+    "name": "sls",
+    "quantity": 50,
+    "calories": 63
+  },
+  {
+    "entity.name": "Chicken",
+    "name": "ckn",
+    "quantity": 500,
+    "calories": 63
+  },{
+  "entity.name": "Steak",
+  "name": "stk",
+  "quantity": 5,
+  "calories": 63
+},
+  {
+    "entity.name": "RefriedBeans",
+    "name": "rfb",
+    "quantity": 50,
+    "calories": 63
+  },
+  {
+    "entity.name": "Drink",
+    "name": "drk",
+    "quantity": 50,
+    "calories": 63
+  },
+  {
+    "entity.name": "Jalapenos",
+    "name": "jlp",
+    "quantity": 50,
+    "calories": 63
+  },{
+  "entity.name": "Chips",
+  "name": "chp",
+  "quantity": 50,
+  "calories": 63
+},
+  {
+    "entity.name": "Tortilla",
+    "name": "tla",
+    "quantity": 50,
+    "calories": 63
+  }]

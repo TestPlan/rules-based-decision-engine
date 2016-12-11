@@ -1,0 +1,35 @@
+package rules;
+import models.*;
+import services.*;
+
+dialect  "mvel"
+
+rule "Get Tortilla"
+    salience 10
+    when
+       t1: Entity (getValue("TORTILLA.QUANTITY") > 1)
+    then
+        System.out.println("Tortilla Added to Order");
+        //retract(t1);
+end
+
+rule "Add Beans" salience 9
+  when
+       Entity (getValue("BLACKBEANS.QUANTITY") > 1 )
+  then
+      System.out.print("Black Beans Added to order!\n");
+end
+
+rule "Add Cheese" salience 8
+  when
+      Entity (getValue("MOZZARELLACHEESE.QUANTITY") > 1 )
+  then
+      System.out.print("MOZZARELLACHEESE Added to Order\n");
+end
+
+rule "Add Chips" salience 7
+  when
+      Entity (getValue("CHIPS.QUANTITY") > 1 )
+  then
+      System.out.print("Chips Added to Order\n");
+end

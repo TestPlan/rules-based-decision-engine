@@ -1,0 +1,14 @@
+import models.*;
+dialect "mvel"
+
+rule "Enter_Rule_Title"
+salience 10
+when 
+    Entity (getValue( "BEACON1.ACTIVE") == 1  )
+
+then 
+    System.out.println("A1"); 
+
+
+end
+

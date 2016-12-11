@@ -1,0 +1,34 @@
+[{
+  "entity.name": "Snake",
+  "parent": "Reptile",
+  "Child": ["", ""]
+}, {
+  "entity.name": "Lizard",
+  "parent": "Reptile",
+  "Child": ["", ""]
+},
+  {
+    "entity.name": "Tiger",
+    "parent": "Mammals",
+    "Child": ["", ""]
+  },
+  {
+    "entity.name": "Elephant",
+    "parent": "Mammals",
+    "Child": ["", ""]
+  },
+  {
+    "entity.name": "Reptile",
+    "parent": "Animal",
+    "Child": ["Lizard", "Snake"]
+  },
+  {
+    "entity.name": "Mammals",
+    "parent": "Animal",
+    "Child": ["Tiger", "Elephant"]
+  },
+  {
+    "entity.name": "Animal",
+    "parent": "",
+    "Child": ["Reptile", "Mammals"]
+  }]

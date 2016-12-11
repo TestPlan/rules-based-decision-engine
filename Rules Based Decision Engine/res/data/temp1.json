@@ -1,9 +1,0 @@
-[{
-	"entity.name": "President",
-	"Order": true,
-	"type": "ship",
-	"value": 90.0,
-	"smart": false,
-	"caring": ["two", 5, false],
-	"letter": "A"
-}]

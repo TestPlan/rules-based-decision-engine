@@ -1,4 +1,5 @@
 package rules;
+<<<<<<< HEAD
 import models.*
 import services.*
 import services.ObjectCollectionService;
@@ -18,7 +19,23 @@ rule "avoid"
            //temp = r1;
            //System.out.println("Array\n" + array);
    end
+=======
+import models.*;
+import services.*;
 
+dialect  "mvel"
+
+rule "avoid"
+    salience 2
+    when
+       e1: Entity (getValue("TRAESUB1.VALUE") < 50)
+       r1: Entity( getValue("PRESIDENT.ORDER") == true)
+    then
+        System.out.println("Too Cold To Be At War\n" + e1);
+        retract(r1);
+        retract(e1);
+end
+>>>>>>> Minor Touch up and added few json file from thursday
 
 rule "PRESIDENT order" salience -1
   when
@@ -26,12 +43,11 @@ rule "PRESIDENT order" salience -1
       e1: Entity (getValue("TRAESUB1.VALUE") < 50)
   then
       System.out.print("Attack!\n");
-      //retract(array);
 end
-
 
 rule "is Jet order" salience 0
   when
+<<<<<<< HEAD
       Entity (getValue("FIGHTERJET.ORDER") == true )
      // r1: Entity( getValue("PRESIDENT.ORDER") == true)
   then
@@ -39,4 +55,13 @@ rule "is Jet order" salience 0
       e = EntityCollectionService.getInstance().get("TRAESUB1");
       insert(e);
       System.out.print("JET IS READY!\n");
+=======
+      not ( Entity (getValue("FIGHTERJET.ORDER") == false ))
+  then
+      System.out.print("JET IS READY!\n");
+      Entity e = new Entity();
+      e = EntityCollectionService.getInstance().get("PRESIDENT");
+      insert(e);
+>>>>>>> Minor Touch up and added few json file from thursday
 end
+

@@ -81,6 +81,10 @@ public class RuleController {
         FileWriterService.getInstance().writeToFile(f, r, false);
     }
 
+    public static void appendToDroolsFile(File f, Rule r)
+    {
+        FileWriterService.getInstance().writeToFile(f, r, true);
+    }
     public Object[] getAllRules()
     {
         return ruleSVC.toArray();

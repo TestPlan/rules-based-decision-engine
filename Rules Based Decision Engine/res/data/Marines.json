@@ -1,0 +1,13 @@
+[{
+	"entity.name": "Marines",
+	"Battle": true,
+	"Health": 65,
+  "BulletsLeft": 5
+},
+  {
+    "entity.name": "Marines",
+    "Battle": false,
+    "Health": 5,
+    "BulletsLeft": 85
+  }
+]

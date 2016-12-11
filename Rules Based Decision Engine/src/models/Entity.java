@@ -119,7 +119,7 @@ public class Entity
      * @param key The key of the object being replaced. This will also be the key of the new object.
      * @param value The Object which will replace the previous data for the specified key.
      */
-    public Object updateData(String key, Object value)
+    public  Object updateData(String key, Object value)
     {
     	Object temp = null;
 

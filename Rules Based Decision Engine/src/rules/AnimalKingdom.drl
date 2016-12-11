@@ -1,5 +1,4 @@
 package rules;
-
 import models.*;
 import services.*;
 
@@ -16,17 +15,15 @@ rule "avoid"
         retract(e1);
 end
 
-
 rule "PRESIDENT order" salience -1
   when
-      Entity (getValue("PRESIDENT.ORDER") == true )
+       Entity (getValue("PRESIDENT.ORDER") == true )
   then
       System.out.print("Attack!\n");
 end
 
 rule "is Jet order" salience 0
   when
-
       not ( Entity (getValue("FIGHTERJET.ORDER") == false ))
   then
       System.out.print("JET IS READY!\n");
