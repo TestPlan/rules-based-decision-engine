@@ -183,7 +183,8 @@ public class PlusNewRuleDialog extends JDialog
                 //Create Drools File
                 rc.createDroolsFileFromRule(rule);
 
-                actionList = new ActionList();
+                this.actionList = new ActionList();
+
                 dispose();
             }
         }
