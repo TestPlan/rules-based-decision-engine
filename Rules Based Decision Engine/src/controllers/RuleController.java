@@ -16,6 +16,7 @@ public class RuleController {
     public static RuleController INSTANCE;
     public static RuleCollectionService ruleSVC = RuleCollectionService.getInstance();
     public static EntityCollectionService entity_svc = EntityCollectionService.getInstance();
+    public static File drlFile = null;
 
     public RuleController() {}
 
@@ -76,9 +77,17 @@ public class RuleController {
 
     public static void createDroolsFileFromRule(Rule r)
     {
-        CreateDroolsFile cdf = new CreateDroolsFile();
-        File f = cdf.makeDroolsFile(r.getTitle());
-        FileWriterService.getInstance().writeToFile(f, r, false);
+        makeFile(r.getTitle());
+        FileWriterService.getInstance().writeToFile(drlFile, r, true);
+    }
+
+    public static void makeFile(String fileName)
+    {
+        if(drlFile == null)
+        {
+            CreateDroolsFile cdf = new CreateDroolsFile();
+            drlFile = cdf.makeDroolsFile(fileName);
+        }
     }
 
     public static void appendToDroolsFile(File f, Rule r)

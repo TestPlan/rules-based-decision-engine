@@ -16,6 +16,7 @@ import java.io.IOException;
 public class FileWriterService
 {
     private static FileWriterService INSTANCE = null;
+    private static boolean importCheck = false;
 
     /**
      * Retrieves the instance of the FileWriterService.
@@ -57,8 +58,11 @@ public class FileWriterService
 
             FileWriter fw = new FileWriter(file.getAbsoluteFile(), append);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(content);
 
+            if(!importCheck){
+                bw.write(drlImportSetter());
+            }
+            bw.write(content);
             bw.write("\n\n"); // Newlines for writing additional rules
             bw.close();
         }
@@ -66,6 +70,15 @@ public class FileWriterService
         {
             e.printStackTrace();
         }
+    }
+
+    public String drlImportSetter()
+    {
+        importCheck = true;
+        String s = "import models.*;\n" +
+            "import services.*;\n" +
+            "dialect \"mvel\"\n\n";
+        return s;
     }
 
     //TODO: Finish export rules method
