@@ -63,16 +63,14 @@ public class Rule implements Serializable
     public String toString()
     {
         String result =
-            "import models.*;\n" +
-            "import services.*;\n" +
-            "dialect \"mvel\"\n\n" +
+
             "rule \"" + title + "\"\n";
             if(salience != null)
             {
                 result += "salience " + salience + "\n";
             }
            result += "when \n" + conditionalElemList.toString() + "\n" +
-            "then \n" + actionList.toString() + "\n\n" +
+            "then \n" + actionList.toString() +
             "end";
         return result;
     }

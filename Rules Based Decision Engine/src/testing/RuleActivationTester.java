@@ -24,10 +24,7 @@ public class RuleActivationTester {
 //            System.out.println(temp.toString());
 //        }
 
-        String s = "import models.*;\n" +
-            "import services.*;\n" +
-            "dialect \"mvel\"\n" +
-            "\n" +
+        String s =
             "rule \"avoid3\"\n" +
             "salience 2\n" +
             "when\n" +
@@ -68,7 +65,7 @@ public class RuleActivationTester {
         //for (Entity e : entities)
         //System.out.println(e.toString());
 
-        RuleActivation ra = new RuleActivation(Driver.chooseFileLocation(),entities);
-        //RuleActivation ra2 = new RuleActivation(s, entities);
+        //RuleActivation ra = new RuleActivation(Driver.chooseFileLocation(),entities);
+        RuleActivation ra2 = new RuleActivation(s, entities);
     }
 }

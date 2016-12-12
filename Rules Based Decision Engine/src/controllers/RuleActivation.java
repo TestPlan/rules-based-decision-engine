@@ -22,6 +22,7 @@ import java.util.regex.Pattern;
  */
 public class RuleActivation
 {
+    public static boolean importCheck = false;
     final private String regularExpressionPC = "([a-zA-Z]:)?(\\\\[a-zA-Z0-9 _.-]+)+\\\\?";
     final private String regularExpressionMac = "(/[a-zA-Z0-9 _.-]+)+/?";
     private Pattern pPC = Pattern.compile(regularExpressionPC);
@@ -55,6 +56,10 @@ public class RuleActivation
         }
         else{
             //At this point, ruleInfo was not in the filepath format, so it is assumed to be drl contents
+            if(!importCheck)
+            {
+                ruleInfo = ruleImport(ruleInfo);
+            }
             addNonExistingFile(ruleInfo);
         }
         buildKnowledgeSession(obj);
@@ -85,6 +90,10 @@ public class RuleActivation
             else
             {
                 //At this point, ruleInfo was not in the filepath format, so it is assumed to be drl contents
+                if(!importCheck)
+                {
+                    ruleInfo[i] = ruleImport(ruleInfo[i]);
+                }
                 addNonExistingFile(ruleInfo[i]);
             }
         }
@@ -113,6 +122,10 @@ public class RuleActivation
         }
         else{
             //At this point, ruleInfo was not in the filepath format, so it is assumed to be drl contents
+            if(!importCheck)
+            {
+                ruleInfo = ruleImport(ruleInfo);
+            }
             addNonExistingFile(ruleInfo);
         }
         buildKnowledgeSession(objList);
@@ -143,6 +156,10 @@ public class RuleActivation
             else
             {
                 //At this point, ruleInfo was not in the filepath format, so it is assumed to be drl contents
+                if(!importCheck)
+                {
+                    ruleInfo[i] = ruleImport(ruleInfo[i]);
+                }
                 addNonExistingFile(ruleInfo[i]);
             }
         }
@@ -240,5 +257,15 @@ public class RuleActivation
         this.kSession.dispose();
     }
 
+    public String ruleImport(String ruleContents)
+    {
+        importCheck = true;
+        String s = "import models.*;\n" +
+            "import services.*;\n" +
+            "dialect \"mvel\"\n\n" +
+            ruleContents;
 
+        System.out.println(s);
+        return s;
+    }
 }
