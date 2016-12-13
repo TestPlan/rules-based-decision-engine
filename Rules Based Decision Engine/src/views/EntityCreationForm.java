@@ -112,7 +112,6 @@ public class EntityCreationForm extends JDialog
         }
         else
         {
-            //tblFields.clearSelection();
             String[] tableKeys = new String[rows];
             String[] tableVals = new String[rows];
             HashSet<String> set = new HashSet<>();
