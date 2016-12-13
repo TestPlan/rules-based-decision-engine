@@ -148,9 +148,11 @@ public class EntityCreationForm extends JDialog
 
             String action = "";
             action += "Entity e = EntityCollectionService.getInstance().getFromActions(\"" + name + "\");\n";
-            action += "    insert(e)";
+            //action += "    insert(e)";
 
             PlusNewActionDialog.actionString = action;
+
+            PlusNewActionDialog.entityCreated = true;
 
             //TODO: Fix stupid exception where you have to click out of the box first
             dispose();
@@ -159,6 +161,7 @@ public class EntityCreationForm extends JDialog
 
     private void onCancel()
     {
+        PlusNewActionDialog.entityCreated = false;
         dispose();
     }
 
