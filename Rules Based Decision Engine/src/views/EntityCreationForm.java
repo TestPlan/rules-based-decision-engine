@@ -92,20 +92,27 @@ public class EntityCreationForm extends JDialog
      */
     private void onSave()
     {
+        //TODO: Surround with try/catch(NumberFormatException) block
         /*
         Create Entity object
         Add object to collection
          */
         String name = txtEntityName.getText();
+        int rows = fieldModel.getRowCount();
         if (name.equals("") || name.replaceAll("\\s+", "").equals(""))
         {
             //Name field is blank
             JOptionPane.showMessageDialog(null, "The name field cannot be empty", "Empty name field", JOptionPane.ERROR_MESSAGE);
 
         }
+        else if (rows == 0)
+        {
+            JOptionPane.showMessageDialog(null, "Your Entity has no fields", "", JOptionPane.ERROR_MESSAGE);
+
+        }
         else
         {
-            int rows = fieldModel.getRowCount();
+            //tblFields.clearSelection();
             String[] tableKeys = new String[rows];
             String[] tableVals = new String[rows];
             HashSet<String> set = new HashSet<>();
