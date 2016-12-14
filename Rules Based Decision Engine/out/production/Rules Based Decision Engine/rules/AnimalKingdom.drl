@@ -1,0 +1,34 @@
+package rules;
+import models.*;
+import services.*;
+
+dialect  "mvel"
+
+rule "avoid"
+    salience 2
+    when
+       e1: Entity (getValue("TRAESUB1.VALUE") < 50)
+       r1: Entity( getValue("PRESIDENT.ORDER") == true)
+    then
+        System.out.println("Too Cold To Be At War\n" + e1);
+        retract(r1);
+        retract(e1);
+end
+
+rule "PRESIDENT order" salience -1
+  when
+       Entity (getValue("PRESIDENT.ORDER") == true )
+  then
+      System.out.print("Attack!\n");
+end
+
+rule "is Jet order" salience 0
+  when
+      not ( Entity (getValue("FIGHTERJET.ORDER") == false ))
+  then
+      System.out.print("JET IS READY!\n");
+      Entity e = new Entity();
+      e = EntityCollectionService.getInstance().get("PRESIDENT");
+      insert(e);
+end
+
