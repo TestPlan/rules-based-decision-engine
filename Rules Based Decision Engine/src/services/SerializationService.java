@@ -25,7 +25,7 @@ public class SerializationService
 
     /**
      * Returns an instance of SerializationService.
-     * 
+     *
      * @return instance of SerializationService
      */
     public static SerializationService getInstance()
@@ -81,7 +81,7 @@ public class SerializationService
 
         try
         {
-            FileInputStream fileInput = new FileInputStream(filepath);
+            FileInputStream fileInput = new FileInputStream(filepath + fileExt);
             ObjectInputStream objectInput = new ObjectInputStream(fileInput);
             o = objectInput.readObject();
             objectInput.close();

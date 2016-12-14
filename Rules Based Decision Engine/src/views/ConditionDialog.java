@@ -32,7 +32,7 @@ public class ConditionDialog extends JDialog
     private JTextField valueTxt;
 
     //Fields
-    private EntityController svc = EntityController.getINSTANCE();
+    private EntityController entityController = EntityController.getINSTANCE();
     private RuleController rc = RuleController.getInstance();
 
     /**
@@ -51,6 +51,10 @@ public class ConditionDialog extends JDialog
             entityBox.addItem(s);
         }
 
+        for (String s : EntityCollectionService.getInstance().getMapFromActions().keySet())
+        {
+            entityBox.addItem(s);
+        }
         //Populate keyBox
         keyBox.addItem("No Data Imported");
 
@@ -122,10 +126,11 @@ public class ConditionDialog extends JDialog
                 else
                 {
                     String s = (String) entityBox.getSelectedItem();
-                    for (String str : svc.retrieveFields(s))
+                    for (String str : entityController.retrieveFields(s))
                     {
                         keyBox.addItem(str);
                     }
+
                 }
             }
         });

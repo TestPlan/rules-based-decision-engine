@@ -54,9 +54,9 @@ public class RuleController {
         return cel;
     }
 
-    public void fireAllRules(ArrayList<String> keys){
-
-        Entity[] entities = EntityController.getINSTANCE().getEntityArray(keys);
+    public void fireAllRules(ArrayList<String> keys)
+    {
+        Entity[] entities = EntityCollectionService.getInstance().getAllEntities();//EntityController.getINSTANCE().getEntityArray(keys);
         RuleActivation ra = new RuleActivation(Driver.chooseFileLocation(),entities);
     }
 

@@ -115,6 +115,7 @@ public class RuleActivation
         this.kRepo = kServices.getRepository();
         this.kfs = kServices.newKieFileSystem();
 
+
         //Below states whether ruleInfo is in the format of a filepath or not.
         if(Pattern.matches(regularExpressionPC, ruleInfo) || Pattern.matches(regularExpressionMac, ruleInfo)){
             //At this point, ruleInfo was found to be a filepah and will be used as such
@@ -128,9 +129,11 @@ public class RuleActivation
             }
             addNonExistingFile(ruleInfo);
         }
+
         buildKnowledgeSession(objList);
         fireAllRules();
         dispose();
+
     }
 
     /**

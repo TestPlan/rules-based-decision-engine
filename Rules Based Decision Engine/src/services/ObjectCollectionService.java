@@ -15,11 +15,13 @@ import java.util.Map.Entry;
 public class ObjectCollectionService implements Collectable<Object>, Serializable
 {
 
+    private static ObjectCollectionService INSTANCE;
+    private static final long serialversionUID = 123456789L;
+
     private HashMap<String, Object> data_list = new HashMap<String, Object>();
     private HashMap<String, Object> redundant_list = new HashMap<String, Object>();
 
-    private static ObjectCollectionService INSTANCE;
-    private static final long serialversionUID = 123456789L;
+    private HashMap<String, Object> fromActions = new HashMap<String, Object>();
 
     private ObjectCollectionService()
     {
@@ -138,6 +140,8 @@ public class ObjectCollectionService implements Collectable<Object>, Serializabl
     {
         return data_list.remove(key.toUpperCase());
     }
+
+    //public Object getFromActions(String key){
 
     /**
      * Returns the String representation of the ObjectCollectionService class

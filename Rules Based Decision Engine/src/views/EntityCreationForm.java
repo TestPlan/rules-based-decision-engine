@@ -105,7 +105,7 @@ public class EntityCreationForm extends JDialog
         Create Entity object
         Add object to collection
          */
-        String name = txtEntityName.getText();
+        String name = txtEntityName.getText().toUpperCase();
         int rows = fieldModel.getRowCount();
         if (name.equals("") || name.replaceAll("\\s+", "").equals(""))
         {
