@@ -1,0 +1,64 @@
+import models.*;
+import services.*;
+dialect "mvel"
+
+rule "avoid4"
+salience 2
+when 
+    Entity (getValue( "TRAESUB1.VALUE") < 50  )
+
+then 
+    System.out.println("Too_Cold"); 
+end
+
+rule "attack"
+salience -1
+when 
+    Entity (getValue( "PRESIDENT.ORDER") == true  )
+
+then 
+    System.out.println("Attack"); 
+end
+
+rule "jet"
+salience 0
+when 
+    Entity (getValue( "FIGHTERJET.ORDER") == true  )
+
+then 
+    Entity e = EntityCollectionService.getInstance().getFromActions("PRESIDENT");
+    insert(e); 
+end
+
+import models.*;
+import services.*;
+dialect "mvel"
+
+rule "avoid4"
+salience 2
+when 
+    Entity (getValue( "TRAESUB1.VALUE") < 50  )
+
+then 
+    System.out.println("toocold"; 
+end
+
+rule "president_order"
+salience -1
+when 
+    Entity (getValue( "PRESDEINT.ORDER") == true  )
+
+then 
+    System.out.println("attack"); 
+end
+
+rule "jet"
+salience 0
+when 
+    Entity (getValue( "FIGHTERJET.VALUE") == true  )
+
+then 
+    Entity e = EntityCollectionService.getInstance().getFromActions("PRESDEINT");
+    insert(e); 
+end
+
