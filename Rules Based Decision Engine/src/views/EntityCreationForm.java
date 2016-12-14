@@ -121,34 +121,19 @@ public class EntityCreationForm extends JDialog
                 //TODO: Check for invalid input
                 tableKeys[i] = (String) fieldModel.getValueAt(i, 0);
                 tableVals[i] = (String) fieldModel.getValueAt(i, 1);
-                key = "\"" + name + "." + fieldModel.getValueAt(i, 0) + "\"";
+                key = "\"" + name + "." + fieldModel.getValueAt(i, 0);
+                //key = "\"" + name + "." + fieldModel.getValueAt(i, 0) + "\"";
+                key = key.toUpperCase();
                 set.add(key);
-                ObjectCollectionService.getInstance().put(key, fieldModel.getValueAt(i, 1));
+                ObjectCollectionService.getInstance().putFromActions(key, ((String) fieldModel.getValueAt(i, 1)).toUpperCase());
             }
 
-            EntityController.getINSTANCE().createEntity(name, tableKeys, tableVals);
 
-                /*
-                Add the actual java code to insert the entity into Drools memory
 
-                    HashSet<String> set;
-                    set.add(field.val);
-                    set.add(field2.val2);
-                    set.add(field3.val3);
-                    Entity e = new Entity("President", set);
-                    insert(e);
-                 */
-            //        String action = "";
-            //        action += "HashSet<String> set;\n    ";
-            //        for(String s : set)
-            //        {
-            //            action += "set.add(" + s + ");\n    ";
-            //        }
-            //        action += "Entity e = new Entity(\"" + name + "\", set);\n    insert(e)";
+            EntityController.getINSTANCE().createEntity(name, tableKeys, set, tableVals);
 
             String action = "";
             action += "Entity e = EntityCollectionService.getInstance().getFromActions(\"" + name + "\");\n";
-            //action += "    insert(e)";
 
             PlusNewActionDialog.actionString = action;
 
