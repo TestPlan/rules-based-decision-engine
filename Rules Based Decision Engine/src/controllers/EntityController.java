@@ -37,11 +37,9 @@ public class EntityController
      * @param keys The list of keys representing the Entity's fields
      * @param values The values associated with the Entity's fields
      */
-    public void createEntity(String name, String[] keys, String[] values){
+    public void createEntity(String name, String[] keys, HashSet<String> keyset, String[] values){
         //TODO: try/catch
-        HashSet<String> keySet = new HashSet<String>(Arrays.asList(keys));
-
-        EntityCollectionService.getInstance().putTemp(new Entity(name, keySet));
+        EntityCollectionService.getInstance().putTemp(new Entity(name, keyset));
 
         // Parse values for types
         Object[] toAdd = new Object[values.length];
@@ -149,7 +147,11 @@ public class EntityController
 
     public static String[] retrieveFields(String key)
     {
-        return svc.retrieveFields(key);
+        try {
+            return svc.retrieveFields(key);
+        }catch(NullPointerException e){
+            return svc.retrieveTempFields(key);
+        }
     }
     public static String[] retrieveTempFields(String key)
     {

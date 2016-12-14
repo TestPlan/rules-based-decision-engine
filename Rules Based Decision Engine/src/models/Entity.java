@@ -63,11 +63,19 @@ public class Entity implements Serializable
      */
     public Object getValue(String key)
     {
+        Object o = null;
     	if(this.key_set.contains(key))
     	{
-    		return obj_svc.get(key);
+    	    if(!obj_svc.containsKey(key))
+    	    {
+                o = obj_svc.getFromActions(key);
+            }
+            else
+            {
+                o = obj_svc.get(key);
+            }
     	}
-    	return null;
+    	return o;
     }
 
     /**

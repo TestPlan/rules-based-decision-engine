@@ -105,6 +105,11 @@ public class ObjectCollectionService implements Collectable<Object>, Serializabl
 	    return data_list.get(key.toUpperCase());
 	}
 
+    public Object getFromActions(String key)
+    {
+        return fromActions.get(key.toUpperCase());
+    }
+
 
 	/**
      * Associates the specified value with the specified key in this map.
@@ -116,6 +121,11 @@ public class ObjectCollectionService implements Collectable<Object>, Serializabl
     public Object put(String key, Object value)
     {
        return data_list.put(key.trim().toUpperCase(), value);
+    }
+
+    public Object putFromActions(String key, Object value)
+    {
+        return fromActions.put(key.trim().toUpperCase(), value);
     }
 
     /**
