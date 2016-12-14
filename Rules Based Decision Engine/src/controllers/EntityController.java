@@ -41,7 +41,7 @@ public class EntityController
         //TODO: try/catch
         HashSet<String> keySet = new HashSet<String>(Arrays.asList(keys));
 
-        EntityCollectionService.getInstance().put(new Entity(name, keySet));
+        EntityCollectionService.getInstance().putTemp(new Entity(name, keySet));
 
         // Parse values for types
         Object[] toAdd = new Object[values.length];
@@ -67,6 +67,10 @@ public class EntityController
                     int x = Integer.parseInt(s);
                     toAdd[i] = x;
                 }
+            }
+            else if(s.length() == 1 && s.matches("[a-zA-Z]")){
+                    char c = s.charAt(0);
+                    toAdd[i] = c;
             }
             else
             {
@@ -146,5 +150,9 @@ public class EntityController
     public static String[] retrieveFields(String key)
     {
         return svc.retrieveFields(key);
+    }
+    public static String[] retrieveTempFields(String key)
+    {
+        return svc.retrieveTempFields(key);
     }
 }

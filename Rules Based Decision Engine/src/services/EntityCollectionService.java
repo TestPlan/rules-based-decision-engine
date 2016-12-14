@@ -38,6 +38,7 @@ public class EntityCollectionService implements Collectable<Entity>, Serializabl
         return INSTANCE;
     }
 
+
     /**
 	 * CAUTION:
 	 * Removes all of the mappings from this map. The map will be empty after this call returns.
@@ -110,6 +111,11 @@ public class EntityCollectionService implements Collectable<Entity>, Serializabl
         return fromActions.get(key);
     }
 
+    public HashMap<String, Entity> getMapFromActions()
+    {
+	    return fromActions;
+    }
+
 	public Entity[] getAllEntities(){
 
 	    Entity[] temp = new Entity[map.size()];
@@ -129,7 +135,6 @@ public class EntityCollectionService implements Collectable<Entity>, Serializabl
         int index = 0;
         for (String key : this.fromActions.keySet())
         {
-
             temp[index] =  this.fromActions.get(key);
             index++;
         }
@@ -230,6 +235,20 @@ public class EntityCollectionService implements Collectable<Entity>, Serializabl
     public String[] retrieveFields(String key)
     {
         Entity e = map.get(key);
+        String[] arr = new String[e.getKeys().size()];
+        int index = 0;
+
+        for(String s : e.getKeys())
+        {
+            arr[index] = s.substring(s.indexOf('.') + 1);
+            index++;
+        }
+
+        return arr;
+    }
+    public String[] retrieveTempFields(String key)
+    {
+        Entity e = fromActions.get(key);
         String[] arr = new String[e.getKeys().size()];
         int index = 0;
 

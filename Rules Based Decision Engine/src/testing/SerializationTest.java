@@ -68,7 +68,6 @@ public class SerializationTest
          * RULE
          *
          */
-        //TODO: Fix Errors salience
        // Rule rule = new Rule(ruleName , salience, condList , actionList);
 
         SerializationService ss = SerializationService.getInstance();

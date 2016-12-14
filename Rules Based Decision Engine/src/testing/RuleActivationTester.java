@@ -16,7 +16,7 @@ public class RuleActivationTester {
     public static void main(String args[]) {
         FileReaderService fr = FileReaderService.getInstance();
         EntityCollectionService entity_svc = EntityCollectionService.getInstance();
-        fr.readJsonFile(Driver.chooseFileLocation());
+        //fr.readJsonFile(Driver.chooseFileLocation());
         //    fr.readJsonFile("./res/data/temp.json");
 
 //        for (Map.Entry<String, Entity> e : entity_svc.entrySet()) {
@@ -65,7 +65,7 @@ public class RuleActivationTester {
         //for (Entity e : entities)
         //System.out.println(e.toString());
 
-        //RuleActivation ra = new RuleActivation(Driver.chooseFileLocation(),entities);
-        RuleActivation ra2 = new RuleActivation(s, entities);
+        RuleActivation ra = new RuleActivation(Driver.chooseFileLocation(),entities);
+        //RuleActivation ra2 = new RuleActivation(s, entities);
     }
 }

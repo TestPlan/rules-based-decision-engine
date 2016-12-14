@@ -2,6 +2,7 @@ package models;
 
 import services.ActionCollectionService;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import exceptions.ActionException;
@@ -13,9 +14,10 @@ import models.Action;
  * @author Trae X. Lewis
  * @version 1.00
  */
-public class ActionList
+public class ActionList implements Serializable
 {
 
+    private static final long serialVersionUID = 123456789L;
 	ActionCollectionService act_svc = ActionCollectionService.getInstance();
 	//TODO: Create linked hashMap to maintain order.
 	HashMap<String, Action> actionMap;

@@ -1,18 +1,19 @@
 package views;
 
+import controllers.Driver;
 import controllers.EntityController;
 import controllers.RuleController;
 import models.ConditionalElementList;
 import services.EntityCollectionService;
 import services.ActionCollectionService;
+import services.RuleCollectionService;
+import services.SerializationService;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
+import java.io.File;
 
 /**
  * Main GUI Menu for Rules Based Decision Engine
@@ -42,6 +43,7 @@ public class MainView
      */
     public static void main(String[] args)
     {
+        System.out.println(new File("").getAbsolutePath());
         JFrame frame = new JFrame("Rules-Based Decision Engine");
         frame.setContentPane(new MainView().MainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,6 +60,63 @@ public class MainView
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
+        frame.addWindowListener(new WindowListener()
+        {
+            @Override
+            public void windowOpened(WindowEvent e)
+            {
+                RuleCollectionService ruleService = RuleCollectionService.getInstance();
+                EntityCollectionService entityService = EntityCollectionService.getInstance();
+                entityService.toString();
+                ruleService.toString();
+                SerializationService serService = SerializationService.getInstance();
+                ruleService = (RuleCollectionService) serService.deserialize(new File("").getAbsolutePath() + "\\res\\Serialization\\Rules");
+                entityService = (EntityCollectionService) serService.deserialize((new File("").getAbsolutePath() + "\\res\\Serialization\\Entities"));
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e)
+            {
+                RuleCollectionService ruleService = RuleCollectionService.getInstance();
+                EntityCollectionService entityService = EntityCollectionService.getInstance();
+                entityService.toString();
+                ruleService.toString();
+                SerializationService serService = SerializationService.getInstance();
+                serService.serialize(ruleService, new File("").getAbsolutePath() + "\\res\\Serialization\\Rules");
+                serService.serialize(entityService, new File("").getAbsolutePath() + "\\res\\Serialization\\Entities");
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e)
+            {
+
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e)
+            {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e)
+            {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e)
+            {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e)
+            {
+
+            }
+        });
     }
 
     /**

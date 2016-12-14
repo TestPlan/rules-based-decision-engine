@@ -1,6 +1,7 @@
 package models;
 
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,8 +17,10 @@ import services.ObjectCollectionService;
  *
  * @author Michael Crinite
  */
-public class Entity
+public class Entity implements Serializable
 {
+
+    private static final long serialVersionUID = 123456789L;
     private String entity_name;
     private Set<String> key_set = new HashSet<String>();
     ObjectCollectionService obj_svc = ObjectCollectionService.getInstance();

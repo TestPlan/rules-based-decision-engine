@@ -1,0 +1,26 @@
+import models.*;
+import services.*;
+dialect "mvel"
+
+rule "Too_Cold"
+salience 2
+when 
+    Entity (getValue( "TRAESUB1.VALUE") < 50  )
+
+then 
+    System.out.println("Too_Cold"); 
+end
+
+import models.*;
+import services.*;
+dialect "mvel"
+
+rule "Too_Cold"
+salience 2
+when 
+    Entity (getValue( "TRAESUB1.VALUE") < 50  )
+
+then 
+    System.out.println("Too_Cold"); 
+end
+
