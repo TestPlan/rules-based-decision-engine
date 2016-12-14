@@ -79,10 +79,15 @@ public class EntityCreationForm extends JDialog
         tblFields = new JTable(fieldModel);
 
         //Add Field Action Listener
-        addFieldButton.addActionListener(new ActionListener() {
+        addFieldButton.addActionListener(new ActionListener()
+        {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                fieldModel.addRow(new String[]{"",""});
+            public void actionPerformed(ActionEvent e)
+            {
+                DefaultTableModel model = (DefaultTableModel) tblFields.getModel();
+                //model.setRowCount(model.getRowCount() + 1);
+                String[] row = {"", ""};
+                model.addRow(row);
             }
         });
 
