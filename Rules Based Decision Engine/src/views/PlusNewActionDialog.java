@@ -41,6 +41,7 @@ public class PlusNewActionDialog extends JDialog
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
 
+        //TODO: Make retract and update actually retract or update
         functionBox.addItem("insert(e)");
         functionBox.addItem("retract(e)");
         functionBox.addItem("update(e)");
