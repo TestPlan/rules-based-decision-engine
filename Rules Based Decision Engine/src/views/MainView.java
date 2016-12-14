@@ -36,6 +36,7 @@ public class MainView
     private static boolean windows = false; //User OS
     private String rulesPath;
 
+
     /**
      * Creates an instance of MainView
      *
@@ -66,25 +67,32 @@ public class MainView
             @Override
             public void windowOpened(WindowEvent e)
             {
-                RuleCollectionService ruleService = RuleCollectionService.getInstance();
-                EntityCollectionService entityService = EntityCollectionService.getInstance();
-                entityService.toString();
-                ruleService.toString();
-                SerializationService serService = SerializationService.getInstance();
-                ruleService = (RuleCollectionService) serService.deserialize(new File("").getAbsolutePath() + "\\res\\Serialization\\Rules");
-                entityService = (EntityCollectionService) serService.deserialize((new File("").getAbsolutePath() + "\\res\\Serialization\\Entities"));
+                boolean fixed = false; //TODO: fix serialization
+                if(fixed)
+                {
+                    RuleCollectionService ruleService = RuleCollectionService.getInstance();
+                    EntityCollectionService entityService = EntityCollectionService.getInstance();
+                    entityService.toString();
+                    ruleService.toString();
+                    SerializationService serService = SerializationService.getInstance();
+                    ruleService = (RuleCollectionService) serService.deserialize(new File("").getAbsolutePath() + "\\res\\Serialization\\Rules");
+                    entityService = (EntityCollectionService) serService.deserialize((new File("").getAbsolutePath() + "\\res\\Serialization\\Entities"));
+                }
             }
 
             @Override
             public void windowClosing(WindowEvent e)
             {
-                RuleCollectionService ruleService = RuleCollectionService.getInstance();
-                EntityCollectionService entityService = EntityCollectionService.getInstance();
-                entityService.toString();
-                ruleService.toString();
-                SerializationService serService = SerializationService.getInstance();
-                serService.serialize(ruleService, new File("").getAbsolutePath() + "\\res\\Serialization\\Rules");
-                serService.serialize(entityService, new File("").getAbsolutePath() + "\\res\\Serialization\\Entities");
+                boolean fixed = false; //TODO: fix serialization
+                if(fixed) {
+                    RuleCollectionService ruleService = RuleCollectionService.getInstance();
+                    EntityCollectionService entityService = EntityCollectionService.getInstance();
+                    entityService.toString();
+                    ruleService.toString();
+                    SerializationService serService = SerializationService.getInstance();
+                    serService.serialize(ruleService, new File("").getAbsolutePath() + "\\res\\Serialization\\Rules");
+                    serService.serialize(entityService, new File("").getAbsolutePath() + "\\res\\Serialization\\Entities");
+                }
             }
 
             @Override

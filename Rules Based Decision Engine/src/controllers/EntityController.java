@@ -56,7 +56,7 @@ public class EntityController
                 boolean b = Boolean.parseBoolean(s);
                 toAdd[i] = b;
             }
-            else if (StringUtils.isNumeric(s))
+            else if (StringUtils.isNumeric(s) && !s.equals(""))
             {
                 if(s.contains(".")){
                     double d = Double.parseDouble(s);
