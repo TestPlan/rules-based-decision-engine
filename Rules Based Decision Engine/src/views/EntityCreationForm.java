@@ -2,6 +2,7 @@ package views;
 
 import controllers.EntityController;
 import services.EntityCollectionService;
+import services.InputParserService;
 import services.ObjectCollectionService;
 
 import javax.swing.*;
@@ -121,11 +122,13 @@ public class EntityCreationForm extends JDialog
                 //TODO: Check for invalid input
                 tableKeys[i] = (String) fieldModel.getValueAt(i, 0);
                 tableVals[i] = (String) fieldModel.getValueAt(i, 1);
-                key = "\"" + name + "." + fieldModel.getValueAt(i, 0);
+                key = name + "." + fieldModel.getValueAt(i, 0);
                 //key = "\"" + name + "." + fieldModel.getValueAt(i, 0) + "\"";
                 key = key.toUpperCase();
                 set.add(key);
-                ObjectCollectionService.getInstance().putFromActions(key, ((String) fieldModel.getValueAt(i, 1)).toUpperCase());
+                InputParserService ips = InputParserService.getInstance();
+                Object o = ips.dataConversion(fieldModel.getValueAt(i, 1));
+                ObjectCollectionService.getInstance().putFromActions(key, o);//((String) fieldModel.getValueAt(i, 1)).toUpperCase());
             }
 
 

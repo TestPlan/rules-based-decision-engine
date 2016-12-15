@@ -123,7 +123,7 @@ public class InputParserService
 	 * @param obj
 	 * @return obj as a casted datatype.
 	 */
-	private Object dataConversion(Object obj)
+	public Object dataConversion(Object obj)
 	{
 		if(obj instanceof Double)
 	    	return (double)obj;
