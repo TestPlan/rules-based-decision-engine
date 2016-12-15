@@ -128,7 +128,7 @@ public class EntityCreationForm extends JDialog
                 set.add(key);
                 InputParserService ips = InputParserService.getInstance();
                 Object o = ips.dataConversion(fieldModel.getValueAt(i, 1));
-                ObjectCollectionService.getInstance().putFromActions(key, o);//((String) fieldModel.getValueAt(i, 1)).toUpperCase());
+                ObjectCollectionService.getInstance().putFromActions(key, o);
             }
 
 

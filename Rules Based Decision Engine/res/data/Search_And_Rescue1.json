@@ -1,0 +1,21 @@
+[{
+  "entity.name": "Helicopter",
+  "fuel": 101,
+  "prepared": true
+},
+{
+  "entity.name": "Target",
+  "distance": 150.02,
+  "gender": "male",
+  "condition": "critical"
+},
+{
+  "entity.name": "Weather",
+  "storm": false,
+  "stormType": "Blizzard",
+  "temperature": -5
+},
+  {
+    "entity.name": "WeatherStation",
+    "transmitting": true
+  }]

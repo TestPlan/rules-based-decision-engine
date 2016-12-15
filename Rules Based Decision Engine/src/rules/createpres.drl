@@ -1,0 +1,32 @@
+import models.*;
+import services.*;
+dialect "mvel"
+
+rule "createpres"
+salience -1
+when
+    Entity (getValue( "PRESIDENT.ORDER") == true  )
+
+then
+    System.out.println("Attack!");
+end
+
+rule "cold"
+salience 2
+when
+    Entity (getValue( "TRAESUB1.VALUE") < 50  )
+
+then
+    System.out.println("Too_Cold");
+end
+
+rule "jet"
+salience 0
+when
+    Entity (getValue( "FIGHTERJET.ORDER") == true  )
+
+then
+    Entity e = EntityCollectionService.getInstance().getFromActions("PRESIDENT");
+    insert(e);
+end
+

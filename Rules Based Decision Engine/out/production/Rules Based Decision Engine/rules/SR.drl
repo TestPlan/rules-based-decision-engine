@@ -1,0 +1,28 @@
+import models.*;
+import services.*;
+dialect  "mvel"
+
+rule "S&R"
+    salience 2
+    when
+      Entity(getValue("HELICOPTER.FUEL") >= 100)
+    then
+      System.out.println("Check Distance to target");
+end
+
+rule "check weather"
+    salience -1
+    when
+      Entity(getValue("WEATHER.STORM") == true)
+    then
+      System.out.println("Weather unsuitable for rescue");
+    end
+
+rule "target distance"
+    salience 0
+    when
+      Entity(getValue("TARGET.DISTANCE") < 200)
+    then
+      Entity e = EntityCollectionService.getInstance().getFromActions("PRESIDENT");
+      insert(e);
+    end
