@@ -9,9 +9,9 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 /**
- * Created by shiv on 10/14/2016.
+ * A class which handles the storage of and modifications to Action objects
  *
- * @author Shiv ,
+ * @author Shiv
  * @author Trae X. Lewis
  * @version 2.0 11/24/16
  */
