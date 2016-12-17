@@ -140,9 +140,9 @@ public class PlusNewRuleDialog extends JDialog
     /**
      * Gathers rule info and calls rc to create a new Rule object and add it to the collection
      *
-     * @param title
-     * @param cel
-     * @param actionList
+     * @param title The rule's title
+     * @param cel The ConditionalElementList created to be used in the "When" condition of the Rule
+     * @param actionList The ActionList created to be used in the "Then" condition of the Rule
      */
     public void onSave(String title, Integer salience, ConditionalElementList cel, ActionList actionList)
     {
