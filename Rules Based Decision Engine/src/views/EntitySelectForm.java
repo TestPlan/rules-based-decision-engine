@@ -9,14 +9,32 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Created by Mike on 12/15/2016.
+ * A form which would be used in order to select which Entity should be retracted or updated should
+ * those options be selected from the dropdown in PlusNewActionDialog
+ *
+ * NOTE: THIS CLASS IS CURRENTLY NOT A DIALOG. THIS CLASS SHOULD BE REPLACED WITH A DIALOG
+ *       BECAUSE THE PROGRAM WILL NOT PAUSE ON CREATION OF A REGULAR WINDOW FORM.
+ *       //TODO: Create a new Dialog for this class
+ *       @see views.ConditionDialog
+ *       @see views.ImportDataDialog
+ *       @see views.EntityCreationForm
+ *       @see views.PlusNewActionDialog
+ *
+ * @author Mike M
+ * @version 1.0
  */
 public class EntitySelectForm
 {
+    //Components
     private JComboBox entitySelectBox;
     private JButton cancelButton;
     private JButton okButton;
 
+    //Fields
+
+    /**
+     * Creates an EntitySelectForm
+     */
     public EntitySelectForm()
     {
         entitySelectBox.addItem("<Select Entity>");
@@ -43,14 +61,21 @@ public class EntitySelectForm
         });
     }
 
+    /**
+     * To be executed when the OK button is clicked
+     */
     public void onOk()
     {
         entitySelectBox.getSelectedItem();
-
     }
 
+    /**
+     * To be executed when the cancel button is clicked
+     */
     public void onCancel()
     {
+        //Currently does not work because the form is not a dialog
+        //Should create a Dialog to replace this form so that it can function as such
         //dispose();
     }
 
