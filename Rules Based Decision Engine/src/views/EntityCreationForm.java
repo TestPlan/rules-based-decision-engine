@@ -11,6 +11,19 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.HashSet;
 
+/**
+ * A form which allows a user to create an Entity by hand.
+ * The parts of an Entity are
+ * -Name
+ * -Map of keys which correspond to datapoints
+ * @see models.Entity
+ *
+ * A user can create an Entity so that an existing Rule, which may otherwise not be fired, will compare to
+ * the created Entity and fire.
+ *
+ * @author Michael Crinite
+ * @version 1.0 12/07/2016
+ */
 public class EntityCreationForm extends JDialog
 {
     //Components
