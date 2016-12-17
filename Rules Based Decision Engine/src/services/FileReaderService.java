@@ -25,11 +25,9 @@ import org.json.simple.parser.JSONParser;
 
 public class FileReaderService
 {
-
+    //Fields
     InputParserService parse_svc = InputParserService.getInstance();
-
     private static FileReaderService INSTANCE = null;
-
 
     /**
      * Singleton Constructor.
@@ -44,9 +42,11 @@ public class FileReaderService
         }
         return INSTANCE;
     }
-    
-    private FileReaderService(){}
 
+    /**
+     * Default constructor for objects of type FileReaderService
+     */
+    private FileReaderService(){}
 
     /**
      * Attempts to parse the given file.
@@ -88,28 +88,28 @@ public class FileReaderService
     }
 
     /**
-     * 
+     * Reads a JSON file and parses it as an Entity
+     *
      * @param filename filepath for the JSON file
-     * 
      */
     @SuppressWarnings("unchecked")
 	public void readJsonFile(String filename)
     {
     	HashMap<String, Object> map = new HashMap<String,Object>();
         JSONParser parser = new JSONParser();
-        
+
         try
         {
             Object obj = parser.parse(new FileReader(filename));
-            
+
             JSONArray json_array = (JSONArray) obj;
-            
+
             for(int i = 0; i < json_array.size(); i++)
             {
             	map.clear();
             	JSONObject json_object = (JSONObject) json_array.get(i);
             	map.putAll(json_object);
-                
+
             	parse_svc.parseJson(map);
             }
         }
@@ -119,7 +119,7 @@ public class FileReaderService
         }
     }
 
-    
+
    //TODO: Formerly importRulesMade() , finish importRules method.
 /*	public void parseRule(String filename)
     {
