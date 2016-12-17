@@ -14,13 +14,19 @@ import java.util.Set;
  */
 public class RuleCollectionService implements Collectable<Rule>, Serializable
 {
-
+    //Fields
     private static RuleCollectionService INSTANCE = null;
     private static final long serialversionUID = 123456789L;
 
-    private HashMap<String, Rule> rules = new HashMap<String, Rule>();
-    private HashMap<String, Rule> redundant_list = new HashMap<String, Rule>();
+    //Collections
+    private HashMap<String, Rule> rules = new HashMap<String, Rule>();          //Default Collection
+    private HashMap<String, Rule> redundant_list = new HashMap<String, Rule>(); //Redundant Collection
 
+    /**
+     * Creates an object of RuleCollectionService if one does not already exist
+     *
+     * @return The single instance of type RuleCollectionService
+     */
     public static RuleCollectionService getInstance()
     {
         if (INSTANCE == null)
@@ -30,6 +36,9 @@ public class RuleCollectionService implements Collectable<Rule>, Serializable
         return INSTANCE;
     }
 
+    /**
+     * Default constructor for type RuleCollectionService
+     */
     private RuleCollectionService()
     {
     }
@@ -58,7 +67,6 @@ public class RuleCollectionService implements Collectable<Rule>, Serializable
 	{
 	    return rules.containsKey(key);
 	}
-
 
 	/**
 	 * Returns true if this map maps one or more keys to the specified value.
@@ -108,7 +116,6 @@ public class RuleCollectionService implements Collectable<Rule>, Serializable
        return this.rules.put(key, value);
     }
 
-
     /**
      * Copies all of the mappings from the specified map to this map.
      * These mappings will replace any mappings that this map had for any of the
@@ -132,7 +139,10 @@ public class RuleCollectionService implements Collectable<Rule>, Serializable
         return rules.remove(key);
     }
 
-
+    /**
+     * Returns a String containing the names of all Rules in the Collection
+     * @return a String containing the names of all Rules in the Collection
+     */
     public String toString()
     {
         String s = new String();
@@ -145,12 +155,15 @@ public class RuleCollectionService implements Collectable<Rule>, Serializable
         return s;
     }
 
+    /**
+     * Returns an Array of Rule Objects
+     * @return An Object array containing all Rule objects
+     */
     public Object[] toArray()
     {
         Object[] arr = rules.keySet().toArray();
         return arr;
     }
-
 
 
 }
