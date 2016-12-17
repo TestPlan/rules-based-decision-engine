@@ -15,6 +15,7 @@ import java.io.IOException;
  */
 public class FileWriterService
 {
+    //Fields
     private static FileWriterService INSTANCE = null;
     private static boolean importCheck = false;
 
@@ -72,6 +73,10 @@ public class FileWriterService
         }
     }
 
+    /**
+     * Adds the default header to each .drl file
+     * @return A String containing the default header of a .drl file
+     */
     public String drlImportSetter()
     {
         importCheck = true;
