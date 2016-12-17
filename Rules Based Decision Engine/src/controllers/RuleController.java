@@ -183,11 +183,23 @@ public class RuleController {
     {
         FileWriterService.getInstance().writeToFile(f, r, true);
     }
+
+    /**
+     * Retrieves all the existing Rule objects and adds them to an Object array
+     *
+     * @return All existing Rule objects in an Array
+     */
     public Object[] getAllRules()
     {
         return ruleSVC.toArray();
     }
 
+    /**
+     * Retrieves the Rule data as it will appear in a .drl file
+     *
+     * @param key The key corresponding to the rule whose information should be retrieved
+     * @return A String containing the information properly formatted for writing to a .drl file
+     */
     public String getRuleTextFromKey(String key){
         return ruleSVC.get(key).toString();
     }
