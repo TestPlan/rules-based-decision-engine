@@ -48,7 +48,6 @@ public class PlusNewActionDialog extends JDialog
         lblFunction.setText(" ");
         functionBox.setVisible(false);
 
-
         //ActionListeners
         buttonOK.addActionListener(new ActionListener()
         {
@@ -151,6 +150,9 @@ public class PlusNewActionDialog extends JDialog
         }
     }
 
+    /**
+     * To be executed when the "Create Entity for Chaining" checkbox is selected
+     */
     public void onSelectEntityCheckBox()
     {
         // Do not allow user to change description, it will be changed by the next window
@@ -165,6 +167,9 @@ public class PlusNewActionDialog extends JDialog
         txtActionDescription.setText(actionString);
     }
 
+    /**
+     * To be executed when the "Create Entity for Chaining checkbox is deselcted"
+     */
     public void onDeselectEntityCheckBox()
     {
         txtActionDescription.setEditable(true);
