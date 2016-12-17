@@ -9,6 +9,14 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 
+/**
+ * A dialog which appears when Import Data is selected.
+ * The window allows the user to browse to a file in their filesystem and import it into
+ * the Rules-Based Decision Aid Framework's storage
+ *
+ * @author Michael Crinite
+ * @version 1.0
+ */
 public class ImportDataDialog extends JDialog
 {
     //Components
