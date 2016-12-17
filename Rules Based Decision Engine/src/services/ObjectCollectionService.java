@@ -10,19 +10,23 @@ import java.util.Map.Entry;
  * Static class designed to store all rule object data and any methods designed to manipulate the data.
  *
  * @author Trae X. Lewis
+ * @author Wolf Team
  * @version 2.0 10/20/2016
  */
 public class ObjectCollectionService implements Collectable<Object>, Serializable
 {
-
+    //Fields
     private static ObjectCollectionService INSTANCE;
     private static final long serialversionUID = 123456789L;
 
-    private HashMap<String, Object> data_list = new HashMap<String, Object>();
-    private HashMap<String, Object> redundant_list = new HashMap<String, Object>();
+    private HashMap<String, Object> data_list = new HashMap<String, Object>();      // Main collection
+    private HashMap<String, Object> redundant_list = new HashMap<String, Object>(); // Redundant collection
+    private HashMap<String, Object> fromActions = new HashMap<String, Object>();    // Map of Objects that may be created
+                                                                       // As the result of Rules firing
 
-    private HashMap<String, Object> fromActions = new HashMap<String, Object>();
-
+    /**
+     * Default constructor for objects of type ObjectCollectionService
+     */
     private ObjectCollectionService()
     {
     }
@@ -38,7 +42,6 @@ public class ObjectCollectionService implements Collectable<Object>, Serializabl
         if (INSTANCE == null)
         {
             INSTANCE = new ObjectCollectionService();
-
         }
         return INSTANCE;
     }
@@ -105,11 +108,17 @@ public class ObjectCollectionService implements Collectable<Object>, Serializabl
 	    return data_list.get(key.toUpperCase());
 	}
 
+    /**
+     * Returns an Object from the collection of Objects which may be created as the result of other Rules firing
+     * or null if this map contains no mapping for the key
+     *
+     * @param key Key whose associated value is to be returned
+     * @return The value to which the specified key is mapped
+     */
     public Object getFromActions(String key)
     {
         return fromActions.get(key.toUpperCase());
     }
-
 
 	/**
      * Associates the specified value with the specified key in this map.
@@ -123,6 +132,14 @@ public class ObjectCollectionService implements Collectable<Object>, Serializabl
        return data_list.put(key.trim().toUpperCase(), value);
     }
 
+    /**
+     * Associates the specified value with the specified key in the map of Objects which may be created
+     * as the result of Rules firing
+     *
+     * @param key Key which should be associated with the specified value
+     * @param value Value to associate with the specified key
+     * @return <code>true</code> if the object was successfully added to the collection
+     */
     public Object putFromActions(String key, Object value)
     {
         return fromActions.put(key.trim().toUpperCase(), value);
@@ -151,8 +168,6 @@ public class ObjectCollectionService implements Collectable<Object>, Serializabl
         return data_list.remove(key.toUpperCase());
     }
 
-    //public Object getFromActions(String key){
-
     /**
      * Returns the String representation of the ObjectCollectionService class
      */
@@ -165,7 +180,5 @@ public class ObjectCollectionService implements Collectable<Object>, Serializabl
         }
         return temp;
     }
-
-
 
 }
