@@ -9,20 +9,25 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 /**
- * Created by Mike on 11/17/2016.
+ * A class which handles the storage of and modification to Entity objects
  */
 public class EntityCollectionService implements Collectable<Entity>, Serializable
 {
+    //Fields
     private static EntityCollectionService INSTANCE;
     private static final long serialVersionUID = 123456789L;
-
-    private HashMap<String, Entity> map = new HashMap<String, Entity>();
-    private HashMap<String, Entity> redundant_list = new HashMap<String, Entity>();
-
-    private HashMap<String, Entity> fromActions = new HashMap<>();
-
     private int Counter = 1;
 
+    //Collections
+    private HashMap<String, Entity> map = new HashMap<String, Entity>();            //Main Collection
+    private HashMap<String, Entity> redundant_list = new HashMap<String, Entity>(); //Redundant Collection
+    private HashMap<String, Entity> fromActions = new HashMap<>();     //Collection of Entity objects
+                                                                       //    which may be created during
+                                                                       //    the execution of another Rule.
+
+    /**
+     * Default constructor for type EntityCollectionService
+     */
     private EntityCollectionService(){}
 
     /**
@@ -37,7 +42,6 @@ public class EntityCollectionService implements Collectable<Entity>, Serializabl
         }
         return INSTANCE;
     }
-
 
     /**
 	 * CAUTION:
@@ -64,7 +68,6 @@ public class EntityCollectionService implements Collectable<Entity>, Serializabl
 	    return map.containsKey(key);
 	}
 
-
 	/**
 	 * Returns true if this map maps one or more keys to the specified value.
 	 * @param value: value whose presence in this map is to be tested.
@@ -75,7 +78,11 @@ public class EntityCollectionService implements Collectable<Entity>, Serializabl
 	    return map.containsValue(value);
 	}
 
-
+    /**
+     * Returns the default name that will be used to create the next Entity should a name not be provided
+     *
+     * @return A String which will be the new name of the next Entity
+     */
 	public String defaultName()
 	{
 		String name = "ENTITY_" + Counter;
@@ -106,29 +113,50 @@ public class EntityCollectionService implements Collectable<Entity>, Serializabl
 	    return map.get(key);
 	}
 
+    /**
+     * Gets an Entity from the collection that stores Entities created as part of the "Then" condition
+     * of another Rule
+     *
+     * @param key The Entity to search for in the collection
+     * @return The target Entity if it exists
+     */
     public Entity getFromActions(String key)
     {
         return fromActions.get(key);
     }
 
+    /**
+     * Returns the entire map of Actions that may be created as part of the "Then" condition of another Rule
+     * @return the entire map of Actions that may be created as part of the "Then" condition of another Rule
+     */
     public HashMap<String, Entity> getMapFromActions()
     {
 	    return fromActions;
     }
 
+    /**
+     * Returns an Array of all Entities in the map of existing Entities
+     * @return an Array of all Entities in the map of existing Entities
+     */
 	public Entity[] getAllEntities(){
 
 	    Entity[] temp = new Entity[map.size()];
 	    int index = 0;
         for (String key : this.map.keySet())
         {
-
             temp[index] =  this.map.get(key);
             index++;
         }
         return temp;
     }
 
+    /**
+     * Returns an Array of all Entities in the map of Entities which may be created as part of the "Then"
+     * condition of another Rule
+     *
+     * @return an Array of all Entities in the map of Entities which may be created as part of the "Then"
+     * condition of another Rule
+     */
     public Entity[] getAllEntitiesFromActions(){
 
         Entity[] temp = new Entity[fromActions.size()];
@@ -145,6 +173,7 @@ public class EntityCollectionService implements Collectable<Entity>, Serializabl
      * Associates the specified Entity with the specified key in this map.
      * If the map previously contained a mapping for the key, the old value is replaced.
      * The key is derived from the Entity object itself.
+     *
      * @param value  value to be associated with the specified key
      * @return the previous value associated with key, or null if there was no mapping for key.
      *         (A null return can also indicate that the map previously associated null with key.)
@@ -156,6 +185,16 @@ public class EntityCollectionService implements Collectable<Entity>, Serializabl
         return this.map.put(key, value);
     }
 
+    /**
+     * Associates the specified Entity with the specified key in the map of Entities which may be created
+     * by Rules.
+     * If the map previously contained a mapping for the key, the old value is replaced.
+     * The key is derived from the Entity object itself.
+     *
+     * @param value  value to be associated with the specified key
+     * @return the previous value associated with key, or null if there was no mapping for key.
+     *         (A null return can also indicate that the map previously associated null with key.)
+     */
     public Entity putTemp(Entity value)
     {
         String key = value.getEntityName().trim().toUpperCase();
@@ -247,6 +286,12 @@ public class EntityCollectionService implements Collectable<Entity>, Serializabl
         return arr;
     }
 
+    /**
+     * Builds an array of an Entity's fields from the Entity's key, if it is in the temporary collection
+     *
+     * @param key Key of Entity to search for in the collection
+     * @return An array of all the possible fields in the Entity
+     */
     public String[] retrieveTempFields(String key)
     {
         Entity e = fromActions.get(key);
