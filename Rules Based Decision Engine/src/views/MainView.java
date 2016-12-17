@@ -17,8 +17,15 @@ import java.io.File;
 
 /**
  * Main GUI Menu for Rules Based Decision Engine
+ * Currently supported:
+ *  - Creating new Entities from the Import Data screen
+ *  - Creating new Actions from the PlusNewActionDialog screen
+ *  - Firing Rules using the Fire Rules button
+ *  - Creating new Rules using the new Rule button
+ *  - NOTE: THE SELECT RULESET FUNCTIONALITY IS NOT CURRENTLY SUPPORTED
  *
  * @author Michael Crinite
+ * @author Wolf Team
  */
 public class MainView
 {
@@ -213,6 +220,9 @@ public class MainView
         });
     }
 
+    /**
+     * Rule table must be custom created
+     */
     private void createUIComponents()
     {
         //Properties for ruleTable
