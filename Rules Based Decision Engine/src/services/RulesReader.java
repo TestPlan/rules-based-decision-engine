@@ -7,7 +7,8 @@ import java.io.IOException;
 import java.util.HashMap;
 
 /**
- * Created by shiv on 10/23/2016.
+ * A Class which can be used to parse a .drl file into a Rule object
+ *
  * Ability to store each rule as a HashMap
  * Key = title, value as the Rule
  */
@@ -22,10 +23,11 @@ public class RulesReader
     public String fileName = "avoid.drl";
     public HashMap<String, String> ruleList = new HashMap<String, String>();
 
-    /*
+    /**
      * Constructor Takes two Strings
-     * pathName : Name of the Path
-     * fileName : Name of the file
+     *
+     * @param pathName Name of the Path
+     * @param fileName Name of the file
      */
     public RulesReader(String pathName, String fileName)
     {
@@ -33,9 +35,9 @@ public class RulesReader
         this.fileName = fileName;
     }
 
-    /*
+    /**
      * Constructor Takes one Strings
-     * fileName : Name of the file
+     * @param fileName Name of the file
      * by Default the pathName will be the predefined path
      */
     public RulesReader(String fileName)
@@ -43,38 +45,47 @@ public class RulesReader
         this.fileName = fileName;
     }
 
-    /*
-     * Returns pathName
+    /**
+     * @return The path to the file
      */
     public String getPathName()
     {
         return pathName;
     }
 
-    /*
-     * Returns fileName
+    /**
+     * @return The file's name
      */
     public String getFileName()
     {
         return fileName;
     }
 
-    /*
+    /**
      * Sets pathName to given String
+     *
+     * @param pathName The pathName to set
      */
     public void setPathName(String pathName)
     {
         this.pathName = pathName;
     }
 
-    /*
+    /**
      * Sets fileName to given String
+     *
+     * @param fileName The name to set as the file's name
      */
     public void setFileName(String fileName)
     {
         this.fileName = fileName;
     }
 
+    /**
+     * Appends all keys in the collection to a single String
+     *
+     * @return A String containing all the keys in the collection
+     */
     public String printKeys()
     {
         String temp = "";
@@ -85,6 +96,11 @@ public class RulesReader
         return temp;
     }
 
+    /**
+     * Appends all keys and corresponding rules to a single String
+     *
+     * @return A String containing all the keys and rules in the collection
+     */
     public String printMap()
     {
         String temp = "";
@@ -96,6 +112,12 @@ public class RulesReader
         return temp;
     }
 
+    /**
+     * Retreives a single rule by its Title
+     *
+     * @param title The title of the Rule to find
+     * @return The Rule if it is found
+     */
     public String getRule(String title)
     {
         if (ruleList.isEmpty())
@@ -106,9 +128,9 @@ public class RulesReader
         return ruleList.get(title).toString();
     }
 
-    /*
-     * Reads the file line by line and stores the current line to a String line
-     * and Prints the entire file
+    /**
+     * Reads the file line by line and appends the current line to a String
+     * Prints the entire file
      */
     public void readDroolsFile()
     {
