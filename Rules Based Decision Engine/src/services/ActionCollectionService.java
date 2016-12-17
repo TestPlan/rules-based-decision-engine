@@ -18,7 +18,7 @@ import java.util.Set;
 
 public class ActionCollectionService implements Collectable<Action>, Serializable
 {
-
+    //Fields and services
     private HashMap<String, Action> actions = new HashMap<String, Action>();
     private HashMap<String, Action> redundant_list = new HashMap<String, Action>();
 
@@ -26,6 +26,10 @@ public class ActionCollectionService implements Collectable<Action>, Serializabl
     private static ActionCollectionService Instance;
 
 
+    /**
+     * Retrieves the single instance of ActionCollectionService or creates it if none exist
+     * @return The single instance of ActionCollectionService
+     */
     public static ActionCollectionService getInstance()
     {
         if (Instance == null)
