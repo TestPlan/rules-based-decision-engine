@@ -37,13 +37,14 @@ public class EntitySelectForm
      */
     public EntitySelectForm()
     {
+        //Populate entitySelectBox
         entitySelectBox.addItem("<Select Entity>");
-
         for (String s : EntityCollectionService.getInstance().getMap().keySet())
         {
             entitySelectBox.addItem(s);
         }
 
+        //Action Listeners
         okButton.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -76,6 +77,7 @@ public class EntitySelectForm
     {
         //Currently does not work because the form is not a dialog
         //Should create a Dialog to replace this form so that it can function as such
+
         //dispose();
     }
 
