@@ -51,15 +51,17 @@ public class ConditionDialog extends JDialog
             entityBox.addItem(s);
         }
 
+        //Populate entityBox with Entities which may be created duringn the execution of other ruless
         for (String s : EntityCollectionService.getInstance().getMapFromActions().keySet())
         {
             entityBox.addItem(s);
         }
+
         //Populate keyBox
         keyBox.addItem("No Data Imported");
 
         //Populate OperatorBox
-        //operatorBox = new JComboBox(Operator.values());
+        //operatorBox = new JComboBox(Operator.values()); <- For some reason this was not working
         for (Operator o : Operator.values())
         {
             // Convert from operator to unicode
@@ -80,9 +82,7 @@ public class ConditionDialog extends JDialog
                 default:
                     operatorBox.addItem(o);
             }
-        }
-
-        //Todo: improve if possible
+        }//Todo: improve if possible
 
         //valueBox will be user-input
 
