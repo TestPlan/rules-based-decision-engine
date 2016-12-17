@@ -24,6 +24,9 @@ public class EntityCreationForm extends JDialog
     //Fields
     private DefaultTableModel fieldModel;
 
+    /**
+     * Calls an EntityCreationForm
+     */
     public EntityCreationForm()
     {
         $$$setupUI$$$();
@@ -31,6 +34,7 @@ public class EntityCreationForm extends JDialog
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
 
+        //Action Listeners
         buttonOK.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -147,12 +151,19 @@ public class EntityCreationForm extends JDialog
         }
     }
 
+    /**
+     * If an Entity is not created, uncheck the box in PlusActionDialog and allow the description
+     * field to be edited.
+     */
     private void onCancel()
     {
         PlusNewActionDialog.entityCreated = false;
         dispose();
     }
 
+    /**
+     * RuleTable must be custom-created
+     */
     private void createUIComponents()
     {
         //Properties for ruleTable
