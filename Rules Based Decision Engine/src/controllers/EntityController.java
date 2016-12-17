@@ -14,15 +14,26 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by Mike on 11/17/2016.
+ * Allows a user to interface with Entity objects without directly interacting with them
+ *
+ * @author Michael Crinite
+ * @version 1.0 12/15/2016
  */
 public class EntityController
 {
+    //Fields
     public static EntityController INSTANCE;
     public static EntityCollectionService svc = EntityCollectionService.getInstance();
 
+    /**
+     * Default Constructor for type EntityController
+     */
     public EntityController(){}
 
+    /**
+     * Retrieves the instance of EntityController or creates it if none exist
+     * @return The Singleton instance of EntityController
+     */
     public static EntityController getINSTANCE() {
         if(INSTANCE == null)
         {
@@ -33,6 +44,8 @@ public class EntityController
 
     /**
      * Creates a new Entity from a list of keys and their values
+     * Parses each key to add it to an Object array which will be added to the ObjectCollectionService
+     *
      * @param name The Entity's name
      * @param keys The list of keys representing the Entity's fields
      * @param values The values associated with the Entity's fields
@@ -85,6 +98,15 @@ public class EntityController
         }
     }
 
+    /**
+     * Adds an Entity by parsing a file. The Entity creation is handled by the corresponding method
+     * in the FileReaderService class.
+     *
+     * Currently supports json files in the proper format and txt files in the proper format.
+     * The CSVReader functionality is currently not attached to the project.
+     *
+     * @param datafile File to parse
+     */
     public static void addEntity(File datafile)
     {
         FileReaderService fr = FileReaderService.getInstance();
@@ -145,14 +167,26 @@ public class EntityController
         return temp;
     }
 
+    /**
+     * Retrieve the objects in ObjectCollectionService corresponding to the fields in the Entity
+     * @param key Entity to search for
+     * @return A String array containing all the fields in an Entity
+     */
     public static String[] retrieveFields(String key)
     {
         try {
             return svc.retrieveFields(key);
         }catch(NullPointerException e){
             return svc.retrieveTempFields(key);
-        }
+        } // First attempts to search the main collection. On NullPointerException, searches temp collection
     }
+
+    /**
+     * Retrieves fields only from the temporary Collection in Object Collection Service
+     * @param key Entity to search for
+     * @return A String array containing its fields.
+     */
+    @Deprecated
     public static String[] retrieveTempFields(String key)
     {
         return svc.retrieveTempFields(key);
