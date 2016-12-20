@@ -1,0 +1,32 @@
+import models.*;
+import services.*;
+dialect "mvel"
+
+rule "FinalSprintRun"
+salience 4
+when 
+    Entity (getValue( "HELICOPTER.FUEL") > 50  )
+
+then 
+    System.out.println("Dispatch"); 
+end
+
+rule "Abort_Misiion"
+salience -3
+when 
+    Entity (getValue( "WEATHER.STORM") == true  )
+
+then 
+    System.out.println("Abort"); 
+end
+
+rule "Weather_Status"
+salience 1
+when 
+    Entity (getValue( "WEATHERSTATION.TRANSMITTING") == true  )
+
+then 
+    Entity e = EntityCollectionService.getInstance().getFromActions("WEATHER");
+    insert(e); 
+end
+

@@ -49,7 +49,7 @@ public class Rule implements Serializable
         this.conditionalElemList = conditionalElemList;
     }
 
-    public ActionList getAction()
+    public ActionList getActionList()
     {
         return actionList;
     }
